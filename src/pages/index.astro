@@ -1,0 +1,308 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { providers } from '../data/providers';
+
+// Sort by total score descending
+const sortedProviders = providers.sort((a, b) => b.totalScore - a.totalScore);
+
+const metaTitle = 'Compare GLP-1 Telehealth Providers | Find the Cheapest Semaglutide & Tirzepatide';
+const metaDescription = `Compare ${providers.length} GLP-1 telehealth providers. Unbiased reviews, transparent pricing, and proprietary TeleHealth Scores. Find the best Wegovy, Ozempic, Zepbound, or compounded options for your budget.`;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      text-align: center;
+      padding: 80px 24px 60px;
+    }
+    
+    .hero h1 {
+      font-family: var(--fd);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+    
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+    
+    .hero-stat {
+      text-align: center;
+    }
+    
+    .hero-stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    
+    .hero-stat-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-top: 4px;
+    }
+    
+    .sec {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+    
+    .sec h2 {
+      font-family: var(--fd);
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    
+    .sec-subtitle {
+      text-align: center;
+      color: var(--text-sec);
+      font-size: 1.05rem;
+      margin-bottom: 48px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    /* Comparison Table */
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--rl);
+      overflow: hidden;
+      box-shadow: var(--shl);
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: 3fr 2fr 1.5fr 1.5fr 2fr;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+    }
+    
+    .table-row:hover {
+      background: var(--bg);
+    }
+    
+    .table-header {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sec);
+    }
+    
+    .table-header:hover {
+      background: #f3f4f6;
+    }
+    
+    .table-cell {
+      padding: 16px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .provider-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    
+    .provider-name {
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: var(--text);
+    }
+    
+    .provider-tagline {
+      font-size: 0.85rem;
+      color: var(--text-sec);
+    }
+    
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+    }
+    
+    .price {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .best-for {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+    }
+    
+    .table-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    /* Mobile Table */
+    @media (max-width: 1024px) {
+      .table-row {
+        grid-template-columns: 1fr;
+        padding: 16px;
+      }
+      
+      .table-header {
+        display: none;
+      }
+      
+      .table-cell {
+        padding: 8px 0;
+      }
+      
+      .provider-info {
+        margin-bottom: 12px;
+      }
+      
+      .table-cell:not(:first-child)::before {
+        content: attr(data-label);
+        font-weight: 600;
+        font-size: 0.8rem;
+        color: var(--text-sec);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: 4px;
+      }
+    }
+  </style>
+
+  <div class="hero">
+    <h1>Compare GLP-1 Weight Loss Providers</h1>
+    <p>Unbiased reviews and transparent pricing for semaglutide, tirzepatide, Wegovy, Ozempic, and Zepbound telehealth programs</p>
+    
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-value">{providers.length}</div>
+        <div class="hero-stat-label">Providers Reviewed</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">$129</div>
+        <div class="hero-stat-label">Starting From</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-value">100%</div>
+        <div class="hero-stat-label">Independent</div>
+      </div>
+    </div>
+  </div>
+
+  <section class="sec">
+    <h2>Best GLP-1 Telehealth Providers for 2026</h2>
+    <p class="sec-subtitle">We've reviewed and scored each provider based on pricing, medication quality, doctor care, support, delivery speed, and transparency.</p>
+    
+    <div class="comparison-table">
+      <div class="table-row table-header">
+        <div class="table-cell">Provider</div>
+        <div class="table-cell">Monthly Cost</div>
+        <div class="table-cell">Score</div>
+        <div class="table-cell">Best For</div>
+        <div class="table-cell">Actions</div>
+      </div>
+      
+      {sortedProviders.map((provider) => (
+        <div class="table-row">
+          <div class="table-cell">
+            <div class="provider-info">
+              <div class="provider-name">{provider.name}</div>
+              <div class="provider-tagline">{provider.tagline}</div>
+            </div>
+          </div>
+          
+          <div class="table-cell" data-label="Monthly Cost">
+            <span class="price">{provider.monthlyPrice}</span>
+          </div>
+          
+          <div class="table-cell" data-label="Our Score">
+            <span class="score-badge">
+              <span>⭐</span>
+              <span>{provider.totalScore}/100</span>
+            </span>
+          </div>
+          
+          <div class="table-cell" data-label="Best For">
+            <span class="best-for">{provider.bestFor.split(' ').slice(0, 10).join(' ')}...</span>
+          </div>
+          
+          <div class="table-cell" data-label="Actions">
+            <div class="table-actions">
+              <a href={`/reviews/${provider.slug}/`} class="btn btn-secondary">Read Review</a>
+              {provider.affiliateLink && (
+                <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary">
+                  Visit Site →
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="sec" style="background: var(--surface); margin-top: 0; padding-top: 64px;">
+    <h2>How We Score Providers</h2>
+    <p class="sec-subtitle">Our proprietary TeleHealth Score (0-100) evaluates 6 key factors to help you make an informed decision.</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-top: 40px;">
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">💰 Pricing (0-25)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Monthly cost, hidden fees, insurance acceptance</p>
+      </div>
+      
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">💊 Medication (0-25)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Brand vs compounded, FDA approval, sourcing</p>
+      </div>
+      
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">👨‍⚕️ Doctor Care (0-15)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Real doctor vs questionnaire, follow-up support</p>
+      </div>
+      
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">💬 Support (0-15)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Response time, phone support, refund policy</p>
+      </div>
+      
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">📦 Delivery (0-10)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Speed, packaging, tracking</p>
+      </div>
+      
+      <div style="padding: 24px; background: white; border: 1.5px solid var(--border); border-radius: var(--r);">
+        <h3 style="font-size: 1.1rem; margin-bottom: 8px;">✅ Transparency (0-10)</h3>
+        <p style="font-size: 0.9rem; color: var(--text-sec);">Clear pricing, ingredient disclosure, reviews</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
