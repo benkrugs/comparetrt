@@ -1,0 +1,120 @@
+---
+interface FAQ {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  faqs: FAQ[];
+}
+
+const { faqs } = Astro.props;
+
+// Generate FAQ schema for Google
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.question,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": faq.answer
+    }
+  }))
+};
+---
+
+<div class="faq-section">
+  <h2>Frequently Asked Questions</h2>
+  
+  <div class="faq-list">
+    {faqs.map((faq, index) => (
+      <details class="faq-item" open={index === 0}>
+        <summary class="faq-question">
+          <span class="faq-icon">❓</span>
+          <span>{faq.question}</span>
+          <span class="faq-chevron">▼</span>
+        </summary>
+        <div class="faq-answer">
+          <p>{faq.answer}</p>
+        </div>
+      </details>
+    ))}
+  </div>
+</div>
+
+<!-- FAQ Schema -->
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+
+<style>
+  .faq-section {
+    margin: 48px 0;
+  }
+  
+  .faq-section h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+  }
+  
+  .faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .faq-item {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--r);
+    overflow: hidden;
+  }
+  
+  .faq-question {
+    padding: 16px 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 600;
+    font-size: 1.02rem;
+    list-style: none;
+    user-select: none;
+    transition: background 0.2s;
+  }
+  
+  .faq-question:hover {
+    background: var(--bg);
+  }
+  
+  .faq-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  
+  .faq-question span:nth-child(2) {
+    flex: 1;
+  }
+  
+  .faq-chevron {
+    font-size: 0.7rem;
+    transition: transform 0.2s;
+    color: var(--text-sec);
+  }
+  
+  details[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  
+  .faq-answer {
+    padding: 0 20px 20px 52px;
+    color: var(--text-sec);
+    line-height: 1.7;
+    font-size: 0.95rem;
+  }
+  
+  .faq-answer p {
+    margin: 0;
+  }
+</style>

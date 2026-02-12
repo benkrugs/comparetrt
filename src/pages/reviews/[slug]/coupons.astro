@@ -1,0 +1,242 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../../components/MedicalDisclaimer.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import { providers } from '../../../data/providers';
+
+export function getStaticPaths() {
+  return providers.map(provider => ({
+    params: { slug: provider.slug },
+    props: { provider }
+  }));
+}
+
+const { provider } = Astro.props;
+
+const faqs = [
+  {
+    question: `Where can I find ${provider.name} coupon codes?`,
+    answer: `The best place to find verified ${provider.name} coupon codes is through their official website or trusted affiliate partners. Avoid third-party coupon sites that may have expired or fake codes.`
+  },
+  {
+    question: `Does ${provider.name} offer referral discounts?`,
+    answer: `Many telehealth providers offer referral programs where both you and a friend can receive discounts. Check ${provider.name}'s website or contact their support team for current referral offers.`
+  },
+  {
+    question: `Can I stack multiple ${provider.name} coupons?`,
+    answer: `Typically, only one promotional code can be used per order. Read the terms and conditions of each offer carefully before attempting to use multiple codes.`
+  },
+  {
+    question: `How often does ${provider.name} release new coupon codes?`,
+    answer: `Promotional frequency varies. ${provider.name} may offer special codes during holidays, health awareness months, or as part of limited-time campaigns. Sign up for their email list to stay informed.`
+  },
+  {
+    question: `Are ${provider.name} coupons legitimate?`,
+    answer: `Official coupons from ${provider.name} or verified affiliate partners are legitimate. Be cautious of scam sites offering too-good-to-be-true discounts that may compromise your personal information.`
+  }
+];
+
+const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout 
+  title={`${provider.name} Coupon Codes & Promo Codes ${new Date().getFullYear()} | Save Now`}
+  description={`Active ${provider.name} coupon codes and promo codes for ${new Date().getFullYear()}. Get verified discounts on ${provider.name} GLP-1 medications. Pricing starts at ${provider.monthlyPrice}.`}
+>
+  <style>
+    .article-header {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 60px 24px 40px;
+    }
+    
+    .article-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .article-meta {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+    
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .coupon-box {
+      background: var(--surface);
+      border: 2px dashed var(--accent);
+      border-radius: var(--r);
+      padding: 24px;
+      margin: 32px 0;
+      text-align: center;
+    }
+    
+    .coupon-box h3 {
+      color: var(--accent);
+      margin: 0 0 12px 0;
+      font-size: 1.4rem;
+    }
+    
+    .coupon-box .price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 12px 0;
+    }
+    
+    .warning-box {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 20px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .warning-box h3 {
+      color: #92400e;
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+    }
+    
+    .warning-box p {
+      margin: 0;
+      color: #92400e;
+    }
+  </style>
+
+  <div class="article-header">
+    <div class="article-header-inner">
+      <h1>{provider.name} Coupon Codes {new Date().getFullYear()}</h1>
+      <div class="article-meta">
+        Last Updated: {currentDate} | Verified by CompareWeightMeds Team
+      </div>
+      {provider.affiliateLink && (
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary">
+          Get {provider.name} Coupons →
+        </a>
+      )}
+    </div>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <h2>How to Use {provider.name} Coupon Codes</h2>
+    <p>Finding and applying coupon codes for {provider.name} is straightforward. Follow these steps to maximize your savings on GLP-1 medications:</p>
+    
+    <ol>
+      <li><strong>Find a verified code:</strong> Use our affiliate link or check {provider.name}'s official promotions page</li>
+      <li><strong>Start your consultation:</strong> Complete the online medical questionnaire on {provider.name}'s website</li>
+      <li><strong>Apply the code:</strong> Enter your promo code during checkout before payment</li>
+      <li><strong>Verify the discount:</strong> Ensure the discount is applied to your total before finalizing</li>
+    </ol>
+    
+    <div class="coupon-box">
+      <h3>🎟️ Current {provider.name} Offer</h3>
+      <p>Starting Price</p>
+      <div class="price">{provider.monthlyPrice}</div>
+      {provider.affiliateLink && (
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary">
+          Claim Offer →
+        </a>
+      )}
+    </div>
+    
+    <h2>Types of {provider.name} Discounts Available</h2>
+    
+    <h3>First-Time Customer Discounts</h3>
+    <p>New customers often receive the best deals from {provider.name}. These introductory offers can include percentage discounts or flat-rate reductions on your first month or multi-month subscription.</p>
+    
+    <h3>Referral Program Discounts</h3>
+    <p>If {provider.name} offers a referral program, both you and your referred friend may receive account credits or discounts on future orders.</p>
+    
+    <h3>Seasonal & Holiday Promotions</h3>
+    <p>Watch for special promotions during major holidays like New Year's (weight loss resolution season), summer months, and Black Friday.</p>
+    
+    <h3>Bundle & Subscription Discounts</h3>
+    <p>Committing to longer subscription periods (3-6 months) often comes with reduced monthly pricing compared to month-to-month plans.</p>
+    
+    <div class="warning-box">
+      <h3>⚠️ Beware of Coupon Scams</h3>
+      <p>Only use coupon codes from {provider.name}'s official website or verified affiliate partners like CompareWeightMeds. Third-party coupon sites may have expired codes or attempt to collect your personal information fraudulently.</p>
+    </div>
+    
+    <h2>Compare {provider.name} Pricing</h2>
+    <p>Before using a coupon, compare {provider.name}'s final price (after discount) with competitors to ensure you're getting the best deal:</p>
+    <ul>
+      {providers.filter(p => p.slug !== provider.slug).slice(0, 4).map(p => (
+        <li><strong>{p.name}:</strong> {p.monthlyPrice} - <a href={`/reviews/${p.slug}/`}>Read Review</a></li>
+      ))}
+    </ul>
+    
+    <FAQSection faqs={faqs} />
+    
+    <h2>Bottom Line on {provider.name} Coupons</h2>
+    <p>While {provider.name} may not always have active coupon codes, their base pricing of {provider.monthlyPrice} is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'competitive' : 'reasonable'} compared to other GLP-1 telehealth providers. For the best value, consider multi-month subscriptions and watch for seasonal promotions.</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      {provider.affiliateLink && (
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">
+          Visit {provider.name} Official Site →
+        </a>
+      )}
+    </div>
+  </div>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "{provider.name} Coupon Codes {new Date().getFullYear()}",
+    "datePublished": "{new Date().toISOString()}",
+    "dateModified": "{new Date().toISOString()}",
+    "reviewedBy": {
+      "@type": "Organization",
+      "name": "CompareWeightMeds Medical Team"
+    }
+  }
+  </script>
+</BaseLayout>

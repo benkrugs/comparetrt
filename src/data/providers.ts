@@ -381,5 +381,260 @@ export const providers: Provider[] = [
     
     trustpilotRating: 4.5,
     trustpilotReviews: 15000
+  },
+  
+  {
+    id: 'remedy-meds',
+    name: 'Remedy Meds',
+    slug: 'remedy-meds',
+    tagline: 'Fast Approval with Flat Pricing',
+    website: 'https://remedymeds.com',
+    affiliateLink: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+    
+    monthlyPrice: '$299–$399',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Included if needed',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)',
+      'Oral compounded semaglutide',
+      'Oral compounded tirzepatide'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: false,
+    support247: false,
+    moneyBackGuarantee: true,
+    
+    totalScore: 89,
+    scoreBreakdown: {
+      pricing: 22,
+      medication: 21,
+      doctorCare: 13,
+      support: 13,
+      delivery: 10,
+      transparency: 10
+    },
+    
+    description: 'Remedy Meds offers flat pricing with no hidden fees and quick approval times. They focus on providing affordable compounded GLP-1 medications with licensed medical oversight and fast shipping.',
+    
+    pros: [
+      'Flat pricing model across all dosages',
+      'Quick approval process (24-48 hours)',
+      'Both injectable and oral options available',
+      'No membership fees or hidden costs',
+      'Licensed healthcare provider oversight',
+      'Money-back guarantee available'
+    ],
+    
+    cons: [
+      'Compounded medications only (no brand names)',
+      'Limited lifestyle coaching or support programs',
+      'Support primarily email-based',
+      'No insurance accepted'
+    ],
+    
+    bestFor: 'Patients seeking quick approval and flat-rate pricing for compounded GLP-1s',
+    
+    bottomLine: 'Remedy Meds provides a straightforward approach to GLP-1 therapy with transparent pricing and quick turnaround times. While support options are limited, the flat-rate model makes budgeting simple.',
+    
+    trustpilotRating: 4.6,
+    trustpilotReviews: 5200
+  },
+  
+  {
+    id: 'trimrx',
+    name: 'TrimRX',
+    slug: 'trimrx',
+    tagline: 'Affordable Compounded Options',
+    website: 'https://www.trimrx.com',
+    affiliateLink: 'https://www.trimrx.com/?uid=1&oid=1&affid=40&oid2=4461&affid2=1350',
+    
+    monthlyPrice: '$249–$349',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Not included',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: false,
+    support247: false,
+    moneyBackGuarantee: false,
+    
+    totalScore: 84,
+    scoreBreakdown: {
+      pricing: 23,
+      medication: 20,
+      doctorCare: 12,
+      support: 11,
+      delivery: 9,
+      transparency: 9
+    },
+    
+    description: 'TrimRX focuses on providing affordable compounded GLP-1 medications through a simple telehealth process. They offer competitive pricing with licensed medical oversight.',
+    
+    pros: [
+      'Competitive pricing for compounded medications',
+      'Simple online consultation process',
+      'Licensed healthcare provider reviews',
+      'No membership fees',
+      'Fast processing times'
+    ],
+    
+    cons: [
+      'Limited medication options (compounded only)',
+      'No coaching or lifestyle support',
+      'Labs not included',
+      'Limited customer reviews available',
+      'No money-back guarantee'
+    ],
+    
+    bestFor: 'Budget-conscious patients looking for basic compounded GLP-1 access',
+    
+    bottomLine: 'TrimRX offers a no-frills approach to GLP-1 therapy with affordable pricing. While support and extras are limited, the straightforward process and competitive costs make it accessible for many.',
+    
+    trustpilotRating: 4.3,
+    trustpilotReviews: 2800
+  },
+  
+  {
+    id: 'fridays',
+    name: 'Fridays',
+    slug: 'fridays',
+    tagline: 'Comprehensive Care with Coaching',
+    website: 'https://fridays.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1284&aff_id=9953&url_id=11836',
+    
+    monthlyPrice: '$199–$349',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Available',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)',
+      'Oral compounded semaglutide'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: true,
+    support247: false,
+    moneyBackGuarantee: true,
+    
+    totalScore: 86,
+    scoreBreakdown: {
+      pricing: 21,
+      medication: 21,
+      doctorCare: 13,
+      support: 13,
+      delivery: 9,
+      transparency: 9
+    },
+    
+    description: 'Fridays combines GLP-1 medications with lifestyle coaching and support to help patients achieve sustainable weight loss. They offer both injectable and oral compounded options with licensed medical oversight.',
+    
+    pros: [
+      'Includes lifestyle coaching and support',
+      'Multiple medication format options',
+      'Licensed healthcare provider oversight',
+      'Money-back guarantee available',
+      'Competitive pricing',
+      'Lab work available if needed'
+    ],
+    
+    cons: [
+      'Compounded medications only',
+      'Support not available 24/7',
+      'No insurance accepted',
+      'Coaching may require additional time commitment'
+    ],
+    
+    bestFor: 'Patients who want GLP-1 medication combined with lifestyle coaching support',
+    
+    bottomLine: 'Fridays stands out by combining medication with coaching support, making it ideal for those who want more guidance on their weight loss journey. The comprehensive approach comes at a reasonable price.',
+    
+    trustpilotRating: 4.5,
+    trustpilotReviews: 4100
+  },
+  
+  {
+    id: 'sprout-health',
+    name: 'Sprout Health',
+    slug: 'sprout-health',
+    tagline: 'Simple Process with Fixed Pricing',
+    website: 'https://joinsprouthealth.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1286&aff_id=9953',
+    
+    monthlyPrice: '$199–$299',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Not included',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: false,
+    support247: false,
+    moneyBackGuarantee: false,
+    
+    totalScore: 82,
+    scoreBreakdown: {
+      pricing: 22,
+      medication: 20,
+      doctorCare: 12,
+      support: 10,
+      delivery: 9,
+      transparency: 9
+    },
+    
+    description: 'Sprout Health offers a streamlined approach to GLP-1 therapy with fixed pricing regardless of dosage. They focus on making the process simple and accessible with licensed medical oversight.',
+    
+    pros: [
+      'Fixed pricing across all dosages',
+      'Simple online consultation process',
+      'Quick prescription approval',
+      'Licensed healthcare provider reviews',
+      'No membership fees'
+    ],
+    
+    cons: [
+      'Mixed customer reviews on service quality',
+      'Limited customer support options',
+      'No coaching or lifestyle support',
+      'Labs not included',
+      'Some reports of slow response times'
+    ],
+    
+    bestFor: 'Patients wanting simple access to compounded GLP-1s with predictable pricing',
+    
+    bottomLine: 'Sprout Health provides basic access to compounded GLP-1 medications with straightforward pricing. While customer service has mixed reviews, the fixed-rate pricing and simple process appeal to budget-conscious users.',
+    
+    trustpilotRating: 3.8,
+    trustpilotReviews: 1900
   }
 ];
