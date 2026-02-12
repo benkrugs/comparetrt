@@ -1,0 +1,330 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { providers } from '../../data/providers';
+
+// Filter to cash-pay providers (no insurance required)
+const cashPayProviders = providers.filter(p => !p.insurance).sort((a, b) => {
+  const aPrice = parseInt(a.monthlyPrice.match(/\$(\d+)/)?.[1] || '999');
+  const bPrice = parseInt(b.monthlyPrice.match(/\$(\d+)/)?.[1] || '999');
+  return aPrice - bPrice;
+});
+
+const faqs = [
+  {
+    question: "Can I get GLP-1 medications without insurance?",
+    answer: "Yes! Most GLP-1 telehealth providers offer cash-pay options that do not require insurance. Compounded semaglutide and tirzepatide cost $179-399 per month without insurance through providers like " + cashPayProviders.slice(0, 3).map(p => p.name).join(', ') + "."
+  },
+  {
+    question: "How much do GLP-1s cost without insurance?",
+    answer: "Without insurance, brand-name GLP-1s like Wegovy cost $1,349/month and Zepbound costs $1,059/month. However, compounded versions cost $179-399/month from telehealth providers. The average uninsured patient pays $250-300/month for compounded GLP-1 medications."
+  },
+  {
+    question: "Can I use HSA or FSA for GLP-1 medications?",
+    answer: "Yes! GLP-1 medications prescribed for medical weight loss (not cosmetic purposes) are typically HSA and FSA eligible. This means you can pay with pre-tax dollars, effectively saving 20-35% depending on your tax bracket."
+  },
+  {
+    question: "Why does my insurance not cover GLP-1 medications?",
+    answer: "Many insurance plans exclude weight loss medications from coverage, considering them cosmetic rather than medically necessary. Even plans that cover GLP-1s often require prior authorization and may only cover them for diabetes treatment, not weight loss."
+  },
+  {
+    question: "What is the cheapest way to get GLP-1s without insurance?",
+    answer: "The cheapest option is compounded semaglutide or tirzepatide from telehealth providers starting at $179/month. These are cash-pay programs that bypass insurance entirely, making them more affordable and accessible than brand-name options."
+  }
+];
+---
+
+<BaseLayout 
+  title="GLP-1 Without Insurance: Affordable Cash-Pay Options 2026"
+  description="Get GLP-1 medications (semaglutide, tirzepatide) without insurance. Compare ${cashPayProviders.length} cash-pay telehealth providers starting at $179/month. No insurance required."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+    
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul, .content ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+    
+    .provider-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    
+    .provider-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shl);
+    }
+    
+    .provider-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .provider-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 12px 0;
+    }
+    
+    .provider-tagline {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-bottom: 16px;
+    }
+    
+    .highlight-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 24px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .highlight-box h3 {
+      color: var(--accent-dark);
+      margin: 0 0 12px 0;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      margin: 32px 0;
+    }
+    
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-row:last-child {
+      border-bottom: none;
+    }
+    
+    .comparison-label {
+      font-weight: 600;
+    }
+    
+    .comparison-value {
+      text-align: right;
+    }
+  </style>
+
+  <div class="hero">
+    <h1>GLP-1 Without Insurance</h1>
+    <p>Access affordable semaglutide and tirzepatide without insurance. Cash-pay options starting at $179/month.</p>
+    <a href="/" class="btn btn-primary">View All Cash-Pay Options</a>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <h2>Can You Get GLP-1 Medications Without Insurance?</h2>
+    <p>Yes — and it may actually be cheaper than using insurance! Most GLP-1 telehealth providers operate on a cash-pay model, offering compounded semaglutide and tirzepatide for $179-399 per month. This is often more affordable and faster than navigating insurance prior authorizations.</p>
+    
+    <div class="highlight-box">
+      <h3>💡 Key Insight</h3>
+      <p>Brand-name Wegovy costs $1,349/month without insurance. Compounded semaglutide (same active ingredient) costs $179-299/month — <strong>83% cheaper</strong> — from cash-pay telehealth providers.</p>
+    </div>
+    
+    <h2>Best Cash-Pay GLP-1 Providers (No Insurance Required)</h2>
+    <p>These ${cashPayProviders.length} providers specialize in affordable cash-pay GLP-1 programs:</p>
+    
+    <div class="provider-grid">
+      {cashPayProviders.slice(0, 6).map((provider) => (
+        <div class="provider-card">
+          <div class="provider-name">{provider.name}</div>
+          <div class="provider-price">{provider.monthlyPrice}</div>
+          <div class="provider-tagline">{provider.tagline}</div>
+          <a href={`/reviews/${provider.slug}/`} class="btn btn-secondary" style="width: 100%; text-align: center;">Full Review</a>
+        </div>
+      ))}
+    </div>
+    
+    <h2>Cost Comparison: With vs Without Insurance</h2>
+    
+    <div class="comparison-table">
+      <div class="comparison-row">
+        <div class="comparison-label">Brand-Name Wegovy (no insurance)</div>
+        <div class="comparison-value">$1,349/month</div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-label">Wegovy with good insurance (copay)</div>
+        <div class="comparison-value">$25-50/month</div>
+      </div>
+      <div class="comparison-row">
+        <div class="comparison-label">Compounded semaglutide (cash-pay)</div>
+        <div class="comparison-value">$179-299/month</div>
+      </div>
+      <div class="comparison-row" style="background: var(--accent-light); padding: 20px 16px; font-weight: 700;">
+        <div class="comparison-label">Average savings (cash-pay vs brand)</div>
+        <div class="comparison-value">$1,050-1,170/month</div>
+      </div>
+    </div>
+    
+    <h2>Why Go Cash-Pay Instead of Insurance?</h2>
+    
+    <h3>1. Insurance Often Doesn't Cover GLP-1s Anyway</h3>
+    <p>Many insurance plans explicitly exclude weight loss medications from coverage, even if prescribed for medical purposes. Plans that do cover GLP-1s often require:</p>
+    <ul>
+      <li>Prior authorization (can take weeks)</li>
+      <li>Documentation of failed weight loss attempts</li>
+      <li>BMI requirements (typically 30+ or 27+ with comorbidities)</li>
+      <li>Coverage only for diabetes, not weight loss</li>
+    </ul>
+    
+    <h3>2. Cash-Pay is Faster</h3>
+    <p>With cash-pay telehealth providers, you can typically get approved and receive medication within 3-7 days. Insurance prior authorizations can take 2-4 weeks or longer, and denials are common.</p>
+    
+    <h3>3. Compounded Options are Affordable</h3>
+    <p>At $179-399 per month, compounded GLP-1s are accessible to middle-income patients without insurance coverage. This is comparable to many prescription medication copays.</p>
+    
+    <h3>4. No Insurance Headaches</h3>
+    <p>Cash-pay programs avoid:</p>
+    <ul>
+      <li>Prior authorization paperwork</li>
+      <li>Insurance company denials and appeals</li>
+      <li>Coverage changes mid-treatment</li>
+      <li>Reporting to insurance (privacy benefit)</li>
+    </ul>
+    
+    <h2>How to Pay for GLP-1s Without Insurance</h2>
+    
+    <h3>Option 1: Compounded Medications (Cheapest)</h3>
+    <p>The most affordable route for uninsured patients is compounded semaglutide or tirzepatide from telehealth providers. Starting at $179/month, these programs offer:</p>
+    <ul>
+      <li>Same active ingredients as Wegovy/Zepbound</li>
+      <li>Licensed US compounding pharmacies (503A/503B)</li>
+      <li>Medical oversight by licensed providers</li>
+      <li>All-inclusive pricing (medication, consultation, shipping)</li>
+    </ul>
+    <p>Top options: {cashPayProviders.slice(0, 3).map(p => p.name).join(', ')}</p>
+    
+    <h3>Option 2: Manufacturer Savings Programs</h3>
+    <p>If you prefer brand-name medications, Novo Nordisk and Eli Lilly offer savings programs:</p>
+    <ul>
+      <li><strong>Wegovy Savings Card:</strong> Reduces cost to $99/month for up to 13 fills (eligibility restrictions apply)</li>
+      <li><strong>Zepbound Savings Card:</strong> Reduces cost to $25/month for 1 year (eligibility restrictions apply)</li>
+    </ul>
+    <p>Note: These programs have income limits and are not available to everyone.</p>
+    
+    <h3>Option 3: Use HSA or FSA Funds</h3>
+    <p>If you have a Health Savings Account (HSA) or Flexible Spending Account (FSA), you can use pre-tax dollars for GLP-1 medications prescribed for weight loss. This effectively reduces your cost by 20-35% depending on your tax bracket.</p>
+    
+    <p>Example: A $250/month GLP-1 prescription costs only $162-187/month in after-tax dollars when paid with HSA/FSA funds (assuming 25-35% tax bracket).</p>
+    
+    <h2>Compounded vs Brand-Name: What's the Difference?</h2>
+    
+    <h3>Compounded GLP-1s (Cash-Pay)</h3>
+    <ul>
+      <li>✅ Same active ingredient (semaglutide or tirzepatide)</li>
+      <li>✅ 83% cheaper than brand names</li>
+      <li>✅ Fast access (no insurance approval)</li>
+      <li>❌ Not FDA-approved (but legal and regulated)</li>
+      <li>❌ No insurance coverage typically</li>
+    </ul>
+    
+    <h3>Brand-Name GLP-1s (Insurance)</h3>
+    <ul>
+      <li>✅ FDA-approved for safety and quality</li>
+      <li>✅ Insurance may cover (reducing cost to $25-50/mo copay)</li>
+      <li>✅ Manufacturer quality guarantees</li>
+      <li>❌ $1,000-1,400/month without insurance</li>
+      <li>❌ Requires prior authorization (often denied)</li>
+    </ul>
+    
+    <h2>Is it Safe to Use GLP-1s Without Insurance?</h2>
+    <p>Yes, when obtained through reputable telehealth providers. The key safety factors are:</p>
+    
+    <ol>
+      <li><strong>Licensed medical oversight:</strong> Ensure a licensed healthcare provider reviews your medical history and prescribes the medication</li>
+      <li><strong>Accredited pharmacy:</strong> Verify medications come from 503A or 503B licensed compounding pharmacies</li>
+      <li><strong>Quality ingredients:</strong> Confirm pharmaceutical-grade semaglutide or tirzepatide is used</li>
+      <li><strong>Proper storage and shipping:</strong> GLP-1s require cold-chain shipping and refrigerated storage</li>
+    </ol>
+    
+    <p>All providers on CompareWeightMeds meet these safety standards.</p>
+    
+    <FAQSection faqs={faqs} />
+    
+    <h2>Bottom Line: Getting GLP-1s Without Insurance</h2>
+    <p>For most uninsured patients, the best path to affordable GLP-1 medications is through cash-pay telehealth providers offering compounded semaglutide or tirzepatide. At $179-399 per month, these programs cost 83% less than brand-name options and avoid the insurance approval hassles.</p>
+    
+    <p>Top cash-pay providers: {cashPayProviders.slice(0, 3).map(p => `${p.name} (${p.monthlyPrice})`).join(', ')}</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      <a href="/" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">
+        Compare All Cash-Pay Providers →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
