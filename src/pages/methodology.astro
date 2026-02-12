@@ -1,0 +1,388 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+---
+
+<BaseLayout 
+  title="Our Methodology: How We Score GLP-1 Providers | CompareWeightMeds"
+  description="Learn how our proprietary TeleHealth Score (0-100) evaluates GLP-1 providers on 6 objective criteria: pricing, medication quality, doctor care, support, delivery, and transparency."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--accent);
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .score-breakdown {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px;
+      margin: 32px 0;
+    }
+    
+    .score-category {
+      padding: 24px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .score-category:last-child {
+      border-bottom: none;
+    }
+    
+    .score-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    
+    .score-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .score-weight {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+    
+    .score-description {
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .score-factors {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+    }
+    
+    .score-factors strong {
+      color: var(--text);
+    }
+    
+    .highlight-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 24px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .highlight-box h3 {
+      color: var(--accent-dark);
+      margin: 0 0 12px 0;
+    }
+    
+    .highlight-box p {
+      color: var(--text);
+      margin: 0;
+    }
+    
+    .formula-box {
+      background: #1f2937;
+      color: #10b981;
+      padding: 24px;
+      border-radius: var(--r);
+      font-family: 'Courier New', monospace;
+      font-size: 0.95rem;
+      margin: 24px 0;
+      overflow-x: auto;
+    }
+  </style>
+
+  <div class="hero">
+    <h1>Our Review Methodology</h1>
+    <p>How we score and evaluate GLP-1 telehealth providers using our proprietary TeleHealth Score</p>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <h2>The TeleHealth Score: 0-100 Points</h2>
+    <p>Every GLP-1 provider on CompareWeightMeds receives a TeleHealth Score out of 100 points. This score is calculated by evaluating 6 weighted categories that matter most to patients: pricing, medication quality, doctor care, support, delivery speed, and transparency.</p>
+    
+    <div class="highlight-box">
+      <h3>Why We Created This System</h3>
+      <p>Most comparison sites rely on subjective opinions or paid placements. We wanted an objective, repeatable methodology that evaluates what actually matters: cost, safety, medication quality, and patient experience. Our scoring system levels the playing field and holds every provider to the same standard.</p>
+    </div>
+    
+    <h2>Scoring Breakdown</h2>
+    
+    <div class="score-breakdown">
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">💰 Pricing</span>
+          <span class="score-weight">0-25 points</span>
+        </div>
+        <p class="score-description">The total cost matters. We evaluate monthly medication costs, consultation fees, membership fees, hidden charges, and value for money.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>Monthly medication price</li>
+            <li>Initial consultation fees</li>
+            <li>Recurring membership fees</li>
+            <li>Lab work costs (if required)</li>
+            <li>Price increases at higher dosages</li>
+            <li>Transparency of total cost</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">💊 Medication Quality</span>
+          <span class="score-weight">0-25 points</span>
+        </div>
+        <p class="score-description">What medications are offered and where they come from. Brand-name FDA-approved medications score higher than compounded options, but we account for cost-benefit trade-offs.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>Brand-name vs compounded medications</li>
+            <li>FDA approval status</li>
+            <li>Pharmacy accreditation (503A/503B)</li>
+            <li>Active ingredient transparency</li>
+            <li>Medication format options (injectable, oral, etc.)</li>
+            <li>Sourcing and manufacturing standards</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">👨‍⚕️ Doctor Care & Medical Oversight</span>
+          <span class="score-weight">0-15 points</span>
+        </div>
+        <p class="score-description">Medical safety is paramount. We evaluate the quality of medical screening, provider credentials, and ongoing care.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>Licensed healthcare provider review (MD, DO, NP, PA)</li>
+            <li>Thoroughness of medical questionnaire</li>
+            <li>Video consultation vs questionnaire-only</li>
+            <li>Lab work requirements and follow-up</li>
+            <li>Prescription denial rate (safety indicator)</li>
+            <li>Ongoing monitoring and dose adjustments</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">💬 Customer Support</span>
+          <span class="score-weight">0-15 points</span>
+        </div>
+        <p class="score-description">When you need help, can you reach someone? We evaluate support availability, response times, and refund policies.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>24/7 support availability</li>
+            <li>Support channels (phone, chat, email)</li>
+            <li>Average response time</li>
+            <li>Refund and cancellation policies</li>
+            <li>Money-back guarantees</li>
+            <li>Customer review sentiment analysis</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">📦 Delivery & Logistics</span>
+          <span class="score-weight">0-10 points</span>
+        </div>
+        <p class="score-description">Speed and reliability of medication delivery, including cold-chain handling and tracking.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>Approval to delivery timeframe</li>
+            <li>Shipping speed (standard vs expedited)</li>
+            <li>Cold-chain packaging quality</li>
+            <li>Tracking and notifications</li>
+            <li>Packaging discretion</li>
+            <li>Refill consistency</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="score-category">
+        <div class="score-header">
+          <span class="score-title">✅ Transparency & Trust</span>
+          <span class="score-weight">0-10 points</span>
+        </div>
+        <p class="score-description">Clear pricing, honest marketing, and transparent business practices build trust.</p>
+        <div class="score-factors">
+          <strong>Factors considered:</strong>
+          <ul style="margin: 8px 0 0 0; padding-left: 20px;">
+            <li>Pricing clarity (no hidden fees)</li>
+            <li>Terms and conditions transparency</li>
+            <li>Ingredient and sourcing disclosure</li>
+            <li>Public review rating (Trustpilot, BBB)</li>
+            <li>Marketing claim accuracy</li>
+            <li>HIPAA and privacy compliance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <h2>Scoring Formula</h2>
+    <div class="formula-box">
+TeleHealth Score = 
+  Pricing (0-25) +
+  Medication Quality (0-25) +
+  Doctor Care (0-15) +
+  Customer Support (0-15) +
+  Delivery (0-10) +
+  Transparency (0-10)
+  
+Maximum Score: 100 points
+    </div>
+    
+    <h2>How We Assign Points</h2>
+    <p>Within each category, providers earn points based on objective criteria and comparative analysis:</p>
+    
+    <h3>Pricing (0-25 points)</h3>
+    <ul>
+      <li><strong>23-25 points:</strong> Lowest-cost provider in market ($129-199/mo), no hidden fees, transparent pricing</li>
+      <li><strong>20-22 points:</strong> Competitive pricing ($200-299/mo), clear cost structure</li>
+      <li><strong>17-19 points:</strong> Average pricing ($300-399/mo), some additional fees</li>
+      <li><strong>14-16 points:</strong> Above-average cost ($400-499/mo), membership fees required</li>
+      <li><strong>Below 14:</strong> Premium pricing ($500+/mo) or unclear cost structure</li>
+    </ul>
+    
+    <h3>Medication Quality (0-25 points)</h3>
+    <ul>
+      <li><strong>24-25 points:</strong> FDA-approved brand-name medications (Wegovy, Zepbound) from certified pharmacies</li>
+      <li><strong>20-23 points:</strong> Both brand-name and compounded options available</li>
+      <li><strong>17-19 points:</strong> Compounded medications from 503B licensed pharmacies</li>
+      <li><strong>14-16 points:</strong> Compounded from 503A pharmacies, limited transparency</li>
+      <li><strong>Below 14:</strong> Unclear sourcing or quality concerns</li>
+    </ul>
+    
+    <h3>Doctor Care (0-15 points)</h3>
+    <ul>
+      <li><strong>14-15 points:</strong> Video consultation required, labs included, board-certified physicians</li>
+      <li><strong>12-13 points:</strong> Licensed providers review, optional video consultations</li>
+      <li><strong>10-11 points:</strong> Questionnaire-only with provider review</li>
+      <li><strong>Below 10:</strong> Minimal medical oversight or auto-approval concerns</li>
+    </ul>
+    
+    <h3>Customer Support (0-15 points)</h3>
+    <ul>
+      <li><strong>14-15 points:</strong> 24/7 phone support, money-back guarantee, fast response times</li>
+      <li><strong>12-13 points:</strong> 24/7 messaging, clear refund policy</li>
+      <li><strong>10-11 points:</strong> Email support, standard response times</li>
+      <li><strong>Below 10:</strong> Limited support options or poor review ratings</li>
+    </ul>
+    
+    <h3>Delivery (0-10 points)</h3>
+    <ul>
+      <li><strong>9-10 points:</strong> Fast approval (&lt;48hrs), free overnight shipping, cold-chain certified</li>
+      <li><strong>7-8 points:</strong> Standard 3-5 day shipping, proper cold packaging</li>
+      <li><strong>Below 7:</strong> Slow delivery (7+ days) or packaging concerns</li>
+    </ul>
+    
+    <h3>Transparency (0-10 points)</h3>
+    <ul>
+      <li><strong>9-10 points:</strong> Clear all-in pricing, 4.5+ Trustpilot rating, full ingredient disclosure</li>
+      <li><strong>7-8 points:</strong> Mostly transparent, 4.0+ rating, clear terms</li>
+      <li><strong>Below 7:</strong> Hidden fees, poor reviews, or unclear business practices</li>
+    </ul>
+    
+    <h2>Data Sources</h2>
+    <p>To calculate our scores, we rely on:</p>
+    <ul>
+      <li><strong>Provider websites:</strong> Official pricing, medication offerings, and policies</li>
+      <li><strong>Customer reviews:</strong> Trustpilot, Better Business Bureau, Reddit discussions</li>
+      <li><strong>Medical verification:</strong> State medical board databases, pharmacy licensing records</li>
+      <li><strong>Direct testing:</strong> We complete intake forms and consultations when possible</li>
+      <li><strong>Price tracking:</strong> We monitor pricing monthly to catch changes</li>
+    </ul>
+    
+    <h2>Score Interpretation</h2>
+    <ul>
+      <li><strong>90-100 points:</strong> Excellent - Top-tier provider with minimal compromises</li>
+      <li><strong>80-89 points:</strong> Very Good - Strong option with minor trade-offs</li>
+      <li><strong>70-79 points:</strong> Good - Solid choice but some limitations</li>
+      <li><strong>60-69 points:</strong> Fair - Acceptable but notable concerns</li>
+      <li><strong>Below 60:</strong> Proceed with caution - significant issues identified</li>
+    </ul>
+    
+    <h2>Limitations & Disclaimers</h2>
+    <p>Our scoring system has limitations:</p>
+    <ul>
+      <li><strong>Subjective elements:</strong> Some factors (like support quality) require interpretation of reviews</li>
+      <li><strong>Incomplete data:</strong> Not all providers disclose complete information publicly</li>
+      <li><strong>Dynamic market:</strong> Pricing and policies change; we update scores monthly</li>
+      <li><strong>Individual needs vary:</strong> A high score does not mean a provider is right for everyone</li>
+    </ul>
+    
+    <p>Our scores should inform your decision, not replace consultation with your healthcare provider.</p>
+    
+    <h2>Affiliate Relationships</h2>
+    <p>We earn commissions from some providers we review. However, <strong>affiliate status does not influence scores</strong>. Providers cannot pay for better scores or preferential rankings. Our methodology is applied consistently regardless of commercial relationships.</p>
+    
+    <p>If a provider believes our score is inaccurate, they can contact us with corrections and documentation. We will review and update scores if warranted.</p>
+    
+    <p style="text-align: center; margin-top: 48px; color: var(--text-sec);">
+      Last Updated: {new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+    </p>
+  </div>
+</BaseLayout>
