@@ -1,0 +1,416 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+import { providers } from '../data/providers';
+
+// Filter to providers offering tirzepatide (compounded or brand)
+const tirzepatideProviders = providers
+  .filter(p => p.medications.some(m => m.toLowerCase().includes('tirzepatide')))
+  .sort((a, b) => b.totalScore - a.totalScore);
+
+// Featured providers (Medvi, Remedy Meds, Ro)
+const featuredProviders = tirzepatideProviders.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
+---
+
+<BaseLayout 
+  title="Best Tirzepatide Providers: Top 9 Compared (2026)"
+  description="Compare the best tirzepatide providers. Get compounded tirzepatide for $299-499/month or brand-name Mounjaro/Zepbound. Online consultations, fast shipping."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+    
+    .content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 24px;
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .featured-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+      margin: 32px 0 48px;
+    }
+    
+    .provider-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px;
+      transition: all 0.2s;
+      position: relative;
+    }
+    
+    .provider-card.featured {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+    }
+    
+    .provider-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shl);
+    }
+    
+    .badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: var(--accent);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    
+    .provider-name {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .provider-tagline {
+      font-size: 0.95rem;
+      color: var(--text-sec);
+      margin-bottom: 16px;
+    }
+    
+    .provider-price {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 16px 0;
+    }
+    
+    .provider-score {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0;
+      font-size: 0.95rem;
+    }
+    
+    .score-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--border);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    
+    .score-fill {
+      height: 100%;
+      background: var(--accent);
+      transition: width 0.3s;
+    }
+    
+    .provider-meds {
+      margin: 16px 0;
+      padding: 16px;
+      background: var(--bg);
+      border-radius: var(--r);
+    }
+    
+    .provider-meds h4 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-sec);
+      margin-bottom: 8px;
+    }
+    
+    .med-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .med-list li {
+      font-size: 0.9rem;
+      padding: 4px 0;
+      color: var(--text-sec);
+    }
+    
+    .provider-pros {
+      margin: 16px 0;
+    }
+    
+    .provider-pros h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .provider-pros ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .provider-pros li {
+      font-size: 0.9rem;
+      padding: 6px 0;
+      padding-left: 20px;
+      position: relative;
+      color: var(--text-sec);
+    }
+    
+    .provider-pros li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    .btn {
+      display: block;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--r);
+      font-weight: 600;
+      transition: all 0.2s;
+      text-align: center;
+      margin-top: 16px;
+    }
+    
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+    
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--accent);
+      border: 1.5px solid var(--accent);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--accent-light);
+    }
+    
+    .comparison-table {
+      margin: 48px 0;
+      overflow-x: auto;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+    }
+    
+    th {
+      background: var(--accent-light);
+      padding: 16px;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 1.5px solid var(--border);
+    }
+    
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
+    
+    tr:hover {
+      background: var(--bg);
+    }
+  </style>
+
+  <div class="hero">
+    <h1>Best Tirzepatide Providers</h1>
+    <p>Compare {tirzepatideProviders.length} tirzepatide providers. Get compounded tirzepatide for $299-499/month or brand-name Mounjaro/Zepbound with insurance.</p>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <p>Tirzepatide (brand names: Mounjaro, Zepbound) is one of the most effective weight loss medications available, with clinical studies showing 20-25% body weight loss on average. But at $1,000-1,400/month without insurance, most people can't afford brand-name options.</p>
+    
+    <p>The solution? <strong>Compounded tirzepatide</strong> from online providers starting at $299/month. Same active ingredient, same results, 70% cheaper.</p>
+    
+    <h2>Our Top 3 Tirzepatide Providers</h2>
+    
+    <div class="featured-grid">
+      {featuredProviders.map((provider) => (
+        <div class="provider-card featured">
+          <div class="badge">Recommended</div>
+          <div class="provider-name">{provider.name}</div>
+          <div class="provider-tagline">{provider.tagline}</div>
+          <div class="provider-price">{provider.monthlyPrice}</div>
+          
+          <div class="provider-score">
+            <span style="font-weight: 600;">Score: {provider.totalScore}/100</span>
+            <div class="score-bar">
+              <div class="score-fill" style={`width: ${provider.totalScore}%`}></div>
+            </div>
+          </div>
+          
+          <div class="provider-meds">
+            <h4>Tirzepatide Options</h4>
+            <ul class="med-list">
+              {provider.medications
+                .filter(m => m.toLowerCase().includes('tirzepatide'))
+                .map(med => <li>{med}</li>)}
+            </ul>
+          </div>
+          
+          <div class="provider-pros">
+            <h4>Why Choose {provider.name}</h4>
+            <ul>
+              {provider.pros.slice(0, 4).map(pro => <li>{pro}</li>)}
+            </ul>
+          </div>
+          
+          <a href={`/reviews/${provider.slug}/`} class="btn">View Full Review →</a>
+        </div>
+      ))}
+    </div>
+    
+    <h2>All {tirzepatideProviders.length} Tirzepatide Providers Compared</h2>
+    
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Monthly Cost</th>
+            <th>Type</th>
+            <th>Score</th>
+            <th>Best For</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {tirzepatideProviders.map((provider) => (
+            <tr>
+              <td>
+                <strong>{provider.name}</strong><br>
+                <span style="font-size: 0.85rem; color: var(--text-sec);">{provider.tagline}</span>
+              </td>
+              <td><strong>{provider.monthlyPrice}</strong></td>
+              <td>{provider.compounded ? 'Compounded' : 'Brand-Name'}</td>
+              <td>{provider.totalScore}/100</td>
+              <td style="font-size: 0.9rem;">{provider.bestFor}</td>
+              <td>
+                <a href={`/reviews/${provider.slug}/`} class="btn btn-secondary" style="padding: 8px 16px; font-size: 0.9rem; margin: 0;">Review</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
+    <h2>How We Ranked Tirzepatide Providers</h2>
+    
+    <p>We scored each provider on 6 key factors (0-100 total):</p>
+    
+    <ul>
+      <li><strong>Pricing (25 points):</strong> Monthly medication cost, consultation fees, hidden charges</li>
+      <li><strong>Medication Access (25 points):</strong> Compounded vs brand-name options, availability</li>
+      <li><strong>Doctor Care (15 points):</strong> Provider credentials, consultation quality, ongoing support</li>
+      <li><strong>Customer Support (15 points):</strong> Response time, availability, problem resolution</li>
+      <li><strong>Delivery (10 points):</strong> Shipping speed, cold-chain handling, tracking</li>
+      <li><strong>Transparency (10 points):</strong> Clear pricing, honest marketing, refund policy</li>
+    </ul>
+    
+    <h2>Compounded vs Brand-Name Tirzepatide</h2>
+    
+    <h3>Compounded Tirzepatide ($299-499/month)</h3>
+    <ul>
+      <li>✅ Same active ingredient as Mounjaro and Zepbound</li>
+      <li>✅ 70-80% cheaper than brand names</li>
+      <li>✅ Fast access (no prior authorization)</li>
+      <li>✅ Medical supervision from licensed providers</li>
+      <li>❌ Not FDA-approved (but legal and regulated)</li>
+      <li>❌ Uses vials + syringes instead of auto-injector pens</li>
+    </ul>
+    
+    <h3>Brand-Name Tirzepatide ($1,000-1,400/month)</h3>
+    <ul>
+      <li>✅ FDA-approved for safety and efficacy</li>
+      <li>✅ May be covered by insurance (with prior authorization)</li>
+      <li>✅ Convenient pre-filled auto-injector pens</li>
+      <li>❌ Very expensive without insurance</li>
+      <li>❌ Prior authorization often denied</li>
+      <li>❌ Long wait times (2-4 weeks typical)</li>
+    </ul>
+    
+    <p><strong>Bottom line:</strong> Unless you have excellent insurance coverage, compounded tirzepatide offers the best value.</p>
+    
+    <h2>Who Qualifies for Tirzepatide?</h2>
+    
+    <p>Most providers require:</p>
+    <ul>
+      <li><strong>BMI of 27+</strong> with weight-related health condition (high blood pressure, high cholesterol, prediabetes), OR</li>
+      <li><strong>BMI of 30+</strong> (no other conditions required)</li>
+      <li>Age 18+ (some allow 16+ with parent consent)</li>
+      <li>No contraindications (pregnancy, personal or family history of medullary thyroid cancer, etc.)</li>
+    </ul>
+    
+    <h2>Frequently Asked Questions</h2>
+    
+    <h3>What's the cheapest tirzepatide provider?</h3>
+    <p>Medvi offers the lowest starting price at $299/month for compounded tirzepatide. See our <a href="/cheapest-tirzepatide/">cheapest tirzepatide providers</a> comparison.</p>
+    
+    <h3>Is compounded tirzepatide safe?</h3>
+    <p>Yes, when obtained from licensed providers. Compounded tirzepatide uses pharmaceutical-grade active ingredient made by licensed US pharmacies with medical oversight.</p>
+    
+    <h3>How much weight can I lose with tirzepatide?</h3>
+    <p>Clinical studies show 20-25% body weight loss on average. A 200 lb person typically loses 40-50 lbs over 6-12 months.</p>
+    
+    <h3>Can I get tirzepatide without insurance?</h3>
+    <p>Yes. Compounded tirzepatide costs $299-499/month without insurance. See our <a href="/guides/tirzepatide-no-insurance/">tirzepatide without insurance guide</a>.</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      <a href="/" class="btn" style="display: inline-block; font-size: 1.1rem; padding: 16px 32px;">
+        Compare All Weight Loss Providers →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
