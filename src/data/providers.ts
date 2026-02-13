@@ -389,7 +389,7 @@ export const providers: Provider[] = [
     slug: 'remedy-meds',
     tagline: 'Fast Approval with Flat Pricing',
     website: 'https://remedymeds.com',
-    affiliateLink: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+    affiliateLink: 'https://remedymeds.com/?rm_campaign=NY2026&toclid=TO-67s0pOKaInPCeJQvjBB7oL&utm_source=theoffer&utm_campaign=94',
     
     monthlyPrice: '$299–$399',
     consultationFee: 'Included',
