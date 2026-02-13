@@ -1,0 +1,400 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { providers } from '../../data/providers';
+
+const topProviders = providers.slice(0, 3);
+
+const faqs = [
+  {
+    question: "Is compounded tirzepatide legal?",
+    answer: "Yes. Compounded tirzepatide is legal when prescribed by a licensed healthcare provider and made by licensed 503A or 503B compounding pharmacies. The FDA allows compounding when there are drug shortages or when customization is medically necessary."
+  },
+  {
+    question: "Is compounded tirzepatide safe?",
+    answer: "Yes, when obtained from reputable sources. Licensed compounding pharmacies use the same FDA-approved active ingredient (tirzepatide) as brand-name Mounjaro and Zepbound. All providers on this site use licensed US pharmacies."
+  },
+  {
+    question: "How much does compounded tirzepatide cost?",
+    answer: "Compounded tirzepatide typically costs $299-$499 per month, compared to $1,000-$1,400/month for brand-name Mounjaro or Zepbound without insurance. This makes it 70-80% cheaper than brand names."
+  },
+  {
+    question: "How quickly can I get compounded tirzepatide?",
+    answer: "Most online providers approve patients same-day or within 24 hours. Once approved, medication typically ships within 3-5 business days with cold-chain shipping to maintain proper temperature."
+  },
+  {
+    question: "Do I need a prescription?",
+    answer: "Yes, tirzepatide requires a prescription. However, online providers like Medvi, Remedy Meds, and Ro include a virtual consultation with a licensed provider who can issue the prescription if you qualify."
+  },
+  {
+    question: "Can I use insurance for compounded tirzepatide?",
+    answer: "No. Compounded medications are not typically covered by insurance. However, at $299-499/month, compounded tirzepatide is often more affordable than brand-name copays or prior authorization hassles."
+  }
+];
+---
+
+<BaseLayout 
+  title="How to Get Compounded Tirzepatide Online: Best Providers 2026"
+  description="Get compounded tirzepatide for $299-499/month. Compare licensed online providers, skip insurance, and start losing weight this week. Same active ingredient as Mounjaro and Zepbound."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto 32px;
+    }
+    
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text-primary);
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul, .content ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+    
+    .provider-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    
+    .provider-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shl);
+    }
+    
+    .provider-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    
+    .provider-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 12px 0;
+    }
+    
+    .provider-tagline {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-bottom: 16px;
+    }
+    
+    .provider-features {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    
+    .provider-features li {
+      font-size: 0.95rem;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .provider-features li:last-child {
+      border-bottom: none;
+    }
+    
+    .highlight-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 24px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .highlight-box h3 {
+      color: var(--accent-dark);
+      margin: 0 0 12px 0;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      margin: 32px 0;
+    }
+    
+    .comparison-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-row:last-child {
+      border-bottom: none;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--r);
+      font-weight: 600;
+      transition: all 0.2s;
+      margin: 8px;
+    }
+    
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+    }
+  </style>
+
+  <div class="hero">
+    <h1>How to Get Compounded Tirzepatide Online</h1>
+    <p>Access affordable compounded tirzepatide starting at $299/month. Same active ingredient as Mounjaro and Zepbound, 70% cheaper.</p>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <p>If you want to start tirzepatide for weight loss but don't want to pay $1,000-1,400/month for brand-name Mounjaro or Zepbound, <strong>compounded tirzepatide</strong> is your answer.</p>
+    
+    <p>Compounded tirzepatide uses the same FDA-approved active ingredient but costs <strong>$299-499/month</strong> through online providers. You get the same weight loss results without the insurance hassles or brand-name price tag.</p>
+    
+    <h2>Best Places to Get Compounded Tirzepatide Online</h2>
+    
+    <p>These three providers offer compounded tirzepatide with online consultations, licensed pharmacies, and nationwide shipping:</p>
+    
+    <div class="provider-grid">
+      {topProviders.map((provider) => (
+        <div class="provider-card">
+          <div class="provider-name">{provider.name}</div>
+          <div class="provider-price">{provider.monthlyPrice}</div>
+          <div class="provider-tagline">{provider.tagline}</div>
+          <ul class="provider-features">
+            <li>Compounded tirzepatide available</li>
+            <li>Virtual consultation included</li>
+            <li>Licensed US pharmacies</li>
+            <li>Ships to all 50 states</li>
+          </ul>
+          <a href={`/reviews/${provider.slug}/`} class="btn" style="width: 100%; text-align: center; margin-top: 16px;">Get Started →</a>
+        </div>
+      ))}
+    </div>
+    
+    <div class="highlight-box">
+      <h3>💰 Cost Savings Example</h3>
+      <p>Brand-name Zepbound: <strong>$1,400/month</strong> without insurance<br>
+      Compounded tirzepatide (Medvi): <strong>$299/month</strong><br>
+      <strong>Annual savings: $13,212</strong></p>
+    </div>
+    
+    <h2>What is Compounded Tirzepatide?</h2>
+    
+    <p>Compounded tirzepatide is custom-made medication using the same active ingredient as brand-name Mounjaro and Zepbound. It's prepared by licensed compounding pharmacies (503A or 503B facilities) and prescribed by licensed healthcare providers.</p>
+    
+    <h3>Key Differences: Compounded vs Brand-Name</h3>
+    
+    <div class="comparison-table">
+      <div class="comparison-row">
+        <div><strong>Cost</strong></div>
+        <div>70-80% cheaper than brand names</div>
+      </div>
+      <div class="comparison-row">
+        <div><strong>Active Ingredient</strong></div>
+        <div>Same (pharmaceutical-grade tirzepatide)</div>
+      </div>
+      <div class="comparison-row">
+        <div><strong>Effectiveness</strong></div>
+        <div>Identical (20-25% body weight loss)</div>
+      </div>
+      <div class="comparison-row">
+        <div><strong>FDA Status</strong></div>
+        <div>Not FDA-approved (but legal and regulated)</div>
+      </div>
+      <div class="comparison-row">
+        <div><strong>Insurance</strong></div>
+        <div>Not covered (cash-pay only)</div>
+      </div>
+      <div class="comparison-row">
+        <div><strong>Access Speed</strong></div>
+        <div>3-5 days (no prior authorization)</div>
+      </div>
+    </div>
+    
+    <h2>How to Get Compounded Tirzepatide: Step-by-Step</h2>
+    
+    <h3>Step 1: Choose a Provider</h3>
+    <p>Pick from <strong>Medvi</strong> (lowest cost), <strong>Remedy Meds</strong> (personalized dosing), or <strong>Ro</strong> (includes coaching).</p>
+    
+    <h3>Step 2: Complete Online Consultation</h3>
+    <p>Answer health questions about your weight, medical history, and goals. Takes 10-15 minutes. A licensed provider reviews your information.</p>
+    
+    <h3>Step 3: Get Approved</h3>
+    <p>Most patients are approved same-day or within 24 hours. You'll receive a prescription if you qualify.</p>
+    
+    <h3>Step 4: Medication Ships</h3>
+    <p>Compounded tirzepatide ships within 3-5 business days with cold-chain shipping. It arrives in a temperature-controlled package.</p>
+    
+    <h3>Step 5: Start Your First Dose</h3>
+    <p>Inject once weekly. Most providers include injection supplies and instructions.</p>
+    
+    <p><strong>Total time from signup to first dose: 5-7 days.</strong></p>
+    
+    <h2>Who Qualifies for Compounded Tirzepatide?</h2>
+    
+    <p>Most providers require:</p>
+    <ul>
+      <li><strong>BMI of 27+</strong> with weight-related health condition, OR</li>
+      <li><strong>BMI of 30+</strong> (no other conditions required)</li>
+      <li>Age 18+ (some providers allow 16+ with parent consent)</li>
+      <li>No contraindications (pregnancy, certain medical conditions)</li>
+    </ul>
+    
+    <p>If you're currently on semaglutide and want to switch to tirzepatide, that's also allowed.</p>
+    
+    <h2>Cost Breakdown: What You'll Pay</h2>
+    
+    <h3>Monthly Pricing by Provider</h3>
+    <ul>
+      <li><strong>Medvi:</strong> $299-$399/month (lowest starting price)</li>
+      <li><strong>Remedy Meds:</strong> $349-$449/month</li>
+      <li><strong>Ro:</strong> $399-$499/month (includes weight loss coaching)</li>
+    </ul>
+    
+    <h3>What's Included?</h3>
+    <ul>
+      <li>Compounded tirzepatide medication</li>
+      <li>Virtual consultation with licensed provider</li>
+      <li>Injection supplies (syringes, alcohol wipes)</li>
+      <li>Cold-chain shipping</li>
+      <li>Ongoing support and refills</li>
+    </ul>
+    
+    <p><strong>No hidden fees.</strong> Most providers offer all-inclusive monthly pricing.</p>
+    
+    <h2>Is Compounded Tirzepatide Safe?</h2>
+    
+    <p>Yes, when obtained from reputable providers. Here's what ensures safety:</p>
+    
+    <h3>1. Licensed Compounding Pharmacies</h3>
+    <p>All providers on this site use 503A or 503B licensed pharmacies that follow strict FDA regulations. These pharmacies must meet quality standards for sterile compounding.</p>
+    
+    <h3>2. Same Active Ingredient</h3>
+    <p>Compounded tirzepatide uses pharmaceutical-grade tirzepatide — the exact same molecule as Mounjaro and Zepbound. The difference is in the formulation and delivery device, not the drug itself.</p>
+    
+    <h3>3. Medical Oversight</h3>
+    <p>Licensed healthcare providers review your medical history, prescribe the medication, and monitor your progress. This isn't over-the-counter — it requires proper medical supervision.</p>
+    
+    <h3>4. Proper Storage and Shipping</h3>
+    <p>Tirzepatide requires refrigeration. Reputable providers use cold-chain shipping with temperature monitors to ensure medication stays between 36-46°F during transit.</p>
+    
+    <h2>Compounded vs Brand-Name: Which Should You Choose?</h2>
+    
+    <h3>Choose Compounded Tirzepatide If:</h3>
+    <ul>
+      <li>Your insurance doesn't cover weight loss medications</li>
+      <li>You want to avoid prior authorization hassles</li>
+      <li>You want to save $10,000+ per year</li>
+      <li>You want fast access (3-5 days vs 2-4 weeks)</li>
+      <li>You're comfortable with slightly less regulatory oversight</li>
+    </ul>
+    
+    <h3>Choose Brand-Name (Mounjaro/Zepbound) If:</h3>
+    <ul>
+      <li>Your insurance covers it with a low copay</li>
+      <li>You prefer FDA-approved formulations</li>
+      <li>You want auto-injector pens (compounded uses syringes)</li>
+      <li>Cost is not a concern ($1,000-1,400/month is affordable for you)</li>
+    </ul>
+    
+    <p><strong>For 90% of people, compounded tirzepatide is the better choice.</strong> The cost savings are massive, and the results are the same.</p>
+    
+    <h2>Expected Weight Loss Results</h2>
+    
+    <p>Compounded tirzepatide produces the same weight loss as brand-name Mounjaro and Zepbound:</p>
+    
+    <ul>
+      <li><strong>Average weight loss:</strong> 20-25% of body weight</li>
+      <li><strong>Example:</strong> A 200 lb person typically loses 40-50 lbs</li>
+      <li><strong>Timeframe:</strong> Most weight loss happens in first 6-12 months</li>
+      <li><strong>Maintenance:</strong> Many people continue at a lower dose to maintain results</li>
+    </ul>
+    
+    <p>Tirzepatide works by reducing appetite, slowing digestion, and improving insulin sensitivity. You'll naturally eat less without feeling constantly hungry.</p>
+    
+    <FAQSection faqs={faqs} />
+    
+    <h2>Ready to Get Started?</h2>
+    
+    <p>The fastest way to access compounded tirzepatide is through an online provider. Most people are approved within 24 hours and receive medication within 5-7 days.</p>
+    
+    <p><strong>Recommended starting point:</strong> Medvi offers the lowest pricing at $299/month with fast approval and excellent customer support.</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      <a href="/" class="btn" style="font-size: 1.1rem; padding: 16px 32px;">
+        Compare All Tirzepatide Providers →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
