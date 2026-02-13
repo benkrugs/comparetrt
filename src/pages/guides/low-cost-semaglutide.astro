@@ -4,7 +4,8 @@ import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
 import FAQSection from '../../components/FAQSection.astro';
 import { providers } from '../../data/providers';
 
-const topProviders = providers.slice(0, 3);
+// Filter to recommended providers: Medvi, Remedy Meds, Ro
+const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
 
 const faqs = [
   {
