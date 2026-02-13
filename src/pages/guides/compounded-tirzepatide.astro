@@ -5,6 +5,13 @@ import FAQSection from '../../components/FAQSection.astro';
 import { providers } from '../../data/providers';
 
 // Filter to recommended providers: Medvi, Remedy Meds, Ro
+
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
 const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
 
 const faqs = [
@@ -208,6 +215,26 @@ const faqs = [
       background: var(--accent-dark);
       transform: translateY(-2px);
     }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
   </style>
 
   <div class="hero">
@@ -286,7 +313,7 @@ const faqs = [
     <h2>How to Get Compounded Tirzepatide: Step-by-Step</h2>
     
     <h3>Step 1: Choose a Provider</h3>
-    <p>Pick from <strong>Medvi</strong> (lowest cost), <strong>Remedy Meds</strong> (personalized dosing), or <strong>Ro</strong> (includes coaching).</p>
+    <p>Pick from <strong>Medvi</strong> <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> (lowest cost), <strong>Remedy Meds</strong> <a href={affiliateLinks.remedy} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> (personalized dosing), or <strong>Ro</strong> <a href={affiliateLinks.ro} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> (includes coaching).</p>
     
     <h3>Step 2: Complete Online Consultation</h3>
     <p>Answer health questions about your weight, medical history, and goals. Takes 10-15 minutes. A licensed provider reviews your information.</p>
@@ -390,7 +417,7 @@ const faqs = [
     
     <p>The fastest way to access compounded tirzepatide is through an online provider. Most people are approved within 24 hours and receive medication within 5-7 days.</p>
     
-    <p><strong>Recommended starting point:</strong> Medvi offers the lowest pricing at $299/month with fast approval and excellent customer support.</p>
+    <p><strong>Recommended starting point:</strong> Medvi offers the lowest pricing at $299/month with fast approval and excellent customer support. <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Start with Medvi →</a></p>
     
     <div style="text-align: center; margin-top: 48px;">
       <a href="/" class="btn" style="font-size: 1.1rem; padding: 16px 32px;">

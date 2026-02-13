@@ -14,6 +14,13 @@ const tirzepatideProviders = providers
 
 // Top 3 cheapest
 const cheapest = tirzepatideProviders.slice(0, 3);
+
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
 ---
 
 <BaseLayout 
@@ -262,6 +269,26 @@ const cheapest = tirzepatideProviders.slice(0, 3);
     tr:hover {
       background: var(--bg);
     }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
   </style>
 
   <div class="hero">
@@ -409,7 +436,7 @@ const cheapest = tirzepatideProviders.slice(0, 3);
     <h2>Frequently Asked Questions</h2>
     
     <h3>Who has the cheapest tirzepatide?</h3>
-    <p>{cheapest[0].name} offers the lowest starting price at {cheapest[0].monthlyPrice} for compounded tirzepatide.</p>
+    <p>{cheapest[0].name} offers the lowest starting price at {cheapest[0].monthlyPrice} for compounded tirzepatide. <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Start with Medvi →</a></p>
     
     <h3>Is cheap tirzepatide safe?</h3>
     <p>Yes, when obtained from licensed providers. All providers on this list use licensed US compounding pharmacies and require prescriptions from licensed healthcare providers.</p>

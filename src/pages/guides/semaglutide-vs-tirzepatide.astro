@@ -7,6 +7,13 @@ import { providers } from '../../data/providers';
 // Filter to recommended providers: Medvi, Remedy Meds, Ro
 const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
 
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
+
 const faqs = [
   {
     question: "Is compounded semaglutide or tirzepatide safe?",
@@ -245,6 +252,26 @@ const faqs = [
     .btn-secondary:hover {
       background: var(--accent-light);
     }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
   </style>
 
   <div class="hero">
@@ -362,6 +389,7 @@ const faqs = [
     <div class="highlight-box">
       <h3>💡 Our Top Pick</h3>
       <p><strong>Medvi</strong> offers the lowest starting prices ($179/month for semaglutide, $299/month for tirzepatide) with fast approval and nationwide shipping. Great for people who want affordability without sacrificing quality.</p>
+      <p style="margin-top: 12px;"><a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Start with Medvi Today →</a></p>
     </div>
     
     <h2>Semaglutide vs Tirzepatide: Weight Loss Results</h2>
@@ -404,9 +432,9 @@ const faqs = [
     
     <p><strong>Step 2:</strong> Choose a provider:</p>
     <ul>
-      <li><strong>Budget-focused?</strong> Start with Medvi</li>
-      <li><strong>Want personalized dosing?</strong> Try Remedy Meds</li>
-      <li><strong>Want coaching included?</strong> Go with Ro</li>
+      <li><strong>Budget-focused?</strong> Start with <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Medvi - Get Started →</a></li>
+      <li><strong>Want personalized dosing?</strong> Try <a href={affiliateLinks.remedy} class="inline-cta" target="_blank" rel="noopener">Remedy Meds - Get Started →</a></li>
+      <li><strong>Want coaching included?</strong> Go with <a href={affiliateLinks.ro} class="inline-cta" target="_blank" rel="noopener">Ro - Get Started →</a></li>
     </ul>
     
     <p><strong>Step 3:</strong> Complete the online consultation (takes 10-15 minutes).</p>

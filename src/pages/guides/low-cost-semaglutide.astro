@@ -5,6 +5,13 @@ import FAQSection from '../../components/FAQSection.astro';
 import { providers } from '../../data/providers';
 
 // Filter to recommended providers: Medvi, Remedy Meds, Ro
+
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
 const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
 
 const faqs = [
@@ -187,6 +194,26 @@ const faqs = [
       background: var(--accent-dark);
       transform: translateY(-2px);
     }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
   </style>
 
   <div class="hero">
@@ -283,7 +310,7 @@ const faqs = [
     <h2>How to Get Low-Cost Semaglutide</h2>
     
     <h3>Step 1: Choose an Affordable Provider</h3>
-    <p><strong>Medvi</strong> has the lowest starting price at $179/month. <strong>Remedy Meds</strong> and <strong>Ro</strong> start at $249/month and include additional support options.</p>
+    <p><strong>Medvi</strong> <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> has the lowest starting price at $179/month. <strong>Remedy Meds</strong> <a href={affiliateLinks.remedy} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> and <strong>Ro</strong> <a href={affiliateLinks.ro} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> start at $249/month and include additional support options.</p>
     
     <h3>Step 2: Complete Online Consultation</h3>
     <p>Answer health questions online (10-15 minutes). A licensed provider reviews your information to determine if semaglutide is appropriate.</p>
@@ -413,7 +440,7 @@ const faqs = [
       <li>$10,000+ annual savings compared to brand names</li>
     </ul>
     
-    <p><strong>Recommended starting point:</strong> Medvi offers the lowest pricing at $179/month with fast approval, excellent customer support, and nationwide shipping.</p>
+    <p><strong>Recommended starting point:</strong> Medvi offers the lowest pricing at $179/month with fast approval, excellent customer support, and nationwide shipping. <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Start with Medvi →</a></p>
     
     <div style="text-align: center; margin-top: 48px;">
       <a href="/" class="btn" style="font-size: 1.1rem; padding: 16px 32px;">

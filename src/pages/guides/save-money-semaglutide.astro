@@ -5,6 +5,13 @@ import FAQSection from '../../components/FAQSection.astro';
 import { providers } from '../../data/providers';
 
 // Filter to recommended providers: Medvi, Remedy Meds, Ro
+
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
 const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
 
 const faqs = [
@@ -204,6 +211,26 @@ const faqs = [
       color: #92400e;
       margin: 0 0 12px 0;
     }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
   </style>
 
   <div class="hero">
@@ -358,7 +385,7 @@ const faqs = [
       <h3>🎯 The Optimal Money-Saving Strategy</h3>
       <p><strong>Combine methods for maximum savings:</strong></p>
       <ol style="padding-left: 20px;">
-        <li>Start with <strong>compounded semaglutide</strong> from Medvi ($179/mo)</li>
+        <li>Start with <strong>compounded semaglutide</strong> from Medvi <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Get Started →</a> ($179/mo)</li>
         <li>Pay with your <strong>HSA or FSA</strong> (20-35% tax savings)</li>
         <li>Stay at the <strong>lowest effective dose</strong> (after discussing with provider)</li>
       </ol>
@@ -428,7 +455,7 @@ const faqs = [
       <li>80% cost savings ($10,000+/year)</li>
     </ul>
     
-    <p><strong>Recommended provider:</strong> Medvi starts at $179/month with fast approval, licensed US pharmacies, and nationwide shipping. Combine with HSA/FSA for even lower effective cost.</p>
+    <p><strong>Recommended provider:</strong> Medvi starts at $179/month with fast approval, licensed US pharmacies, and nationwide shipping. Combine with HSA/FSA for even lower effective cost. <a href={affiliateLinks.medvi} class="inline-cta" target="_blank" rel="noopener">Start with Medvi →</a></p>
     
     <div style="text-align: center; margin-top: 48px;">
       <a href="/" class="btn" style="font-size: 1.1rem; padding: 16px 32px;">
