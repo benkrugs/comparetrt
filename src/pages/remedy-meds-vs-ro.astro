@@ -1,0 +1,509 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+import { providers } from '../data/providers';
+
+const remedy = providers.find(p => p.slug === 'remedy-meds');
+const ro = providers.find(p => p.slug === 'ro');
+
+// Affiliate links
+const affiliateLinks = {
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toolid=TO-675opOKaInPCeJQvjBB7&utm_source=',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
+---
+
+<BaseLayout 
+  title="Remedy Meds vs Ro: Which is Better? (2026 Comparison)"
+  description="Remedy Meds vs Ro comparison. Compare pricing ($249 vs $349), medications, coaching, and support. See which GLP-1 provider is right for you."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 24px;
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 16px;
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    
+    .table-header {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      background: var(--accent-light);
+      font-weight: 700;
+      padding: 16px;
+      border-bottom: 1.5px solid var(--border);
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .table-row:last-child {
+      border-bottom: none;
+    }
+    
+    .table-row:hover {
+      background: var(--bg);
+    }
+    
+    .winner {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .provider-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px;
+      margin: 24px 0;
+    }
+    
+    .provider-card.recommended {
+      border-color: var(--accent);
+      background: var(--accent-light);
+    }
+    
+    .provider-name {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    .provider-price {
+      font-size: 2rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin: 12px 0;
+    }
+    
+    .pros-cons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin: 24px 0;
+    }
+    
+    .pros, .cons {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 20px;
+    }
+    
+    .pros h4 {
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .cons h4 {
+      color: #ef4444;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+    
+    .pros ul, .cons ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .pros li, .cons li {
+      padding: 8px 0 8px 24px;
+      position: relative;
+      font-size: 0.95rem;
+    }
+    
+    .pros li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    
+    .cons li:before {
+      content: '✗';
+      position: absolute;
+      left: 0;
+      color: #ef4444;
+      font-weight: bold;
+    }
+    
+    .highlight-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 24px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .highlight-box h3 {
+      color: var(--accent-dark);
+      margin: 0 0 12px 0;
+    }
+    
+    .btn {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--r);
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-right: 12px;
+    }
+    
+    .btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+    }
+    
+    .inline-cta {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--accent);
+      color: white !important;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-left: 8px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .table-header, .table-row {
+        grid-template-columns: 1fr;
+      }
+      
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+
+  <div class="hero">
+    <h1>Remedy Meds vs Ro</h1>
+    <p>Compare pricing, medications, and features. Which GLP-1 provider offers better value?</p>
+  </div>
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <p>Remedy Meds and Ro both cater to people who want more than bare-bones GLP-1 treatment. Remedy focuses on personalized compounded medications, while Ro offers brand-name access, insurance coordination, and weight loss coaching. Which is the better fit?</p>
+    
+    <h2>Quick Comparison</h2>
+    
+    <div class="comparison-table">
+      <div class="table-header">
+        <div>Factor</div>
+        <div>Remedy Meds</div>
+        <div>Ro</div>
+      </div>
+      <div class="table-row">
+        <div>Monthly Medication Cost</div>
+        <div class="winner">{remedy?.monthlyPrice}</div>
+        <div>{ro?.monthlyPrice}</div>
+      </div>
+      <div class="table-row">
+        <div>Consultation Fee</div>
+        <div class="winner">{remedy?.consultationFee}</div>
+        <div>{ro?.consultationFee}</div>
+      </div>
+      <div class="table-row">
+        <div>Membership Fee</div>
+        <div class="winner">{remedy?.membershipFee}</div>
+        <div>{ro?.membershipFee}</div>
+      </div>
+      <div class="table-row">
+        <div>Medications</div>
+        <div>Compounded only</div>
+        <div class="winner">Brand-name + compounded</div>
+      </div>
+      <div class="table-row">
+        <div>Insurance</div>
+        <div>No</div>
+        <div class="winner">Yes, with concierge</div>
+      </div>
+      <div class="table-row">
+        <div>Coaching</div>
+        <div>No</div>
+        <div class="winner">Yes, included</div>
+      </div>
+      <div class="table-row">
+        <div>Personalized Dosing</div>
+        <div class="winner">Yes</div>
+        <div>Standard protocols</div>
+      </div>
+      <div class="table-row">
+        <div>Overall Score</div>
+        <div class="winner">{remedy?.totalScore}/100</div>
+        <div>{ro?.totalScore}/100</div>
+      </div>
+    </div>
+    
+    <div class="highlight-box">
+      <h3>💡 Bottom Line</h3>
+      <p><strong>Remedy Meds wins on value.</strong> You get personalized compounded medications for <strong>$100-250 less per month</strong> compared to Ro. Ro wins if you need insurance coordination or want coaching, but most people don't need those extras.</p>
+      <p style="margin-top: 12px;"><a href={affiliateLinks.remedy} class="inline-cta" target="_blank" rel="noopener">Start with Remedy Meds →</a></p>
+    </div>
+    
+    <h2>Detailed Comparison: Remedy Meds vs Ro</h2>
+    
+    <h3>Pricing Breakdown</h3>
+    
+    <div class="provider-card recommended">
+      <div class="provider-name">Remedy Meds</div>
+      <div class="provider-price">$249-$349/month</div>
+      <p><strong>What's included:</strong></p>
+      <ul>
+        <li>✓ Compounded semaglutide or tirzepatide</li>
+        <li>✓ Personalized dosing protocols</li>
+        <li>✓ Consultation included (varies by provider)</li>
+        <li>✓ No membership fees</li>
+        <li>✓ Provider messaging (business hours)</li>
+        <li>✓ Shipping included</li>
+      </ul>
+      <p style="margin-top: 16px;"><strong>Total first month:</strong> $249-349 (medication only)</p>
+      <a href={affiliateLinks.remedy} class="btn" target="_blank" rel="noopener">Get Started with Remedy Meds →</a>
+    </div>
+    
+    <div class="provider-card">
+      <div class="provider-name">Ro Body Program</div>
+      <div class="provider-price">$349-$499/month</div>
+      <p><strong>Premium pricing includes:</strong></p>
+      <ul>
+        <li>✓ Brand-name or compounded medications</li>
+        <li>✓ Weight loss coaching</li>
+        <li>✓ Insurance coordination</li>
+        <li>✓ $145/month membership fee</li>
+        <li>✓ $45 consultation fee</li>
+        <li>✓ Provider messaging (business hours)</li>
+      </ul>
+      <p style="margin-top: 16px;"><strong>Total first month:</strong> $539+ (medication + membership + consultation)</p>
+      <a href={affiliateLinks.ro} class="btn" target="_blank" rel="noopener">Get Started with Ro →</a>
+    </div>
+    
+    <p><strong>Annual cost comparison:</strong></p>
+    <ul>
+      <li>Remedy Meds: <strong>$2,988-4,188/year</strong></li>
+      <li>Ro: <strong>$6,468+/year</strong> (medication + membership + consultation)</li>
+      <li><strong>Savings with Remedy Meds: $2,280-3,480/year</strong></li>
+    </ul>
+    
+    <h3>Medications & Personalization</h3>
+    
+    <p><strong>Remedy Meds offers:</strong></p>
+    <ul>
+      <li>Compounded semaglutide (injectable)</li>
+      <li>Compounded tirzepatide (injectable)</li>
+      <li>Personalized dosing based on response</li>
+      <li>Flexible protocols tailored to your needs</li>
+      <li>Focus on optimization and results</li>
+    </ul>
+    
+    <p><strong>Ro offers:</strong></p>
+    <ul>
+      <li>Brand-name Wegovy, Zepbound, Ozempic (if insurance approves)</li>
+      <li>Compounded options as backup</li>
+      <li>Standard dosing protocols</li>
+      <li>Insurance concierge handles prior authorizations</li>
+    </ul>
+    
+    <p><strong>Winner: Tie.</strong> Remedy Meds excels at personalized compounded treatment. Ro excels at brand-name access via insurance. Your choice depends on whether you value personalization or brand-name medications.</p>
+    
+    <h3>Coaching & Support</h3>
+    
+    <p><strong>Remedy Meds:</strong> No formal coaching program. Provider messaging during business hours for medical questions and dosing adjustments. Focus is on medication management.</p>
+    
+    <p><strong>Ro:</strong> Weight loss coaching included with membership. Coaches help with nutrition, exercise, habit formation, and accountability. Medical providers available during business hours.</p>
+    
+    <p><strong>Winner: Ro</strong> if you want coaching. <strong>Remedy Meds</strong> if you just need excellent medication management.</p>
+    
+    <h3>Insurance & Brand-Name Access</h3>
+    
+    <p><strong>Remedy Meds:</strong> Does not accept insurance. Cash-pay only. This keeps pricing straightforward and avoids insurance headaches.</p>
+    
+    <p><strong>Ro:</strong> Works with insurance and offers concierge service to handle prior authorizations. If your insurance covers GLP-1s, Ro can help you get approved.</p>
+    
+    <p><strong>Reality check:</strong> Most insurance plans don't cover GLP-1s for weight loss. If your insurance denies coverage (common), you're paying full price at Ro, which is significantly more expensive than Remedy Meds.</p>
+    
+    <h3>Pros & Cons</h3>
+    
+    <div class="pros-cons">
+      <div>
+        <div class="pros">
+          <h4>Remedy Meds Pros</h4>
+          <ul>
+            <li>More affordable ($249 vs $349+)</li>
+            <li>Personalized dosing protocols</li>
+            <li>No membership fees</li>
+            <li>Good customer service reputation</li>
+            <li>Flexible treatment approach</li>
+            <li>Straightforward cash-pay pricing</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Remedy Meds Cons</h4>
+          <ul>
+            <li>No coaching program</li>
+            <li>No insurance accepted</li>
+            <li>Compounded medications only</li>
+            <li>Support during business hours only</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div>
+        <div class="pros">
+          <h4>Ro Pros</h4>
+          <ul>
+            <li>Weight loss coaching included</li>
+            <li>Insurance accepted + concierge</li>
+            <li>Brand-name medications available</li>
+            <li>Premium, polished experience</li>
+            <li>Comprehensive support system</li>
+          </ul>
+        </div>
+        <div class="cons">
+          <h4>Ro Cons</h4>
+          <ul>
+            <li>Significantly more expensive</li>
+            <li>$145/month membership fee</li>
+            <li>$45 consultation fee</li>
+            <li>Complex pricing structure</li>
+            <li>Insurance often doesn't cover anyway</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    
+    <h2>Which Should You Choose?</h2>
+    
+    <h3>Choose Remedy Meds if:</h3>
+    <ul>
+      <li>You want <strong>personalized, optimized dosing</strong></li>
+      <li>You don't have insurance or it doesn't cover GLP-1s</li>
+      <li>You want to save <strong>$2,000-3,000+ per year</strong></li>
+      <li>You prefer <strong>no membership fees</strong></li>
+      <li>You don't need coaching (just excellent medication management)</li>
+    </ul>
+    <p><a href={affiliateLinks.remedy} class="inline-cta" target="_blank" rel="noopener">Start with Remedy Meds →</a></p>
+    
+    <h3>Choose Ro if:</h3>
+    <ul>
+      <li>You have <strong>good insurance</strong> that might cover brand-name GLP-1s</li>
+      <li>You want <strong>weight loss coaching</strong></li>
+      <li>You prefer <strong>brand-name medications</strong> (Wegovy, Zepbound)</li>
+      <li>You want a <strong>premium, all-inclusive experience</strong></li>
+      <li>Price is not a primary concern</li>
+    </ul>
+    <p><a href={affiliateLinks.ro} class="inline-cta" target="_blank" rel="noopener">Start with Ro →</a></p>
+    
+    <h2>Expected Weight Loss Results</h2>
+    
+    <p>Weight loss results depend on the medication, not the provider:</p>
+    
+    <ul>
+      <li><strong>Semaglutide:</strong> 15-20% body weight loss (same at both providers)</li>
+      <li><strong>Tirzepatide:</strong> 20-25% body weight loss (same at both providers)</li>
+      <li><strong>Timeframe:</strong> Most weight loss in 6-12 months</li>
+    </ul>
+    
+    <p>Compounded semaglutide at Remedy Meds produces the same results as brand-name Wegovy at Ro — they're the same active ingredient.</p>
+    
+    <h2>Final Verdict: Remedy Meds vs Ro</h2>
+    
+    <p><strong>Remedy Meds is the better value for most people.</strong> You save $2,000-3,000+ per year compared to Ro while getting personalized, high-quality care and the same weight loss results.</p>
+    
+    <p>Ro makes sense if:</p>
+    <ul>
+      <li>Your insurance will cover brand-name Wegovy or Zepbound (rare but worth checking)</li>
+      <li>You specifically want weight loss coaching as part of your program</li>
+      <li>You're willing to pay premium prices for a polished, all-inclusive experience</li>
+    </ul>
+    
+    <p>For everyone else, <strong>Remedy Meds offers better value</strong>: personalized care, same medications, same results, thousands less per year.</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      <a href={affiliateLinks.remedy} class="btn" style="font-size: 1.1rem; padding: 16px 32px;" target="_blank" rel="noopener">
+        Get Started with Remedy Meds (Best Value) →
+      </a>
+      <a href={affiliateLinks.ro} class="btn" style="font-size: 1.1rem; padding: 16px 32px; background: var(--surface); color: var(--accent); border: 1.5px solid var(--accent);" target="_blank" rel="noopener">
+        Or Try Ro (Premium Option) →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
