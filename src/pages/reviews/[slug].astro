@@ -10,6 +10,24 @@ export function getStaticPaths() {
 }
 
 const { provider } = Astro.props;
+
+// Discount data per provider
+const discounts = {
+  'sprout-health': {
+    amount: 150,
+    description: '$150 off your first month',
+    code: 'SPROUT150',
+    validThrough: '2026-12-31'
+  },
+  'medvi': {
+    amount: 120,
+    description: '$120 off your first month',
+    code: 'MEDVI120',
+    validThrough: '2026-12-31'
+  }
+};
+
+const currentDiscount = discounts[provider.slug];
 ---
 
 <BaseLayout 
@@ -65,6 +83,150 @@ const { provider } = Astro.props;
       font-size: 0.9rem;
       opacity: 0.9;
       margin-top: 8px;
+    }
+    
+    /* Discount Banner */
+    .discount-banner {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      padding: 24px;
+      border-radius: var(--r);
+      margin: -40px auto 32px;
+      max-width: var(--mw);
+      position: relative;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .discount-banner-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .discount-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .discount-badge {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    
+    .discount-description {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      margin-bottom: 4px;
+    }
+    
+    .discount-code {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    
+    .discount-cta {
+      flex-shrink: 0;
+    }
+    
+    .discount-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: white;
+      color: #d97706;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .discount-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+    
+    /* Sticky Bottom CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      padding: 16px 24px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      display: none;
+    }
+    
+    .sticky-cta.show {
+      display: block;
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+    
+    .sticky-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    
+    .sticky-cta-text {
+      color: white;
+      flex: 1;
+    }
+    
+    .sticky-cta-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    
+    .sticky-cta-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .sticky-cta-btn {
+      padding: 14px 28px;
+      background: white;
+      color: #059669;
+      border-radius: 100px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .sticky-cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
     }
     
     .content {
@@ -308,6 +470,25 @@ const { provider } = Astro.props;
       .sidebar-card {
         padding: 20px;
       }
+      
+      .discount-banner-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .discount-badge {
+        font-size: 2rem;
+      }
+      
+      .sticky-cta-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      
+      .sticky-cta-btn {
+        width: 100%;
+      }
     }
   </style>
 
@@ -329,6 +510,23 @@ const { provider } = Astro.props;
       </div>
     </div>
   </div>
+
+  {currentDiscount && provider.affiliateLink && (
+    <div class="discount-banner">
+      <div class="discount-banner-content">
+        <div class="discount-text">
+          <div class="discount-badge">💰 ${currentDiscount.amount} OFF</div>
+          <div class="discount-description">{currentDiscount.description}</div>
+          <div class="discount-code">Use code: {currentDiscount.code}</div>
+        </div>
+        <div class="discount-cta">
+          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="discount-btn">
+            Claim Discount →
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
 
   <div class="content">
     <div class="main-content">
@@ -376,11 +574,33 @@ const { provider } = Astro.props;
     </div>
     
     <aside class="sidebar">
+      {currentDiscount && (
+        <div class="sidebar-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b;">
+          <h3 style="color: #92400e; margin-bottom: 12px;">💰 Limited Offer</h3>
+          <p style="font-size: 0.95rem; color: #92400e; margin-bottom: 12px; line-height: 1.5;">
+            <strong>{currentDiscount.description}</strong> for new customers!
+          </p>
+          <a href={provider.affiliateLink} target="_blank" rel="noopener" style="display: block; text-align: center; padding: 12px; background: #f59e0b; color: white; border-radius: 8px; font-weight: 600; text-decoration: none; transition: all 0.2s;">
+            Claim Discount →
+          </a>
+        </div>
+      )}
+      
       <div class="sidebar-card">
         <h3>Quick Facts</h3>
         <div class="info-row">
           <span class="info-label">Monthly Cost</span>
-          <span class="info-value">{provider.monthlyPrice}</span>
+          <span class="info-value">
+            {currentDiscount ? (
+              <>
+                <span style="text-decoration: line-through; opacity: 0.6; font-size: 0.85rem;">{provider.monthlyPrice}</span>
+                <br />
+                <span style="color: #059669; font-weight: 700;">${provider.slug === 'medvi' ? '59' : '49'} first month!</span>
+              </>
+            ) : (
+              provider.monthlyPrice
+            )}
+          </span>
         </div>
         <div class="info-row">
           <span class="info-label">Consultation Fee</span>
@@ -476,4 +696,34 @@ const { provider } = Astro.props;
       )}
     </aside>
   </div>
+
+  {/* Sticky Bottom CTA */}
+  {currentDiscount && provider.affiliateLink && (
+    <div class="sticky-cta" id="stickyCta">
+      <div class="sticky-cta-inner">
+        <div class="sticky-cta-text">
+          <div class="sticky-cta-title">💰 Save {currentDiscount.description}</div>
+          <div class="sticky-cta-subtitle">Limited time offer for new {provider.name} customers</div>
+        </div>
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="sticky-cta-btn">
+          Claim Discount
+        </a>
+      </div>
+    </div>
+
+    <script>
+      // Show sticky CTA after scrolling
+      const stickyCta = document.getElementById('stickyCta');
+      if (stickyCta) {
+        window.addEventListener('scroll', () => {
+          const currentScroll = window.pageYOffset;
+          if (currentScroll > 500) {
+            stickyCta.classList.add('show');
+          } else {
+            stickyCta.classList.remove('show');
+          }
+        });
+      }
+    </script>
+  )}
 </BaseLayout>

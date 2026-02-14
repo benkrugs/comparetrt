@@ -13,6 +13,24 @@ export function getStaticPaths() {
 
 const { provider } = Astro.props;
 
+// Discount data per provider
+const discounts = {
+  'sprout-health': {
+    amount: 150,
+    description: '$150 off your first month',
+    code: 'SPROUT150',
+    validThrough: '2026-12-31'
+  },
+  'medvi': {
+    amount: 120,
+    description: '$120 off your first month',
+    code: 'MEDVI120',
+    validThrough: '2026-12-31'
+  }
+};
+
+const currentDiscount = discounts[provider.slug];
+
 const faqs = [
   {
     question: `Is ${provider.name} a scam?`,
@@ -197,6 +215,21 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       <h3>✅ The Verdict: Yes, {provider.name} is Legitimate</h3>
       <p>{provider.name} is a legal telehealth provider operating within FDA and state regulations. They offer {provider.compounded ? 'compounded' : 'brand-name'} GLP-1 medications through licensed healthcare providers and accredited pharmacies.</p>
     </div>
+    
+    {currentDiscount && provider.affiliateLink && (
+      <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 4px solid #f59e0b; padding: 24px; border-radius: var(--r); margin: 32px 0; text-align: center;">
+        <h3 style="color: #92400e; margin: 0 0 12px 0; font-size: 1.3rem;">💰 Exclusive Discount for New Customers</h3>
+        <p style="color: #92400e; font-size: 1.1rem; margin: 12px 0;">
+          <strong>{currentDiscount.description}</strong> - First month just <strong style="color: #059669; font-size: 1.3rem;">${provider.slug === 'medvi' ? '59' : '49'}</strong>!
+        </p>
+        <p style="color: #92400e; margin: 12px 0;">
+          Use code: <span style="font-family: monospace; background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 6px; font-weight: 600;">{currentDiscount.code}</span>
+        </p>
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary" style="margin-top: 12px; background: #f59e0b; border-color: #f59e0b;">
+          Claim ${currentDiscount.amount} Off →
+        </a>
+      </div>
+    )}
     
     <h2>Trust Signals: Why {provider.name} is Safe</h2>
     
