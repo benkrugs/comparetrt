@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=8&oid=5&affid=2&pub=1350&sub1=1350&oid2=4412&affid2=1350',
+  skinnyrx: 'https://track.revoffers.com/aff_c?offer_id=1464&aff_id=9953'
+};
+---
+
+<BaseLayout title="MEDVi vs SkinnyRX: Which Is Cheaper? (2026)" description="MEDVi ($179/mo) vs SkinnyRX ($279/mo): Compare pricing and value for GLP-1 weight loss medications.">
+  <style>
+    .hero { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin: 24px 0; background: white; border: 1.5px solid #e5e7eb; border-radius: 12px; }
+    th { background: #f9fafb; padding: 16px; text-align: left; border-bottom: 1.5px solid #e5e7eb; }
+    td { padding: 16px; border-bottom: 1px solid #e5e7eb; }
+    .winner { background: #10b981; color: white; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+  </style>
+
+  <div class="hero">
+    <h1>MEDVi vs SkinnyRX</h1>
+    <p>Which offers better value for compounded semaglutide & tirzepatide?</p>
+  </div>
+
+  <div class="content">
+    <h2>Quick Comparison</h2>
+    <table>
+      <thead><tr><th>Feature</th><th>MEDVi</th><th>SkinnyRX</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Price</strong></td><td><strong>$179/mo</strong> <span class="winner">Winner</span></td><td>$279/mo</td></tr>
+        <tr><td><strong>Medications</strong></td><td>Semaglutide, Tirzepatide</td><td>Semaglutide, Tirzepatide</td></tr>
+        <tr><td><strong>Annual Cost</strong></td><td>$2,148</td><td>$3,348</td></tr>
+      </tbody>
+    </table>
+
+    <h2>Pricing Comparison</h2>
+    <p><strong>MEDVi saves you $100/month ($1,200/year)</strong> compared to SkinnyRX for the same compounded medications.</p>
+
+    <h2>The Verdict</h2>
+    <p><strong>MEDVi wins on value:</strong> Identical medications (semaglutide & tirzepatide), better support, significantly lower price.</p>
+
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Save $1,200/Year with MEDVi</h3>
+      <a href="${affiliateLinks.medvi}" target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Start with MEDVi →</a>
+    </div>
+
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>

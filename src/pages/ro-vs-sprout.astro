@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+const affiliateLinks = {
+  ro: 'https://track.revoffers.com/aff_c?offer_id=359&aff_id=9953&url_id=11818',
+  sprout: 'https://track.revoffers.com/aff_c?offer_id=1286&aff_id=9953'
+};
+---
+<BaseLayout title="Ro vs Sprout Health: Which Is Better? (2026)" description="Ro ($297/mo) vs Sprout Health ($249/mo): Compare pricing and features.">
+  <style>
+    .hero { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    table { width: 100%; border-collapse: collapse; margin: 24px 0; background: white; border: 1.5px solid #e5e7eb; }
+    th { background: #f9fafb; padding: 16px; text-align: left; border-bottom: 1.5px solid #e5e7eb; }
+    td { padding: 16px; border-bottom: 1px solid #e5e7eb; }
+  </style>
+  <div class="hero"><h1>Ro vs Sprout Health</h1><p>Compare pricing for compounded GLP-1 medications.</p></div>
+  <div class="content">
+    <h2>Quick Comparison</h2>
+    <table>
+      <thead><tr><th>Feature</th><th>Ro</th><th>Sprout Health</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Price</strong></td><td>$297/mo</td><td>$249/mo</td></tr>
+        <tr><td><strong>Medications</strong></td><td>Semaglutide, Tirzepatide</td><td>Semaglutide, Tirzepatide</td></tr>
+      </tbody>
+    </table>
+    <h2>The Verdict</h2>
+    <p><strong>Sprout Health</strong> costs $48/month less than Ro for the same medications. Consider <a href="/medvi-vs-ro" style="color: #8b5cf6;">MEDVi at $179/month</a> for best value.</p>
+    <div style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Start with Ro</h3>
+      <a href="${affiliateLinks.ro}" target="_blank" rel="noopener sponsored" style="background: white; color: #7c3aed; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Get Started →</a>
+    </div>
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>
