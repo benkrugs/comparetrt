@@ -337,7 +337,7 @@ const faqs = [
       display: block;
       width: 100%;
       padding: 12px 24px;
-      background: var(--primary);
+      background: #10b981;
       color: white;
       text-align: center;
       border-radius: var(--r);
@@ -607,12 +607,14 @@ const faqs = [
     <div class="email-capture">
       <h3>📧 Get Notified When Retatrutide Is Available</h3>
       <p>Join 10,000+ people waiting for FDA approval. We'll email you as soon as retatrutide is available through telemedicine providers.</p>
-      <form class="email-form" action="https://compareweightmeds.us12.list-manage.com/subscribe/post" method="POST">
-        <input type="hidden" name="u" value="YOUR_MAILCHIMP_U_ID">
-        <input type="hidden" name="id" value="YOUR_MAILCHIMP_LIST_ID">
+      <form class="email-form" name="retatrutide-waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="retatrutide-waitlist" />
+        <p hidden><label>Dont fill: <input name="bot-field" /></label></p>
+        
+        
         <input 
           type="email" 
-          name="EMAIL" 
+          name="email" 
           class="email-input" 
           placeholder="Enter your email" 
           required

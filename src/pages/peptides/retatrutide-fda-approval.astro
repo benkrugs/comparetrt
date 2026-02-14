@@ -430,12 +430,14 @@ const affiliateLinks = {
     <div class="email-capture">
       <h3>📧 Get Notified When Retatrutide Is FDA Approved</h3>
       <p>Join the waitlist. We'll email you the day retatrutide becomes available through telemedicine providers.</p>
-      <form class="email-form" action="https://compareweightmeds.us12.list-manage.com/subscribe/post" method="POST">
-        <input type="hidden" name="u" value="YOUR_MAILCHIMP_U_ID">
-        <input type="hidden" name="id" value="YOUR_MAILCHIMP_LIST_ID">
+      <form class="email-form" name="retatrutide-waitlist" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+        <input type="hidden" name="form-name" value="retatrutide-waitlist" />
+        <p hidden><label>Dont fill: <input name="bot-field" /></label></p>
+        
+        
         <input 
           type="email" 
-          name="EMAIL" 
+          name="email" 
           class="email-input" 
           placeholder="Enter your email" 
           required
