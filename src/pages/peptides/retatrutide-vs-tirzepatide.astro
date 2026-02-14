@@ -1,0 +1,845 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+import FAQSection from '../../components/FAQSection.astro';
+import { providers } from '../../data/providers';
+
+// Filter to recommended providers
+const topProviders = providers.filter(p => ['medvi', 'remedy-meds', 'ro'].includes(p.slug));
+
+// Affiliate links
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350',
+  remedy: 'https://remedymeds.com/?rm_campaign=NY2026&toclid=TO-67s0pOKaInPCeJQvjBB7oL&utm_source=theoffer&utm_campaign=94',
+  ro: 'https://track.revoffers.com/aff_c?offer_id=959&aff_id=9953&url_id=11818'
+};
+
+const faqs = [
+  {
+    question: "Which is more effective: retatrutide or tirzepatide?",
+    answer: "Based on clinical trials, retatrutide is more effective. Retatrutide shows 24-28.7% average weight loss compared to tirzepatide's 15-22.5%. However, retatrutide isn't available yet (expected 2027-2028), while tirzepatide is available now."
+  },
+  {
+    question: "Should I wait for retatrutide or start tirzepatide now?",
+    answer: "Most people should start tirzepatide now rather than waiting 1-2 years for retatrutide. Tirzepatide delivers excellent results (15-22.5% weight loss), and you can always switch to retatrutide when it's approved if you want even better results."
+  },
+  {
+    question: "Can I switch from tirzepatide to retatrutide later?",
+    answer: "Yes. When retatrutide becomes available, you'll likely be able to transition from tirzepatide. Your provider will help you switch safely, similar to how people currently switch from semaglutide to tirzepatide."
+  },
+  {
+    question: "Are retatrutide and tirzepatide side effects similar?",
+    answer: "Yes, both have similar GI side effects (nausea, diarrhea, constipation) since they share GLP-1 receptor activation. Retatrutide adds glucagon receptor activation, but clinical trials haven't shown significantly different side effect profiles."
+  },
+  {
+    question: "Which will be cheaper: retatrutide or tirzepatide?",
+    answer: "Initially, expect retatrutide to cost the same or more than tirzepatide brand-name ($900-1,400/month). However, compounded tirzepatide is currently available for $179-499/month. Compounded retatrutide pricing is unknown and depends on FDA compounding regulations."
+  },
+  {
+    question: "Is semaglutide worth considering vs tirzepatide or retatrutide?",
+    answer: "Semaglutide is a good option if you want lower cost or have tried tirzepatide without success (some respond better to semaglutide). However, tirzepatide and retatrutide show better weight loss results in clinical trials."
+  },
+  {
+    question: "How long do I need to stay on these medications?",
+    answer: "Weight loss medications are typically long-term treatments. Most people regain weight if they stop. Plan for 12-18 months minimum, with many staying on maintenance doses indefinitely."
+  },
+  {
+    question: "Can I get retatrutide through a clinical trial?",
+    answer: "Possibly. Search ClinicalTrials.gov for 'retatrutide' to find open trials. Participation is free with medical monitoring, but you must meet specific eligibility criteria (usually BMI requirements and no certain health conditions)."
+  }
+];
+---
+
+<BaseLayout 
+  title="Retatrutide vs Tirzepatide vs Semaglutide: Which Peptide Is Best for Weight Loss?"
+  description="Comparing the big three: Retatrutide (24-28.7% weight loss), Tirzepatide (15-22.5%), and Semaglutide (10-15%). Cost, effectiveness, side effects, and where to get them."
+>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+      color: white;
+      padding: 80px 24px 60px;
+      text-align: center;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .hero p {
+      font-size: 1.15rem;
+      opacity: 0.95;
+      max-width: 750px;
+      margin: 0 auto 32px;
+    }
+    
+    .content {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+    }
+    
+    .quick-comparison {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
+    
+    .comparison-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 28px;
+      text-align: center;
+      transition: all 0.2s;
+    }
+    
+    .comparison-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+    
+    .comparison-card.winner {
+      border-color: #10b981;
+      background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+    }
+    
+    .comparison-card.available {
+      border-color: #3b82f6;
+    }
+    
+    .card-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    
+    .card-status {
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 100px;
+      display: inline-block;
+      margin-bottom: 16px;
+    }
+    
+    .status-available {
+      background: #dbeafe;
+      color: #1e40af;
+    }
+    
+    .status-pending {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .card-weight-loss {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #10b981;
+      margin: 16px 0 8px;
+    }
+    
+    .card-label {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .card-features {
+      list-style: none;
+      padding: 0;
+      text-align: left;
+      margin: 20px 0;
+    }
+    
+    .card-features li {
+      font-size: 0.95rem;
+      color: var(--text-sec);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .card-features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: 700;
+    }
+    
+    .content h2 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+      color: var(--text-primary);
+    }
+    
+    .content h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+      color: var(--text-primary);
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul, .content ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .content strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+    
+    .detailed-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      overflow-x: auto;
+      margin: 32px 0;
+    }
+    
+    .detailed-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .detailed-table th {
+      background: var(--accent-light);
+      padding: 16px;
+      text-align: left;
+      font-weight: 700;
+      border-bottom: 1.5px solid var(--border);
+    }
+    
+    .detailed-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .detailed-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .detailed-table tr:hover {
+      background: var(--accent-light);
+    }
+    
+    .winner-badge {
+      display: inline-block;
+      background: #10b981;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 8px;
+    }
+    
+    .decision-matrix {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+      margin: 40px 0;
+    }
+    
+    .decision-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+    }
+    
+    .decision-card h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--text-primary);
+    }
+    
+    .decision-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .decision-card li {
+      font-size: 0.95rem;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .decision-card li:last-child {
+      border-bottom: none;
+    }
+    
+    .provider-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+      margin: 32px 0;
+    }
+    
+    .provider-card {
+      background: white;
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    
+    .provider-card:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+    
+    .provider-name {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+    
+    .provider-price {
+      font-size: 1.1rem;
+      color: #10b981;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .provider-features {
+      list-style: none;
+      padding: 0;
+      margin: 16px 0;
+    }
+    
+    .provider-features li {
+      font-size: 0.95rem;
+      color: var(--text-sec);
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+    }
+    
+    .provider-features li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #10b981;
+      font-weight: 700;
+    }
+    
+    .provider-cta {
+      display: block;
+      width: 100%;
+      padding: 12px 24px;
+      background: var(--primary);
+      color: white;
+      text-align: center;
+      border-radius: var(--r);
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin-top: 16px;
+    }
+    
+    .provider-cta:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+    }
+    
+    .tip-box {
+      background: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      border-radius: var(--r);
+      padding: 20px 24px;
+      margin: 32px 0;
+    }
+    
+    .tip-box strong {
+      color: #1e40af;
+      display: block;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+    
+    .tip-box p {
+      color: #1e3a8a;
+      margin: 0;
+    }
+  </style>
+
+  <div class="hero">
+    <h1>Retatrutide vs Tirzepatide vs Semaglutide: Which Peptide Is Best?</h1>
+    <p>
+      The ultimate weight loss peptide showdown. Compare clinical results, cost, availability, and side effects to choose the right medication for your goals.
+    </p>
+  </div>
+
+  <div class="content">
+    <h2>The Quick Comparison</h2>
+    <p>
+      Here's the high-level breakdown of the three most effective weight loss peptides:
+    </p>
+
+    <div class="quick-comparison">
+      <div class="comparison-card winner">
+        <div class="card-title">Retatrutide</div>
+        <div class="card-status status-pending">Coming 2027-2028</div>
+        <div class="card-weight-loss">24-28.7%</div>
+        <div class="card-label">Average Weight Loss</div>
+        <ul class="card-features">
+          <li>Triple agonist (most powerful)</li>
+          <li>Up to 71 lbs lost (avg)</li>
+          <li>Best results in clinical trials</li>
+          <li>Phase 3 trials ongoing</li>
+        </ul>
+      </div>
+
+      <div class="comparison-card available">
+        <div class="card-title">Tirzepatide</div>
+        <div class="card-status status-available">Available Now</div>
+        <div class="card-weight-loss">15-22.5%</div>
+        <div class="card-label">Average Weight Loss</div>
+        <ul class="card-features">
+          <li>Dual agonist (very effective)</li>
+          <li>$179-499/month compounded</li>
+          <li>FDA approved (Mounjaro/Zepbound)</li>
+          <li>Best currently available option</li>
+        </ul>
+      </div>
+
+      <div class="comparison-card available">
+        <div class="card-title">Semaglutide</div>
+        <div class="card-status status-available">Available Now</div>
+        <div class="card-weight-loss">10-15%</div>
+        <div class="card-label">Average Weight Loss</div>
+        <ul class="card-features">
+          <li>Single agonist (proven effective)</li>
+          <li>$179-349/month compounded</li>
+          <li>FDA approved (Wegovy/Ozempic)</li>
+          <li>Longest track record</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 Bottom Line</strong>
+      <p>
+        <strong>Retatrutide wins on effectiveness</strong> but isn't available yet. <strong>Tirzepatide is the best current option</strong> for most people—it delivers excellent results and you can start today. Semaglutide is a solid choice if you want lower cost or have tried tirzepatide without success.
+      </p>
+    </div>
+
+    <h2>Head-to-Head Comparison: Detailed Breakdown</h2>
+
+    <div class="detailed-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Retatrutide</th>
+            <th>Tirzepatide</th>
+            <th>Semaglutide</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Mechanism</strong></td>
+            <td>Triple agonist<br/>(GLP-1/GIP/Glucagon)</td>
+            <td>Dual agonist<br/>(GLP-1/GIP)</td>
+            <td>Single agonist<br/>(GLP-1)</td>
+          </tr>
+          <tr>
+            <td><strong>Weight Loss</strong></td>
+            <td><strong>24-28.7%</strong> <span class="winner-badge">Winner</span></td>
+            <td>15-22.5%</td>
+            <td>10-15%</td>
+          </tr>
+          <tr>
+            <td><strong>Max Weight Loss (avg)</strong></td>
+            <td><strong>71 lbs</strong></td>
+            <td>~54 lbs</td>
+            <td>~36 lbs</td>
+          </tr>
+          <tr>
+            <td><strong>FDA Status</strong></td>
+            <td>Phase 3 trials</td>
+            <td><strong>Approved</strong></td>
+            <td><strong>Approved</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Availability</strong></td>
+            <td>2027-2028</td>
+            <td><strong>Now</strong></td>
+            <td><strong>Now</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Brand Name Cost</strong></td>
+            <td>$900-1,400/mo (est)</td>
+            <td>$900-1,200/mo</td>
+            <td>$900-1,400/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Compounded Cost</strong></td>
+            <td>Unknown</td>
+            <td><strong>$179-499/mo</strong></td>
+            <td><strong>$179-349/mo</strong></td>
+          </tr>
+          <tr>
+            <td><strong>Dosing</strong></td>
+            <td>Weekly injection</td>
+            <td>Weekly injection</td>
+            <td>Weekly injection</td>
+          </tr>
+          <tr>
+            <td><strong>Side Effects</strong></td>
+            <td>Nausea, GI issues (similar)</td>
+            <td>Nausea, GI issues</td>
+            <td>Nausea, GI issues</td>
+          </tr>
+          <tr>
+            <td><strong>Track Record</strong></td>
+            <td>Clinical trials only</td>
+            <td>2+ years real-world use</td>
+            <td><strong>5+ years real-world use</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Weight Loss Results: Clinical Trial Data</h2>
+    <p>
+      Let's break down exactly how much weight people lost in clinical trials for each medication:
+    </p>
+
+    <h3>Retatrutide: 24-28.7% Weight Loss</h3>
+    <p>
+      <strong>Phase 2 Trial (48 weeks):</strong> Participants on 12mg weekly lost an average of 24.2% of their body weight.
+    </p>
+    <p>
+      <strong>Phase 3 Trial (TRIUMPH-1, 2025):</strong> The highest dose group lost an average of <strong>28.7% of body weight</strong>—up to 71.2 pounds on average.
+    </p>
+    <p>
+      <strong>For a 240-pound person:</strong>
+    </p>
+    <ul>
+      <li>24% loss = <strong>58 pounds</strong></li>
+      <li>28.7% loss = <strong>69 pounds</strong></li>
+    </ul>
+
+    <h3>Tirzepatide: 15-22.5% Weight Loss</h3>
+    <p>
+      <strong>SURMOUNT-1 Trial (72 weeks):</strong> Participants on 15mg weekly (highest dose) lost an average of 22.5% of body weight.
+    </p>
+    <p>
+      <strong>For a 240-pound person:</strong>
+    </p>
+    <ul>
+      <li>15% loss (5mg dose) = <strong>36 pounds</strong></li>
+      <li>22.5% loss (15mg dose) = <strong>54 pounds</strong></li>
+    </ul>
+
+    <h3>Semaglutide: 10-15% Weight Loss</h3>
+    <p>
+      <strong>STEP 1 Trial (68 weeks):</strong> Participants on 2.4mg weekly lost an average of 14.9% of body weight.
+    </p>
+    <p>
+      <strong>For a 240-pound person:</strong>
+    </p>
+    <ul>
+      <li>10% loss (lower doses) = <strong>24 pounds</strong></li>
+      <li>15% loss (2.4mg dose) = <strong>36 pounds</strong></li>
+    </ul>
+
+    <h2>How Each Peptide Works: Mechanism Explained</h2>
+
+    <h3>Retatrutide: Triple Agonist (GLP-1 + GIP + Glucagon)</h3>
+    <p>
+      Retatrutide targets THREE hormone receptors:
+    </p>
+    <ul>
+      <li><strong>GLP-1:</strong> Reduces appetite, slows stomach emptying → you feel full longer</li>
+      <li><strong>GIP:</strong> Enhances insulin secretion, improves fat metabolism</li>
+      <li><strong>Glucagon:</strong> Increases energy expenditure, promotes fat burning</li>
+    </ul>
+    <p>
+      <strong>Why it's more effective:</strong> The glucagon receptor activation is the key differentiator. It boosts your metabolic rate and helps your body burn stored fat more aggressively.
+    </p>
+
+    <h3>Tirzepatide: Dual Agonist (GLP-1 + GIP)</h3>
+    <p>
+      Tirzepatide targets TWO hormone receptors:
+    </p>
+    <ul>
+      <li><strong>GLP-1:</strong> Appetite suppression and delayed gastric emptying</li>
+      <li><strong>GIP:</strong> Improved glucose control and fat metabolism</li>
+    </ul>
+    <p>
+      <strong>Why it's effective:</strong> The dual-agonist approach works better than GLP-1 alone. GIP activation enhances the weight loss effects and improves metabolic health markers.
+    </p>
+
+    <h3>Semaglutide: Single Agonist (GLP-1)</h3>
+    <p>
+      Semaglutide targets ONE hormone receptor:
+    </p>
+    <ul>
+      <li><strong>GLP-1:</strong> Reduces hunger signals, slows digestion, improves blood sugar control</li>
+    </ul>
+    <p>
+      <strong>Why it still works:</strong> GLP-1 is a powerful mechanism for weight loss. While it's "less advanced" than dual or triple agonists, it's proven, safe, and effective for many people.
+    </p>
+
+    <h2>Cost Comparison: What You'll Actually Pay</h2>
+
+    <h3>Brand-Name Pricing (Without Insurance)</h3>
+    <ul>
+      <li><strong>Retatrutide:</strong> $900-1,400/month (estimated—not available yet)</li>
+      <li><strong>Tirzepatide (Zepbound):</strong> $900-1,200/month</li>
+      <li><strong>Semaglutide (Wegovy):</strong> $900-1,400/month</li>
+    </ul>
+    <p>
+      <strong>Insurance Coverage:</strong> Most plans DON'T cover weight loss medications. Even if covered, expect high copays ($50-200/month).
+    </p>
+
+    <h3>Compounded Pricing (Most Affordable Option)</h3>
+    <ul>
+      <li><strong>Retatrutide:</strong> Unknown—depends on FDA compounding regulations when approved</li>
+      <li><strong>Tirzepatide:</strong> <strong>$179-499/month</strong> through telemedicine providers</li>
+      <li><strong>Semaglutide:</strong> <strong>$179-349/month</strong> through telemedicine providers</li>
+    </ul>
+    <p>
+      <strong>Why compounded is cheaper:</strong> Made by licensed US pharmacies using the same FDA-approved active ingredient, but without brand-name markup. No insurance needed.
+    </p>
+
+    <h2>Side Effects: What to Expect</h2>
+    <p>
+      All three medications share similar side effects because they activate GLP-1 receptors:
+    </p>
+
+    <h3>Common Side Effects (All Three)</h3>
+    <ul>
+      <li><strong>Nausea</strong> (most common, usually temporary)</li>
+      <li><strong>Diarrhea or constipation</strong></li>
+      <li><strong>Vomiting</strong></li>
+      <li><strong>Reduced appetite</strong> (therapeutic effect)</li>
+      <li><strong>Abdominal discomfort</strong></li>
+    </ul>
+
+    <h3>Which Has the Worst Side Effects?</h3>
+    <p>
+      <strong>Surprisingly similar across all three.</strong> Clinical trial data shows:
+    </p>
+    <ul>
+      <li><strong>Tirzepatide:</strong> Slightly more GI side effects than semaglutide (due to dual agonist effect)</li>
+      <li><strong>Retatrutide:</strong> Similar to tirzepatide—adding glucagon didn't significantly worsen side effects</li>
+      <li><strong>Semaglutide:</strong> Slightly fewer GI issues, but differences are modest</li>
+    </ul>
+
+    <div class="tip-box">
+      <strong>💊 Managing Side Effects (All Three)</strong>
+      <p>
+        Start low, go slow (gradual dose increases). Eat smaller, more frequent meals. Avoid fatty/greasy foods. Stay hydrated. Most side effects peak in weeks 1-4 and improve dramatically by month 2-3.
+      </p>
+    </div>
+
+    <h2>Which Should You Choose? Decision Framework</h2>
+
+    <div class="decision-matrix">
+      <div class="decision-card">
+        <h4>Choose Retatrutide If:</h4>
+        <ul>
+          <li>You can wait 1-2 years for availability</li>
+          <li>You want maximum weight loss (24-28.7%)</li>
+          <li>You've plateaued on tirzepatide</li>
+          <li>You need to lose 75+ pounds</li>
+          <li>Cost isn't a primary concern</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h4>Choose Tirzepatide If:</h4>
+        <ul>
+          <li>You want results NOW, not in 2027</li>
+          <li>You need 35-60+ pounds of weight loss</li>
+          <li>Semaglutide didn't work well enough</li>
+          <li>You want the best currently available option</li>
+          <li>You're okay with $179-499/month cost</li>
+        </ul>
+      </div>
+
+      <div class="decision-card">
+        <h4>Choose Semaglutide If:</h4>
+        <ul>
+          <li>You want the lowest cost ($179-349/mo)</li>
+          <li>You need 25-40 pounds of weight loss</li>
+          <li>You want the longest safety track record</li>
+          <li>Tirzepatide's side effects concern you</li>
+          <li>Your doctor recommends starting here</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>The Practical Answer: Start Tirzepatide Now, Consider Retatrutide Later</h2>
+    <p>
+      <strong>Here's what most people should do:</strong>
+    </p>
+    <ol>
+      <li><strong>Start tirzepatide NOW</strong> if you need to lose weight and don't want to wait 1-2 years</li>
+      <li><strong>Lose significant weight with tirzepatide</strong> (15-22.5% is excellent!)</li>
+      <li><strong>Switch to retatrutide when available</strong> if you've plateaued or want even better results</li>
+    </ol>
+    <p>
+      <strong>Why this makes sense:</strong>
+    </p>
+    <ul>
+      <li>Waiting until 2027-2028 means another 1-2 years of carrying excess weight</li>
+      <li>Tirzepatide delivers excellent results—you'll see dramatic improvements</li>
+      <li>You can always switch medications later (doctors do this all the time)</li>
+      <li>Starting now means you're 50+ pounds lighter when retatrutide launches!</li>
+    </ul>
+
+    <h2>Where to Get Tirzepatide and Semaglutide Now</h2>
+    <p>
+      The fastest, most affordable way to get started is through telemedicine providers offering compounded versions:
+    </p>
+
+    <div class="provider-grid">
+      <div class="provider-card">
+        <div class="provider-name">MEDVi</div>
+        <div class="provider-price">$179/month</div>
+        <ul class="provider-features">
+          <li>Tirzepatide or semaglutide</li>
+          <li>Free online consultation</li>
+          <li>Ships in 3-5 days</li>
+          <li>Made in US pharmacies (503A/503B)</li>
+          <li>No insurance needed</li>
+        </ul>
+        <a href={affiliateLinks.medvi} class="provider-cta" target="_blank" rel="noopener sponsored">
+          Start with MEDVi →
+        </a>
+      </div>
+
+      <div class="provider-card">
+        <div class="provider-name">Remedy Meds</div>
+        <div class="provider-price">$249/month</div>
+        <ul class="provider-features">
+          <li>Semaglutide or tirzepatide</li>
+          <li>Doctor consultation included</li>
+          <li>Fast shipping (3-5 days)</li>
+          <li>Phone/chat support</li>
+          <li>Cancel anytime</li>
+        </ul>
+        <a href={affiliateLinks.remedy} class="provider-cta" target="_blank" rel="noopener sponsored">
+          Start with Remedy Meds →
+        </a>
+      </div>
+
+      <div class="provider-card">
+        <div class="provider-name">Ro</div>
+        <div class="provider-price">$297/month</div>
+        <ul class="provider-features">
+          <li>Compounded GLP-1s</li>
+          <li>Medical team support</li>
+          <li>Body composition tracking</li>
+          <li>Nutrition guidance</li>
+          <li>Premium experience</li>
+        </ul>
+        <a href={affiliateLinks.ro} class="provider-cta" target="_blank" rel="noopener sponsored">
+          Start with Ro →
+        </a>
+      </div>
+    </div>
+
+    <h2>Can You Switch Between These Medications?</h2>
+    <p>
+      <strong>Yes!</strong> Switching between GLP-1 medications is common and safe. Here's how it typically works:
+    </p>
+
+    <h3>Switching From Semaglutide → Tirzepatide</h3>
+    <ul>
+      <li>Common when people plateau on semaglutide</li>
+      <li>Your provider will start you on a low tirzepatide dose and titrate up</li>
+      <li>Usually a seamless transition with minimal side effects</li>
+    </ul>
+
+    <h3>Switching From Tirzepatide → Retatrutide (When Available)</h3>
+    <ul>
+      <li>Expect similar transition protocols as semaglutide to tirzepatide</li>
+      <li>Start low on retatrutide, gradually increase</li>
+      <li>Your doctor will monitor closely during the first few weeks</li>
+    </ul>
+
+    <h3>Switching From Tirzepatide → Semaglutide</h3>
+    <ul>
+      <li>Less common (why downgrade?), but possible if cost is a concern</li>
+      <li>Some people respond better to semaglutide's single-agonist approach</li>
+    </ul>
+
+    <h2>The Bottom Line: Which Peptide Wins?</h2>
+    <p>
+      <strong>Best Overall (Effectiveness):</strong> Retatrutide — but it's not available until 2027-2028
+    </p>
+    <p>
+      <strong>Best Right Now:</strong> Tirzepatide — delivers excellent results (15-22.5% weight loss) and you can start today
+    </p>
+    <p>
+      <strong>Best Value:</strong> Tie between tirzepatide and semaglutide at $179-349/month compounded
+    </p>
+    <p>
+      <strong>Best for Most People:</strong> <strong>Start tirzepatide now</strong>, then consider switching to retatrutide when it's FDA-approved if you want even better results or have plateaued.
+    </p>
+
+    <div class="tip-box">
+      <strong>🎯 Action Plan</strong>
+      <p>
+        Don't wait for retatrutide. Start tirzepatide or semaglutide THIS WEEK through a telemedicine provider ($179-499/month, no insurance needed). You'll be 30-50 pounds lighter by the time retatrutide is available—and you can always switch if you want even more weight loss.
+      </p>
+    </div>
+
+    <p>
+      <strong>Related Reading:</strong>
+    </p>
+    <ul>
+      <li><a href="/peptides/retatrutide" style="color: var(--primary);">What Is Retatrutide? Complete Guide to the Next-Gen Peptide</a></li>
+      <li><a href="/peptides/retatrutide-cost" style="color: var(--primary);">Retatrutide Cost: How Much Will It Cost When Available?</a></li>
+      <li><a href="/guides/tirzepatide-no-insurance" style="color: var(--primary);">How to Get Tirzepatide Without Insurance (2026)</a></li>
+      <li><a href="/guides/semaglutide-vs-tirzepatide" style="color: var(--primary);">Semaglutide vs Tirzepatide: Which Is Better?</a></li>
+    </ul>
+
+    <MedicalDisclaimer />
+    <FAQSection faqs={faqs} />
+  </div>
+
+  <!-- Sticky CTA Bar -->
+  <div style="position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(135deg, #10b981 0%, #059669 100%); padding: 16px 24px; text-align: center; box-shadow: 0 -4px 12px rgba(0,0,0,0.1); z-index: 100;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+      <div style="color: white; font-weight: 600; font-size: 1.05rem;">
+        🏆 Best current option: Start tirzepatide for just $179/month
+      </div>
+      <a href={affiliateLinks.medvi} target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 12px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; white-space: nowrap; transition: all 0.2s;">
+        Start with MEDVi →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
