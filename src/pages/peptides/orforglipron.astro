@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+
+const affiliateLinks = { medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350' };
+---
+
+<BaseLayout 
+  title="Orforglipron: Eli Lilly's Oral GLP-1 Weight Loss Pill (2026)"
+  description="Orforglipron is Lilly's daily pill GLP-1 showing 8-15% weight loss. Learn about the first oral peptide for weight loss, FDA timeline, and how it compares to injections."
+>
+  <style>
+    .hero { background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    .content ul { margin: 20px 0; padding-left: 24px; }
+    .content li { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 12px; }
+  </style>
+
+  <div class="hero">
+    <h1>Orforglipron: Eli Lilly's Oral GLP-1 Weight Loss Pill</h1>
+    <p>Daily pill GLP-1 agonist showing 8-15% weight loss. No injections required.</p>
+  </div>
+
+  <div class="content">
+    <h2>What Is Orforglipron?</h2>
+    <p>Orforglipron is Eli Lilly's <strong>oral (pill) GLP-1 medication</strong> for weight loss. Unlike tirzepatide and semaglutide (injections), orforglipron is taken daily as a capsule.</p>
+
+    <h2>Weight Loss Results</h2>
+    <p><strong>Phase 2 Trial (36 weeks):</strong> 8-14.7% weight loss depending on dose</p>
+    <p><strong>For a 240-pound person:</strong> 19-35 pounds lost</p>
+    <p><strong>Less than injectables but more convenient</strong></p>
+
+    <h2>Oral GLP-1: Pros & Cons</h2>
+    <h3>✅ Advantages</h3>
+    <ul>
+      <li><strong>No injections!</strong> Daily pill is less intimidating for needle-phobic people</li>
+      <li>Easy to travel with</li>
+      <li>More socially acceptable (no injection supplies)</li>
+      <li>Good for people who can't tolerate injections</li>
+    </ul>
+
+    <h3>❌ Disadvantages</h3>
+    <ul>
+      <li><strong>Less weight loss:</strong> 8-15% vs 15-28% for injectable peptides</li>
+      <li><strong>Daily dosing:</strong> Must remember to take every day (vs weekly injection)</li>
+      <li><strong>Food restrictions:</strong> Must take on empty stomach, wait 30 min before eating</li>
+      <li><strong>Similar side effects:</strong> Nausea, GI issues still present</li>
+    </ul>
+
+    <h2>When Will Orforglipron Be Available?</h2>
+    <ul>
+      <li><strong>2026:</strong> Phase 3 trials ongoing</li>
+      <li><strong>2027-2028:</strong> FDA submission/approval expected</li>
+      <li><strong>2028+:</strong> Commercial availability</li>
+    </ul>
+
+    <h2>Who Should Consider Orforglipron?</h2>
+    <ul>
+      <li>People with needle phobia</li>
+      <li>Those who prefer pills over injections</li>
+      <li>Patients needing 20-40 pounds weight loss (not 75+)</li>
+      <li>People willing to trade convenience for slightly less weight loss</li>
+    </ul>
+
+    <h2>Oral Semaglutide Is Available NOW</h2>
+    <p><strong>Don't wait for orforglipron.</strong> Novo Nordisk's <strong>oral semaglutide (Rybelsus)</strong> is already FDA-approved for diabetes and available off-label for weight loss.</p>
+    <ul>
+      <li>Similar oral GLP-1 mechanism</li>
+      <li>Daily pill, no injections</li>
+      <li>Available through telemedicine providers today</li>
+    </ul>
+
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Injectable GLP-1s Work Better Than Pills</h3>
+      <p style="font-size: 1.05rem; opacity: 0.95; margin-bottom: 24px;">Tirzepatide injections: 15-22.5% weight loss vs oral GLP-1s: 8-15%. Start tirzepatide for $179/month.</p>
+      <a href={affiliateLinks.medvi} target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Start with MEDVi →</a>
+    </div>
+
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>

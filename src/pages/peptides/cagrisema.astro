@@ -1,0 +1,141 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350'
+};
+---
+
+<BaseLayout 
+  title="CagriSema: Novo Nordisk's Dual Agonist Weight Loss Peptide (2026)"
+  description="CagriSema (cagrilintide + semaglutide) shows 15-20% weight loss in trials. Learn about Novo Nordisk's answer to tirzepatide, FDA timeline, and how it compares."
+>
+  <style>
+    .hero { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .hero p { font-size: 1.15rem; opacity: 0.95; max-width: 750px; margin: 0 auto; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content h3 { font-size: 1.5rem; font-weight: 600; margin: 32px 0 12px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    .content ul { margin: 20px 0; padding-left: 24px; }
+    .content li { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 12px; }
+    .stats-box { background: #ecfdf5; border: 2px solid #10b981; border-radius: 12px; padding: 24px; margin: 32px 0; }
+    .stats-box h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 12px; color: #065f46; }
+  </style>
+
+  <div class="hero">
+    <h1>CagriSema: Novo Nordisk's Next-Gen Weight Loss Peptide</h1>
+    <p>Combining cagrilintide (amylin) + semaglutide (GLP-1) for 15-20% weight loss. FDA approval expected 2027.</p>
+  </div>
+
+  <div class="content">
+    <div class="stats-box">
+      <h3>📊 CagriSema at a Glance</h3>
+      <ul style="list-style: none; padding: 0;">
+        <li><strong>Weight Loss:</strong> 15-20% average</li>
+        <li><strong>Mechanism:</strong> Amylin + GLP-1 dual agonist</li>
+        <li><strong>Status:</strong> Phase 3 trials (2026)</li>
+        <li><strong>Expected FDA Approval:</strong> 2027</li>
+        <li><strong>Manufacturer:</strong> Novo Nordisk (Wegovy maker)</li>
+      </ul>
+    </div>
+
+    <h2>What Is CagriSema?</h2>
+    <p>CagriSema is Novo Nordisk's answer to Eli Lilly's tirzepatide (Zepbound/Mounjaro). It combines TWO peptides in one injection:</p>
+    <ul>
+      <li><strong>Cagrilintide:</strong> Synthetic amylin analog that reduces appetite and slows gastric emptying</li>
+      <li><strong>Semaglutide:</strong> The GLP-1 agonist in Wegovy/Ozempic</li>
+    </ul>
+
+    <p><strong>Why combine them?</strong> Amylin and GLP-1 work through different pathways. Combined, they produce more weight loss than semaglutide alone—bringing Novo Nordisk closer to competing with tirzepatide's superior results.</p>
+
+    <h2>CagriSema Weight Loss Results</h2>
+    <h3>Phase 2 Trial Data (2023)</h3>
+    <ul>
+      <li><strong>15.6% average weight loss</strong> at 2.4mg semaglutide + 2.4mg cagrilintide</li>
+      <li>~37 pounds lost for a 240-pound person</li>
+      <li>Better than semaglutide alone (10-15%) but less than tirzepatide (15-22.5%)</li>
+    </ul>
+
+    <h3>Phase 3 REDEFINE Trial (Ongoing 2026)</h3>
+    <p>Novo Nordisk is testing higher doses. Industry analysts predict <strong>18-20% weight loss</strong> results when Phase 3 data reports in late 2026.</p>
+
+    <h2>How CagriSema Compares to Competitors</h2>
+    <table style="width: 100%; border-collapse: collapse; margin: 24px 0;">
+      <thead>
+        <tr style="background: #f9fafb; border-bottom: 2px solid #e5e7eb;">
+          <th style="padding: 12px; text-align: left;">Medication</th>
+          <th style="padding: 12px; text-align: left;">Weight Loss</th>
+          <th style="padding: 12px; text-align: left;">Availability</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+          <td style="padding: 12px;"><strong>Retatrutide</strong></td>
+          <td style="padding: 12px;">24-28.7%</td>
+          <td style="padding: 12px;">2027-2028</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+          <td style="padding: 12px;"><strong>Tirzepatide</strong></td>
+          <td style="padding: 12px;">15-22.5%</td>
+          <td style="padding: 12px;">Available now</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #e5e7eb;">
+          <td style="padding: 12px;"><strong>CagriSema</strong></td>
+          <td style="padding: 12px;">15-20%</td>
+          <td style="padding: 12px;">2027 (projected)</td>
+        </tr>
+        <tr>
+          <td style="padding: 12px;"><strong>Semaglutide</strong></td>
+          <td style="padding: 12px;">10-15%</td>
+          <td style="padding: 12px;">Available now</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>CagriSema Side Effects</h2>
+    <p>Expected to be similar to semaglutide:</p>
+    <ul>
+      <li>Nausea (most common)</li>
+      <li>Diarrhea or constipation</li>
+      <li>Vomiting</li>
+      <li>Reduced appetite</li>
+    </ul>
+    <p><strong>Potential difference:</strong> Amylin activation may cause slightly different GI effects than GIP (in tirzepatide), but early trials show similar tolerability.</p>
+
+    <h2>When Will CagriSema Be Available?</h2>
+    <ul>
+      <li><strong>2026:</strong> Phase 3 REDEFINE trial results expected</li>
+      <li><strong>Late 2026/Early 2027:</strong> FDA submission likely</li>
+      <li><strong>2027:</strong> FDA approval projected</li>
+      <li><strong>2027-2028:</strong> Commercial launch</li>
+    </ul>
+
+    <h2>Expected CagriSema Pricing</h2>
+    <p>Novo Nordisk will likely price CagriSema competitively with tirzepatide:</p>
+    <ul>
+      <li><strong>Brand-name:</strong> $900-1,400/month (similar to Wegovy/Zepbound)</li>
+      <li><strong>Compounded:</strong> $300-600/month (if allowed, depends on shortages)</li>
+    </ul>
+
+    <h2>Should You Wait for CagriSema?</h2>
+    <p><strong>Our take: No.</strong> CagriSema won't be dramatically better than existing options (tirzepatide, semaglutide). Here's what to do instead:</p>
+    <ol>
+      <li><strong>Start tirzepatide NOW</strong> ($179-499/month compounded) - delivers similar or better results (15-22.5% vs CagriSema's 15-20%)</li>
+      <li><strong>Lose 30-50 pounds</strong> while CagriSema completes trials</li>
+      <li><strong>Switch to CagriSema or retatrutide</strong> in 2027-2028 if you plateau or want more options</li>
+    </ol>
+
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Don't Wait for CagriSema - Start Tirzepatide Today</h3>
+      <p style="font-size: 1.05rem; opacity: 0.95; margin-bottom: 24px;">Tirzepatide delivers equal or better results (15-22.5%) and is available NOW for $179/month.</p>
+      <a href={affiliateLinks.medvi} target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Start with MEDVi →</a>
+    </div>
+
+    <p><strong>Related:</strong> <a href="/peptides/retatrutide" style="color: #06b6d4;">Retatrutide Guide</a> | <a href="/peptides/retatrutide-vs-tirzepatide" style="color: #06b6d4;">Retatrutide vs Tirzepatide</a></p>
+
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>

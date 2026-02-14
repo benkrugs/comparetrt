@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=5&oid=2&affid=2&pol=5&sub1=1350&sub1=1350&oid2=4412&affid2=1350'
+};
+---
+
+<BaseLayout 
+  title="Survodutide: Boehringer Ingelheim's Dual Agonist for Weight Loss (2026)"
+  description="Survodutide shows 15-19% weight loss in trials. Learn about this GLP-1/glucagon dual agonist, FDA timeline, and how it compares to tirzepatide and retatrutide."
+>
+  <style>
+    .hero { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    .content ul { margin: 20px 0; padding-left: 24px; }
+    .content li { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 12px; }
+  </style>
+
+  <div class="hero">
+    <h1>Survodutide: Boehringer Ingelheim's Weight Loss Peptide</h1>
+    <p>GLP-1/glucagon dual agonist showing 15-19% weight loss. Expected FDA approval 2028+.</p>
+  </div>
+
+  <div class="content">
+    <h2>What Is Survodutide?</h2>
+    <p>Survodutide (BI 456906) is a <strong>dual agonist</strong> targeting GLP-1 and glucagon receptors. Made by Boehringer Ingelheim, it's entering the crowded weight loss peptide market aiming to compete with Eli Lilly and Novo Nordisk.</p>
+
+    <h2>Weight Loss Results</h2>
+    <p><strong>Phase 2 Trial (48 weeks):</strong> 15.9% average weight loss at 4.8mg weekly dose.</p>
+    <p><strong>For a 240-pound person:</strong> ~38 pounds lost</p>
+    <p><strong>Comparison:</strong> Similar to low-dose tirzepatide but less than high-dose tirzepatide (22.5%) or retatrutide (24-28.7%).</p>
+
+    <h2>How It Works</h2>
+    <ul>
+      <li><strong>GLP-1 activation:</strong> Reduces appetite, slows digestion</li>
+      <li><strong>Glucagon activation:</strong> Increases energy expenditure, fat burning</li>
+    </ul>
+    <p><strong>Different from tirzepatide:</strong> Survodutide targets glucagon instead of GIP. This makes it similar to retatrutide's mechanism (minus the GIP component).</p>
+
+    <h2>When Will Survodutide Be Available?</h2>
+    <ul>
+      <li><strong>2026:</strong> Phase 3 trials ongoing</li>
+      <li><strong>2027-2028:</strong> FDA submission expected</li>
+      <li><strong>2028-2029:</strong> Potential FDA approval and launch</li>
+    </ul>
+
+    <h2>Expected Pricing</h2>
+    <p>Likely to match competitors: <strong>$900-1,400/month</strong> brand-name, <strong>$300-600/month</strong> compounded (if available).</p>
+
+    <h2>Should You Wait for Survodutide?</h2>
+    <p><strong>No.</strong> Survodutide shows good but not exceptional results compared to existing options. It's 2-3 years away and delivers similar outcomes to currently available tirzepatide.</p>
+
+    <p><strong>Smarter plan:</strong> Start tirzepatide TODAY ($179-499/month), lose 30-50 pounds, then consider survodutide/retatrutide if you plateau.</p>
+
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Start Tirzepatide Today vs Waiting Until 2028</h3>
+      <p style="font-size: 1.05rem; opacity: 0.95; margin-bottom: 24px;">Available now, similar results, $179/month. Why wait?</p>
+      <a href={affiliateLinks.medvi} target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Start with MEDVi →</a>
+    </div>
+
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>
