@@ -246,6 +246,8 @@ const { provider } = Astro.props;
     @media (max-width: 1024px) {
       .content {
         grid-template-columns: 1fr;
+        padding: 40px 20px;
+        gap: 32px;
       }
       
       .sidebar {
@@ -254,6 +256,57 @@ const { provider } = Astro.props;
       
       .pros-cons {
         grid-template-columns: 1fr;
+      }
+      
+      .review-hero {
+        padding: 40px 20px 30px;
+      }
+      
+      .review-hero-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+      }
+      
+      .review-hero-content h1 {
+        font-size: 1.8rem;
+      }
+      
+      .review-hero-tagline {
+        font-size: 1rem;
+      }
+      
+      .main-content h2 {
+        font-size: 1.5rem;
+        margin: 32px 0 12px;
+      }
+      
+      .main-content p {
+        font-size: 1rem;
+      }
+      
+      .info-row {
+        flex-direction: column;
+        gap: 4px;
+        align-items: flex-start;
+      }
+      
+      .info-value {
+        text-align: left;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .score-value {
+        font-size: 2.5rem;
+      }
+      
+      .pros, .cons {
+        padding: 20px;
+      }
+      
+      .sidebar-card {
+        padding: 20px;
       }
     }
   </style>

@@ -169,7 +169,8 @@ const metaDescription = `Compare ${providers.length} GLP-1 telehealth providers.
     @media (max-width: 1024px) {
       .table-row {
         grid-template-columns: 1fr;
-        padding: 16px;
+        padding: 20px;
+        gap: 16px;
       }
       
       .table-header {
@@ -177,22 +178,77 @@ const metaDescription = `Compare ${providers.length} GLP-1 telehealth providers.
       }
       
       .table-cell {
-        padding: 8px 0;
+        padding: 0;
+        display: block;
       }
       
       .provider-info {
-        margin-bottom: 12px;
+        margin-bottom: 16px;
+      }
+      
+      .provider-name {
+        font-size: 1.2rem;
+      }
+      
+      .table-cell:not(:first-child) {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
       }
       
       .table-cell:not(:first-child)::before {
         content: attr(data-label);
         font-weight: 600;
-        font-size: 0.8rem;
+        font-size: 0.75rem;
         color: var(--text-sec);
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        display: block;
-        margin-bottom: 4px;
+        white-space: nowrap;
+      }
+      
+      .best-for {
+        text-align: right;
+      }
+      
+      .table-actions {
+        justify-self: end;
+        width: 100%;
+      }
+      
+      .table-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .hero {
+        padding: 60px 20px 40px;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      
+      .hero p {
+        font-size: 1rem;
+      }
+      
+      .hero-stats {
+        gap: 20px;
+      }
+      
+      .hero-stat-value {
+        font-size: 2rem;
+      }
+      
+      .sec {
+        padding: 40px 20px;
+      }
+      
+      .sec h2 {
+        font-size: 1.5rem;
       }
     }
   </style>
