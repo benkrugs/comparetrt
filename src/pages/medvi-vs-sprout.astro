@@ -1,0 +1,87 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+
+const affiliateLinks = {
+  medvi: 'https://medvi.org/?page=multi&uid=8&oid=5&affid=2&pub=1350&sub1=1350&oid2=4412&affid2=1350',
+  sprout: 'https://track.revoffers.com/aff_c?offer_id=1286&aff_id=9953'
+};
+---
+
+<BaseLayout 
+  title="MEDVi vs Sprout Health: Which GLP-1 Provider Is Cheaper? (2026)"
+  description="MEDVi ($179/mo) vs Sprout Health ($249/mo): Compare pricing, medications, and which telemedicine provider offers better value for semaglutide and tirzepatide."
+>
+  <style>
+    .hero { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+    .hero h1 { font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+    .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+    .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+    .content p { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 20px; }
+    .content ul { margin: 20px 0; padding-left: 24px; }
+    .content li { font-size: 1.05rem; line-height: 1.7; color: #4b5563; margin-bottom: 12px; }
+    .comparison-table { background: white; border: 1.5px solid #e5e7eb; border-radius: 12px; overflow-x: auto; margin: 32px 0; }
+    .comparison-table table { width: 100%; border-collapse: collapse; }
+    .comparison-table th { background: #f9fafb; padding: 16px; text-align: left; font-weight: 700; border-bottom: 1.5px solid #e5e7eb; }
+    .comparison-table td { padding: 16px; border-bottom: 1px solid #e5e7eb; }
+    .winner-badge { display: inline-block; background: #10b981; color: white; padding: 4px 12px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; margin-left: 8px; }
+  </style>
+
+  <div class="hero">
+    <h1>MEDVi vs Sprout Health: Which Is Better?</h1>
+    <p>Comparing pricing, shipping, and value for compounded weight loss medications.</p>
+  </div>
+
+  <div class="content">
+    <h2>Quick Comparison</h2>
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>MEDVi</th>
+            <th>Sprout Health</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Starting Price</strong></td>
+            <td><strong>$179/month</strong> <span class="winner-badge">Best Value</span></td>
+            <td>$249/month</td>
+          </tr>
+          <tr>
+            <td><strong>Medications</strong></td>
+            <td>Semaglutide, Tirzepatide</td>
+            <td>Semaglutide, Tirzepatide</td>
+          </tr>
+          <tr>
+            <td><strong>Shipping</strong></td>
+            <td>3-5 days</td>
+            <td>3-5 days</td>
+          </tr>
+          <tr>
+            <td><strong>Support</strong></td>
+            <td><strong>Phone, Email, Chat</strong></td>
+            <td>Email, Chat</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Pricing: MEDVi Saves You $70/Month</h2>
+    <p><strong>MEDVi:</strong> $179/month = $2,148/year</p>
+    <p><strong>Sprout Health:</strong> $249/month = $2,988/year</p>
+    <p><strong>Annual Savings with MEDVi:</strong> <span style="color: #10b981; font-weight: 700;">$840/year</span></p>
+
+    <h2>The Verdict</h2>
+    <p><strong>MEDVi wins on value:</strong> Same medications (compounded semaglutide & tirzepatide), faster support, $70/month cheaper.</p>
+
+    <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border-radius: 12px; padding: 40px 32px; text-align: center; margin: 48px 0;">
+      <h3 style="font-size: 1.8rem; font-weight: 700; margin-bottom: 12px;">Save $70/Month with MEDVi</h3>
+      <p style="font-size: 1.05rem; opacity: 0.95; margin-bottom: 24px;">Same medications, better support, lower price.</p>
+      <a href="${affiliateLinks.medvi}" target="_blank" rel="noopener sponsored" style="background: white; color: #059669; padding: 14px 28px; border-radius: 8px; font-weight: 700; text-decoration: none; display: inline-block;">Start with MEDVi →</a>
+    </div>
+
+    <MedicalDisclaimer />
+  </div>
+</BaseLayout>
