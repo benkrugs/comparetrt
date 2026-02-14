@@ -20,6 +20,12 @@ const discounts = {
     description: '$150 off your first month',
     code: 'SPROUT150',
     validThrough: '2026-12-31'
+  },
+  'medvi': {
+    amount: 120,
+    description: '$120 off your first month',
+    code: 'MEDVI120',
+    validThrough: '2026-12-31'
   }
 };
 
@@ -465,12 +471,12 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       {currentDiscount && (
         <div class="cost-row total-savings">
           <span class="cost-label">💵 Your First Month Cost (With Discount)</span>
-          <span class="cost-value">${provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'}</span>
+          <span class="cost-value">${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'}</span>
         </div>
       )}
       <div class="cost-row">
         <span class="cost-label">Estimated Total (First Month)</span>
-        <span class="cost-value">{currentDiscount ? `$${provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'} (with discount)` : provider.monthlyPrice}</span>
+        <span class="cost-value">{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'} (with discount)` : provider.monthlyPrice}</span>
       </div>
     </div>
     
@@ -510,7 +516,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
         <tbody>
           <tr style="background: var(--accent-light);">
             <td><strong>{provider.name}</strong></td>
-            <td><strong>{currentDiscount ? `$${provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : provider.monthlyPrice} (first month)` : provider.monthlyPrice}</strong></td>
+            <td><strong>{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : provider.monthlyPrice} (first month)` : provider.monthlyPrice}</strong></td>
             <td>{provider.compounded ? 'Compounded' : 'Brand Name'}</td>
             <td><a href={`/reviews/${provider.slug}/`}>Full Review</a></td>
           </tr>
@@ -531,7 +537,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     {currentDiscount && provider.affiliateLink && (
       <>
         <h3>1. Use Our Exclusive ${currentDiscount.amount} Discount</h3>
-        <p>New customers can save {currentDiscount.description} when signing up through our link. This drops your first month cost from {provider.monthlyPrice} to just ${provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'significantly less'}—that's over {Math.round((currentDiscount.amount / (provider.monthlyPrice.includes('$199') ? 199 : 299)) * 100)}% off!</p>
+        <p>New customers can save {currentDiscount.description} when signing up through our link. This drops your first month cost from {provider.monthlyPrice} to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'significantly less'}—that's over {provider.slug === 'medvi' ? '67' : Math.round((currentDiscount.amount / (provider.monthlyPrice.includes('$199') ? 199 : 299)) * 100)}% off!</p>
         <div style="margin: 16px 0;">
           <a href={provider.affiliateLink} target="_blank" rel="noopener" class="inline-cta">
             Get ${currentDiscount.amount} Off →
@@ -559,7 +565,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     {currentDiscount && (
       <div class="highlight-box">
         <h3>💡 Limited-Time Offer</h3>
-        <p><strong>{currentDiscount.description}</strong> for new {provider.name} customers. This exclusive discount brings your first month cost down to just ${provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'under $150'}—the lowest price available anywhere.</p>
+        <p><strong>{currentDiscount.description}</strong> for new {provider.name} customers. This exclusive discount brings your first month cost down to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'under $150'}—the lowest price available anywhere.</p>
       </div>
     )}
     
@@ -575,14 +581,14 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     <FAQSection faqs={faqs} />
     
     <h2>Bottom Line on {provider.name} Cost</h2>
-    <p>{provider.name}'s pricing of {provider.monthlyPrice} per month is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable in the GLP-1 telehealth market' : 'competitive with other telehealth providers'}. {currentDiscount && <>And with our exclusive {currentDiscount.description}, you'll pay just ${provider.monthlyPrice.includes('$199') ? '$49' : '$149'} for your first month—making it one of the most affordable ways to start your weight loss journey.</> }</p>
+    <p>{provider.name}'s pricing of {provider.monthlyPrice} per month is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable in the GLP-1 telehealth market' : 'competitive with other telehealth providers'}. {currentDiscount && <>And with our exclusive {currentDiscount.description}, you'll pay just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : '$149'} for your first month—making it one of the most affordable ways to start your weight loss journey.</> }</p>
     
     <p>With {provider.consultationFee} consultation fees and {provider.membershipFee} membership costs, the total investment is transparent and predictable. For most patients, the cost of {provider.name} is offset by effective weight loss results, improved health markers, and potential savings on future medical expenses related to obesity.</p>
     
     <div style="text-align: center; margin-top: 48px;">
       {provider.affiliateLink && (
         <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">
-          {currentDiscount ? `Get Started for $${provider.monthlyPrice.includes('$199') ? '49' : '149'} →` : `Check ${provider.name} Current Pricing →`}
+          {currentDiscount ? `Get Started for $${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : '149'} →` : `Check ${provider.name} Current Pricing →`}
         </a>
       )}
     </div>
