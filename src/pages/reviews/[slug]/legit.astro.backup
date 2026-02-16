@@ -62,26 +62,8 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
   description={`Unbiased review: Is ${provider.name} legitimate and safe? Read about ${provider.name}'s medical oversight, customer reviews (${provider.trustpilotRating}/5), and safety standards.`}
 >
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    :root {
-      --font-heading: 'Inter', -apple-system, system-ui, sans-serif;
-      --font-body: 'Georgia', 'Times New Roman', serif;
-      --color-primary: #1a56a8;
-      --color-primary-dark: #0d3b7a;
-      --color-success: #059669;
-    }
-
-    body {
-      font-family: var(--font-body);
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-heading);
-    }
-
     .article-header {
-      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       padding: 60px 24px 40px;
     }
@@ -94,7 +76,6 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     .article-header h1 {
       font-size: clamp(2rem, 4vw, 2.8rem);
       font-weight: 700;
-      color: white;
       margin-bottom: 16px;
       line-height: 1.2;
     }
@@ -144,7 +125,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     
     .verdict-box {
       background: #d1fae5;
-      border-left: 4px solid #1a56a8;
+      border-left: 4px solid #10b981;
       padding: 24px;
       border-radius: var(--r);
       margin: 32px 0;
@@ -239,7 +220,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       <div style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left: 4px solid #f59e0b; padding: 24px; border-radius: var(--r); margin: 32px 0; text-align: center;">
         <h3 style="color: #92400e; margin: 0 0 12px 0; font-size: 1.3rem;">💰 Exclusive Discount for New Customers</h3>
         <p style="color: #92400e; font-size: 1.1rem; margin: 12px 0;">
-          <strong>{currentDiscount.description}</strong> - First month just <strong style="color: #0d3b7a; font-size: 1.3rem;">${provider.slug === 'medvi' ? '59' : '49'}</strong>!
+          <strong>{currentDiscount.description}</strong> - First month just <strong style="color: #059669; font-size: 1.3rem;">${provider.slug === 'medvi' ? '59' : '49'}</strong>!
         </p>
         <p style="color: #92400e; margin: 12px 0;">
           Use code: <span style="font-family: monospace; background: rgba(255,255,255,0.4); padding: 4px 12px; border-radius: 6px; font-weight: 600;">{currentDiscount.code}</span>

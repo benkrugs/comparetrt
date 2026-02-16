@@ -16,40 +16,260 @@ const metaDescription = `Read real ${provider.name} reviews from verified users.
 ---
 
 <BaseLayout title={metaTitle} description={metaDescription}>
-  <div style="max-width: 900px; margin: 0 auto; padding: 40px 24px;">
-    <h1 style="font-size: 2.2rem; margin-bottom: 24px;">{provider.name} Reviews 2026</h1>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    :root {
+      --font-heading: 'Inter', -apple-system, system-ui, sans-serif;
+      --font-body: 'Georgia', 'Times New Roman', serif;
+      --color-primary: #1a56a8;
+      --color-primary-light: #e8f0fe;
+      --color-success: #059669;
+      --color-danger: #dc2626;
+      --color-border: #e2e8f0;
+    }
+
+    .page-wrapper {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+      font-family: var(--font-body);
+    }
+
+    h1, h2, h3 {
+      font-family: var(--font-heading);
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+      color: #1a1a2e;
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #1a1a2e;
+    }
+
+    h3 {
+      font-size: 1.125rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .rating-card {
+      background: var(--color-primary-light);
+      border-left: 4px solid var(--color-primary);
+      padding: 28px;
+      border-radius: 6px;
+      margin-bottom: 40px;
+    }
+
+    .rating-card h2 {
+      color: var(--color-primary);
+      margin-bottom: 12px;
+    }
+
+    .rating-value {
+      font-family: var(--font-heading);
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--color-primary);
+      margin-bottom: 8px;
+    }
+
+    .rating-count {
+      font-family: var(--font-heading);
+      font-size: 0.9375rem;
+      color: #6b7280;
+    }
+
+    .description-section {
+      margin-bottom: 40px;
+    }
+
+    .description-section p {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: #374151;
+    }
+
+    .feedback-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    .feedback-card {
+      padding: 24px;
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+    }
+
+    .feedback-card.pros {
+      background: #f0fdf4;
+      border-left: 4px solid var(--color-success);
+    }
+
+    .feedback-card.pros h3 {
+      color: var(--color-success);
+    }
+
+    .feedback-card.cons {
+      background: #fef2f2;
+      border-left: 4px solid var(--color-danger);
+    }
+
+    .feedback-card.cons h3 {
+      color: var(--color-danger);
+    }
+
+    .feedback-card h3::before {
+      font-weight: 700;
+      margin-right: 6px;
+    }
+
+    .feedback-card.pros h3::before {
+      content: '\2713';
+      color: var(--color-success);
+    }
+
+    .feedback-card.cons h3::before {
+      content: '\2717';
+      color: var(--color-danger);
+    }
+
+    .feedback-card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feedback-card li {
+      margin-bottom: 8px;
+      padding-left: 20px;
+      position: relative;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+      color: #374151;
+    }
+
+    .feedback-card.pros li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--color-success);
+      font-weight: 700;
+    }
+
+    .feedback-card.cons li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--color-danger);
+      font-weight: 700;
+    }
+
+    .cta-section {
+      background: var(--color-primary);
+      color: white;
+      padding: 48px 32px;
+      border-radius: 6px;
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    .cta-section h2 {
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .cta-section p {
+      font-size: 1.125rem;
+      opacity: 0.95;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: white;
+      color: var(--color-primary);
+      padding: 16px 40px;
+      border-radius: 6px;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.0625rem;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: 640px) {
+      .page-wrapper {
+        padding: 40px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+
+      .feedback-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-section {
+        padding: 40px 24px;
+      }
+    }
+  </style>
+
+  <div class="page-wrapper">
+    <h1>{provider.name} Reviews 2026</h1>
     
-    <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid #3b82f6; padding: 24px; border-radius: 8px; margin-bottom: 32px;">
-      <h2 style="color: #1e40af; font-size: 1.3rem; margin-bottom: 12px;">Overall Rating</h2>
-      <p style="font-size: 1.5rem; font-weight: 700;">⭐ {provider.trustpilotRating}/5</p>
-      <p>Based on {provider.trustpilotReviews} reviews</p>
+    <div class="rating-card">
+      <h2>Overall Rating</h2>
+      <div class="rating-value">★ {provider.trustpilotRating}/5</div>
+      <div class="rating-count">Based on {provider.trustpilotReviews} reviews</div>
     </div>
     
-    <div style="margin-bottom: 32px;">
-      <h2 style="font-size: 1.8rem; margin-bottom: 16px; color: #1e40af;">What Users Say</h2>
+    <div class="description-section">
+      <h2>What Users Say</h2>
       <p>{provider.description}</p>
     </div>
     
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;">
-      <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #10b981; padding: 20px; border-radius: 8px;">
-        <h3 style="color: #065f46; margin-bottom: 12px;">✓ What Users Love</h3>
+    <div class="feedback-grid">
+      <div class="feedback-card pros">
+        <h3>What Users Love</h3>
         <ul>
-          {provider.pros.map(pro => <li style="margin-bottom: 8px;">{pro}</li>)}
+          {provider.pros.map(pro => <li>{pro}</li>)}
         </ul>
       </div>
       
-      <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px;">
-        <h3 style="color: #991b1b; margin-bottom: 12px;">✗ Common Complaints</h3>
+      <div class="feedback-card cons">
+        <h3>Common Complaints</h3>
         <ul>
-          {provider.cons.map(con => <li style="margin-bottom: 8px;">{con}</li>)}
+          {provider.cons.map(con => <li>{con}</li>)}
         </ul>
       </div>
     </div>
     
-    <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 48px 24px; border-radius: 12px; text-align: center; margin-top: 48px;">
-      <h2 style="color: white; font-size: 2rem; margin-bottom: 16px;">Ready to Try {provider.name}?</h2>
-      <p style="font-size: 1.1rem; margin-bottom: 24px;">Join thousands of satisfied customers. Starting at {provider.monthlyPrice}.</p>
-      <a href={provider.affiliateLink} style="display: inline-block; background: white; color: #2563eb; padding: 16px 48px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; text-decoration: none;">
+    <div class="cta-section">
+      <h2>Ready to Try {provider.name}?</h2>
+      <p>Join thousands of satisfied customers. Starting at {provider.monthlyPrice}.</p>
+      <a href={provider.affiliateLink} class="cta-btn" target="_blank" rel="noopener noreferrer">
         Get Started with {provider.name} →
       </a>
     </div>

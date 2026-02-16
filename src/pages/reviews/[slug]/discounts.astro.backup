@@ -63,24 +63,8 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
   description={`Find the latest ${provider.name} discounts, promo codes, and special offers. Learn how to save on ${provider.name} GLP-1 medications. Current pricing: ${provider.monthlyPrice}.`}
 >
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    :root {
-      --font-heading: 'Inter', -apple-system, system-ui, sans-serif;
-      --font-body: 'Georgia', 'Times New Roman', serif;
-      --color-primary: #1a56a8;
-    }
-
-    body {
-      font-family: var(--font-body);
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-heading);
-    }
-
     .article-header {
-      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       padding: 60px 24px 40px;
     }
@@ -95,7 +79,6 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       font-weight: 700;
       margin-bottom: 16px;
       line-height: 1.2;
-      color: white;
     }
     
     .article-meta {
@@ -165,7 +148,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     }
     
     .cta-box {
-      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       padding: 32px;
       border-radius: var(--r);
@@ -208,7 +191,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       <div class="pricing-box" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-left-color: #f59e0b;">
         <h3 style="color: #92400e;">💰 Exclusive Discount - ${currentDiscount.amount} OFF!</h3>
         <p style="color: #92400e;"><strong>Regular Price:</strong> <span style="text-decoration: line-through; opacity: 0.7;">{provider.monthlyPrice}</span></p>
-        <p style="color: #0d3b7a; font-size: 1.3rem; font-weight: 700;">First Month: ${provider.slug === 'medvi' ? '59' : '49'} ({provider.slug === 'medvi' ? '67' : '75'}% OFF!)</p>
+        <p style="color: #059669; font-size: 1.3rem; font-weight: 700;">First Month: ${provider.slug === 'medvi' ? '59' : '49'} ({provider.slug === 'medvi' ? '67' : '75'}% OFF!)</p>
         <p style="color: #92400e;"><strong>Code:</strong> <span style="font-family: monospace; background: rgba(255,255,255,0.4); padding: 4px 8px; border-radius: 4px;">{currentDiscount.code}</span></p>
         <p style="color: #92400e;"><strong>Consultation Fee:</strong> {provider.consultationFee}</p>
         <p style="color: #92400e;"><strong>Membership Fee:</strong> {provider.membershipFee}</p>
