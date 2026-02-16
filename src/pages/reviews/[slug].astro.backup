@@ -35,28 +35,8 @@ const currentDiscount = discounts[provider.slug];
   description={`Unbiased ${provider.name} review. Pricing, medications, pros/cons, and our TeleHealth Score (${provider.totalScore}/100). ${provider.tagline}`}
 >
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-
-    :root {
-      --font-heading: 'Inter', -apple-system, system-ui, sans-serif;
-      --font-body: 'Georgia', 'Times New Roman', serif;
-      --font-ui: 'Inter', system-ui, sans-serif;
-      --color-primary: #1a56a8;
-      --color-primary-dark: #0d3b7a;
-      --color-success: #059669;
-      --color-danger: #dc2626;
-    }
-
-    body {
-      font-family: var(--font-body);
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-      font-family: var(--font-heading);
-    }
-
     .review-hero {
-      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       padding: 60px 24px 40px;
     }
@@ -166,7 +146,7 @@ const currentDiscount = discounts[provider.slug];
       padding: 16px 32px;
       background: white;
       color: #d97706;
-      border-radius: 6px;
+      border-radius: 100px;
       font-weight: 700;
       font-size: 1.1rem;
       text-decoration: none;
@@ -186,7 +166,7 @@ const currentDiscount = discounts[provider.slug];
       bottom: 0;
       left: 0;
       right: 0;
-      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       padding: 16px 24px;
       box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
       z-index: 100;
@@ -235,8 +215,8 @@ const currentDiscount = discounts[provider.slug];
     .sticky-cta-btn {
       padding: 14px 28px;
       background: white;
-      color: #0d3b7a;
-      border-radius: 6px;
+      color: #059669;
+      border-radius: 100px;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.2s;
@@ -291,7 +271,7 @@ const currentDiscount = discounts[provider.slug];
     }
     
     .pros h3 {
-      color: #0d3b7a;
+      color: #059669;
       margin-bottom: 16px;
       font-size: 1.1rem;
     }
@@ -314,19 +294,15 @@ const currentDiscount = discounts[provider.slug];
     }
     
     .pros li::before {
-      content: '\2713';
+      content: '✅';
       position: absolute;
       left: 0;
-      color: var(--color-success);
-      font-weight: 700;
     }
     
     .cons li::before {
-      content: '\2717';
+      content: '❌';
       position: absolute;
       left: 0;
-      color: var(--color-danger);
-      font-weight: 700;
     }
     
     .sidebar {
@@ -402,7 +378,7 @@ const currentDiscount = discounts[provider.slug];
       align-items: center;
       gap: 4px;
       padding: 4px 10px;
-      border-radius: 6px;
+      border-radius: 100px;
       font-size: 0.8rem;
       font-weight: 600;
       background: var(--accent-light);
@@ -561,14 +537,14 @@ const currentDiscount = discounts[provider.slug];
       <h2>Pros & Cons</h2>
       <div class="pros-cons">
         <div class="pros">
-          <h3>Pros</h3>
+          <h3>✅ Pros</h3>
           <ul>
             {provider.pros.map(pro => <li>{pro}</li>)}
           </ul>
         </div>
         
         <div class="cons">
-          <h3>Cons</h3>
+          <h3>❌ Cons</h3>
           <ul>
             {provider.cons.map(con => <li>{con}</li>)}
           </ul>
@@ -620,7 +596,7 @@ const currentDiscount = discounts[provider.slug];
               <>
                 <span style="text-decoration: line-through; opacity: 0.6; font-size: 0.85rem;">{provider.monthlyPrice}</span>
                 <br />
-                <span style="color: #0d3b7a; font-weight: 700;">${provider.slug === 'medvi' ? '179' : '49'} first month!</span>
+                <span style="color: #059669; font-weight: 700;">${provider.slug === 'medvi' ? '179' : '49'} first month!</span>
               </>
             ) : (
               provider.monthlyPrice
@@ -641,15 +617,15 @@ const currentDiscount = discounts[provider.slug];
         </div>
         <div class="info-row">
           <span class="info-label">Insurance</span>
-          <span class="info-value">{provider.insurance ? 'Yes' : 'No'}</span>
+          <span class="info-value">{provider.insurance ? '✅ Yes' : '❌ No'}</span>
         </div>
         <div class="info-row">
           <span class="info-label">24/7 Support</span>
-          <span class="info-value">{provider.support247 ? 'Yes' : 'No'}</span>
+          <span class="info-value">{provider.support247 ? '✅ Yes' : '❌ No'}</span>
         </div>
         <div class="info-row">
           <span class="info-label">Money-Back</span>
-          <span class="info-value">{provider.moneyBackGuarantee ? 'Yes' : 'No'}</span>
+          <span class="info-value">{provider.moneyBackGuarantee ? '✅ Yes' : '❌ No'}</span>
         </div>
       </div>
       
