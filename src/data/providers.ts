@@ -636,5 +636,134 @@ export const providers: Provider[] = [
     
     trustpilotRating: 3.8,
     trustpilotReviews: 1900
+  },
+  
+  {
+    id: 'tuyo-health',
+    name: 'Tuyo Health',
+    slug: 'tuyo-health',
+    tagline: 'Comprehensive Weight Loss with Personalized Care',
+    website: 'https://tuyohealth.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1404&aff_id=9953&url_id=11353',
+    
+    monthlyPrice: 'Starting at $155',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Available',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)',
+      'Metformin',
+      'Other weight loss medications'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: true,
+    support247: false,
+    moneyBackGuarantee: false,
+    
+    totalScore: 86,
+    scoreBreakdown: {
+      pricing: 23,
+      medication: 21,
+      doctorCare: 13,
+      support: 12,
+      delivery: 9,
+      transparency: 8
+    },
+    
+    description: 'Tuyo Health offers personalized weight loss treatment starting at just $155 per month. Their platform combines telehealth consultations with ongoing support and multiple medication options to help you achieve your weight loss goals.',
+    
+    pros: [
+      'Affordable starting price at $155/month',
+      'Personalized treatment plans',
+      'Licensed healthcare provider oversight',
+      'Multiple medication options available',
+      'Coaching and support included',
+      'No long-term contracts required'
+    ],
+    
+    cons: [
+      'Primarily compounded medications',
+      'Limited availability in some states',
+      'Newer company with less established track record',
+      'Support not available 24/7'
+    ],
+    
+    bestFor: 'Budget-conscious patients seeking personalized weight loss treatment with ongoing coaching support',
+    
+    bottomLine: 'Tuyo Health combines affordable pricing with personalized care, making it an attractive option for those starting their weight loss journey with GLP-1 medications.',
+    
+    trustpilotRating: 4.2,
+    trustpilotReviews: 500
+  },
+  
+  {
+    id: 'trimrx',
+    name: 'TrimRX',
+    slug: 'trimrx',
+    tagline: 'Save $140 - Limited Time Offer',
+    website: 'https://trimrx.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1515&aff_id=9953',
+    
+    monthlyPrice: '$199–$349',
+    consultationFee: 'Included',
+    membershipFee: 'None',
+    labWork: 'Not included',
+    
+    medications: [
+      'Compounded semaglutide (injectable)',
+      'Compounded tirzepatide (injectable)'
+    ],
+    brandName: false,
+    compounded: true,
+    
+    insurance: false,
+    insuranceConcierge: false,
+    telehealth: true,
+    coaching: false,
+    support247: false,
+    moneyBackGuarantee: true,
+    
+    totalScore: 84,
+    scoreBreakdown: {
+      pricing: 24,
+      medication: 20,
+      doctorCare: 12,
+      support: 11,
+      delivery: 9,
+      transparency: 8
+    },
+    
+    description: 'TrimRX offers straightforward access to compounded GLP-1 medications with a current limited-time discount of $140 off. Their no-frills approach focuses on affordability and simplicity with licensed medical oversight.',
+    
+    pros: [
+      '$140 off discount available (limited time)',
+      'Competitive pricing starting at $199/month',
+      'Simple online consultation process',
+      'Money-back guarantee if not satisfied',
+      'No membership fees or hidden costs',
+      'Licensed healthcare provider reviews'
+    ],
+    
+    cons: [
+      'Limited customer support hours',
+      'No coaching or lifestyle support included',
+      'Labs not included in pricing',
+      'Compounded medications only (no brand-name options)',
+      'Newer platform with limited reviews'
+    ],
+    
+    bestFor: 'Price-conscious patients looking for basic access to compounded GLP-1s with a significant introductory discount',
+    
+    bottomLine: 'TrimRX delivers on affordability with their limited-time $140 discount, making compounded GLP-1 therapy accessible. Best for those who want simple, no-frills medication access without extras.',
+    
+    trustpilotRating: 4.0,
+    trustpilotReviews: 350
   }
 ];

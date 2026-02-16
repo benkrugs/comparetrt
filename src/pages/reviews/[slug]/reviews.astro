@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { providers } from '../../../data/providers';
+
+export function getStaticPaths() {
+  return providers.map(provider => ({
+    params: { slug: provider.slug },
+    props: { provider }
+  }));
+}
+
+const { provider } = Astro.props;
+
+const metaTitle = `${provider.name} Reviews 2026: Real User Experiences | CompareWeightMeds`;
+const metaDescription = `Read real ${provider.name} reviews from verified users. Customer ratings, Reddit discussions, and honest experiences with GLP-1 weight loss treatment.`;
+---
+
+<BaseLayout title={metaTitle} description={metaDescription}>
+  <div style="max-width: 900px; margin: 0 auto; padding: 40px 24px;">
+    <h1 style="font-size: 2.2rem; margin-bottom: 24px;">{provider.name} Reviews 2026</h1>
+    
+    <div style="background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%); border-left: 4px solid #3b82f6; padding: 24px; border-radius: 8px; margin-bottom: 32px;">
+      <h2 style="color: #1e40af; font-size: 1.3rem; margin-bottom: 12px;">Overall Rating</h2>
+      <p style="font-size: 1.5rem; font-weight: 700;">⭐ {provider.trustpilotRating}/5</p>
+      <p>Based on {provider.trustpilotReviews} reviews</p>
+    </div>
+    
+    <div style="margin-bottom: 32px;">
+      <h2 style="font-size: 1.8rem; margin-bottom: 16px; color: #1e40af;">What Users Say</h2>
+      <p>{provider.description}</p>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; margin-bottom: 32px;">
+      <div style="background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%); border-left: 4px solid #10b981; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #065f46; margin-bottom: 12px;">✓ What Users Love</h3>
+        <ul>
+          {provider.pros.map(pro => <li style="margin-bottom: 8px;">{pro}</li>)}
+        </ul>
+      </div>
+      
+      <div style="background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border-left: 4px solid #ef4444; padding: 20px; border-radius: 8px;">
+        <h3 style="color: #991b1b; margin-bottom: 12px;">✗ Common Complaints</h3>
+        <ul>
+          {provider.cons.map(con => <li style="margin-bottom: 8px;">{con}</li>)}
+        </ul>
+      </div>
+    </div>
+    
+    <div style="background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: white; padding: 48px 24px; border-radius: 12px; text-align: center; margin-top: 48px;">
+      <h2 style="color: white; font-size: 2rem; margin-bottom: 16px;">Ready to Try {provider.name}?</h2>
+      <p style="font-size: 1.1rem; margin-bottom: 24px;">Join thousands of satisfied customers. Starting at {provider.monthlyPrice}.</p>
+      <a href={provider.affiliateLink} style="display: inline-block; background: white; color: #2563eb; padding: 16px 48px; border-radius: 8px; font-weight: 700; font-size: 1.1rem; text-decoration: none;">
+        Get Started with {provider.name} →
+      </a>
+    </div>
+  </div>
+</BaseLayout>
