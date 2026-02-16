@@ -1055,6 +1055,38 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       .pros-cons {
         grid-template-columns: 1fr;
       }
+
+      /* Mobile table fixes */
+      .comparison-table {
+        font-size: 0.8125rem;
+      }
+
+      .comparison-table thead th {
+        font-size: 0.7rem;
+        padding: 10px 8px;
+      }
+
+      .comparison-table tbody td {
+        padding: 10px 8px;
+      }
+
+      /* Shorter CTA button text */
+      .comparison-table .table-cta {
+        font-size: 0.7rem;
+        padding: 6px 10px;
+        white-space: nowrap;
+      }
+
+      /* Hide "First Month" column on mobile (less critical) */
+      .comparison-table thead th:nth-child(3),
+      .comparison-table tbody td:nth-child(3) {
+        display: none;
+      }
+
+      /* TOC responsive */
+      .toc ul {
+        columns: 1;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1070,6 +1102,45 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
         flex-direction: column;
         text-align: center;
       }
+    }
+
+    /* === TABLE OF CONTENTS === */
+    .toc {
+      background: var(--color-bg-alt);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: 24px 28px;
+      margin: 32px 0;
+    }
+
+    .toc h3 {
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--color-muted);
+      margin-bottom: 12px;
+    }
+
+    .toc ul {
+      list-style: none;
+      padding: 0;
+      columns: 2;
+      column-gap: 24px;
+    }
+
+    .toc li {
+      font-family: var(--font-ui);
+      font-size: 0.875rem;
+      padding: 4px 0;
+    }
+
+    .toc a {
+      color: var(--color-primary);
+      border-bottom: none;
+    }
+
+    .toc a:hover {
+      border-bottom: 1px solid var(--color-primary);
     }
   </style>
 
@@ -1143,6 +1214,21 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       </div>
 
       <MedicalDisclaimer />
+      
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>On This Page</h3>
+        <ul>
+          <li><a href="#comparison">Compare Providers</a></li>
+          <li><a href="#pros-cons">Pros & Cons</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#cost-breakdown">Cost Breakdown</a></li>
+          <li><a href="#savings">Money Saved</a></li>
+          <li><a href="#testimonials">Patient Results</a></li>
+          <li><a href="#whats-included">What's Included</a></li>
+          <li><a href="#ways-to-save">Ways to Save</a></li>
+        </ul>
+      </div>
       
       <!-- Score Section -->
       <div class="score-section">
@@ -1218,7 +1304,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
               <td>
                 {provider.affiliateLink && (
                   <a href={provider.affiliateLink} target="_blank" rel="noopener" class="table-cta">
-                    Get Started with {provider.name}
+                    Get Started
                   </a>
                 )}
               </td>
