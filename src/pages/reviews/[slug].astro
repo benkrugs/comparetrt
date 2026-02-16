@@ -530,7 +530,7 @@ const currentDiscount = discounts[provider.slug];
       </div>
       
       <div class="review-hero-score">
-        <div class="score-value">⭐ {provider.totalScore}</div>
+        <div class="score-value">{provider.totalScore}</div>
         <div class="score-label">TeleHealth Score</div>
       </div>
     </div>
@@ -540,7 +540,7 @@ const currentDiscount = discounts[provider.slug];
     <div class="discount-banner">
       <div class="discount-banner-content">
         <div class="discount-text">
-          <div class="discount-badge">💰 ${currentDiscount.amount} OFF</div>
+          <div class="discount-badge">${currentDiscount.amount} OFF</div>
           <div class="discount-description">{currentDiscount.description}</div>
           <div class="discount-code">Use code: {currentDiscount.code}</div>
         </div>
@@ -579,7 +579,7 @@ const currentDiscount = discounts[provider.slug];
       <ul style="list-style: none; padding: 0;">
         {provider.medications.map(med => (
           <li style="padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem;">
-            💊 {med}
+            {med}
           </li>
         ))}
       </ul>
@@ -601,7 +601,7 @@ const currentDiscount = discounts[provider.slug];
     <aside class="sidebar">
       {currentDiscount && (
         <div class="sidebar-card" style="background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-color: #f59e0b;">
-          <h3 style="color: #92400e; margin-bottom: 12px;">💰 Limited Offer</h3>
+          <h3 style="color: #92400e; margin-bottom: 12px;">Limited Offer</h3>
           <p style="font-size: 0.95rem; color: #92400e; margin-bottom: 12px; line-height: 1.5;">
             <strong>{currentDiscount.description}</strong> for new customers!
           </p>
@@ -727,7 +727,7 @@ const currentDiscount = discounts[provider.slug];
     <div class="sticky-cta" id="stickyCta">
       <div class="sticky-cta-inner">
         <div class="sticky-cta-text">
-          <div class="sticky-cta-title">💰 Save {currentDiscount.description}</div>
+          <div class="sticky-cta-title">Save {currentDiscount.description}</div>
           <div class="sticky-cta-subtitle">Limited time offer for new {provider.name} customers</div>
         </div>
         <a href={provider.affiliateLink} target="_blank" rel="noopener" class="sticky-cta-btn">
