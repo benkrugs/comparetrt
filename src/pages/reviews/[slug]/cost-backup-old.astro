@@ -1,0 +1,642 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import MedicalDisclaimer from '../../../components/MedicalDisclaimer.astro';
+import FAQSection from '../../../components/FAQSection.astro';
+import { providers } from '../../../data/providers';
+
+export function getStaticPaths() {
+  return providers.map(provider => ({
+    params: { slug: provider.slug },
+    props: { provider }
+  }));
+}
+
+const { provider } = Astro.props;
+
+// Discount data per provider
+const discounts = {
+  'sprout-health': {
+    amount: 150,
+    description: '$150 off your first month',
+    code: 'SPROUT150',
+    validThrough: '2026-12-31'
+  },
+  'medvi': {
+    amount: 120,
+    description: '$120 off your first month',
+    code: 'MEDVI120',
+    validThrough: '2026-12-31'
+  }
+};
+
+const currentDiscount = discounts[provider.slug];
+
+const faqs = [
+  {
+    question: `How much does ${provider.name} cost per month?`,
+    answer: `${provider.name} costs ${provider.monthlyPrice} per month for GLP-1 medications. ${currentDiscount ? `New customers save ${currentDiscount.description}! ` : ''}This includes the consultation fee (${provider.consultationFee}) and membership fee (${provider.membershipFee}).`
+  },
+  {
+    question: `Are there hidden fees with ${provider.name}?`,
+    answer: `${provider.name} is generally transparent about pricing. The main costs include: monthly medication (${provider.monthlyPrice}), consultation fees (${provider.consultationFee}), and membership fees (${provider.membershipFee}). Lab work ${provider.labWork === 'Included' ? 'is included' : 'may cost extra if needed'}.`
+  },
+  {
+    question: `Does ${provider.name} accept HSA/FSA?`,
+    answer: `Many telehealth providers, including ${provider.name}, accept Health Savings Account (HSA) and Flexible Spending Account (FSA) payments for GLP-1 medications prescribed for medical weight loss. Verify with your account administrator.`
+  },
+  {
+    question: `Can I use insurance with ${provider.name}?`,
+    answer: `${provider.name} ${provider.insurance ? 'accepts insurance for prescription medications, which may significantly reduce your out-of-pocket costs' : 'operates on a cash-pay model and does not currently accept insurance'}. ${provider.insuranceConcierge && 'They offer an insurance concierge service to help navigate coverage.'}`
+  },
+  {
+    question: `Is ${provider.name} cheaper than other GLP-1 providers?`,
+    answer: `${provider.name}'s pricing (${provider.monthlyPrice}) is ${provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable' : 'competitively priced'} compared to other telehealth providers. ${currentDiscount ? `Plus, with our exclusive ${currentDiscount.description} offer, you get even better value. ` : ''}Compare with competitors like ${providers.filter(p => p.slug !== provider.slug).slice(0, 2).map(p => p.name).join(' and ')} to find the best value.`
+  }
+];
+
+const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+
+<BaseLayout 
+  title={`${provider.name} Cost: How Much Does It Really Cost? ${new Date().getFullYear()}`}
+  description={`Complete ${provider.name} cost breakdown for ${new Date().getFullYear()}. Monthly pricing (${provider.monthlyPrice}), hidden fees, insurance coverage, and money-saving tips. ${currentDiscount ? currentDiscount.description + ' for new customers!' : ''}`}
+>
+  <style>
+    .article-header {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 60px 24px 40px;
+    }
+    
+    .article-header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .article-header h1 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+    
+    .article-meta {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 24px;
+    }
+    
+    /* Discount Banner */
+    .discount-banner {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      color: white;
+      padding: 24px;
+      border-radius: var(--r);
+      margin: -40px auto 32px;
+      max-width: 900px;
+      position: relative;
+      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
+      border: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    
+    .discount-banner-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    
+    .discount-text {
+      flex: 1;
+      min-width: 250px;
+    }
+    
+    .discount-badge {
+      font-size: 2.5rem;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+    
+    .discount-description {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      margin-bottom: 4px;
+    }
+    
+    .discount-code {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+    
+    .discount-cta {
+      flex-shrink: 0;
+    }
+    
+    .discount-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 32px;
+      background: white;
+      color: #d97706;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      transition: all 0.2s;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    
+    .discount-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+    
+    .content {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+    
+    .content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 48px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .content ul, .content ol {
+      margin: 20px 0;
+      padding-left: 24px;
+    }
+    
+    .content li {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .cost-breakdown {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+      margin: 32px 0;
+    }
+    
+    .cost-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .cost-row:last-child {
+      border-bottom: none;
+      background: var(--bg);
+      font-weight: 600;
+    }
+    
+    .cost-row.discount-row {
+      background: #fef3c7;
+      color: #92400e;
+    }
+    
+    .cost-row.total-savings {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      font-size: 1.1rem;
+    }
+    
+    .cost-label {
+      color: var(--text);
+    }
+    
+    .cost-value {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .cost-row.discount-row .cost-value {
+      color: #92400e;
+    }
+    
+    .cost-row.total-savings .cost-label,
+    .cost-row.total-savings .cost-value {
+      color: white;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      overflow-x: auto;
+      margin: 32px 0;
+    }
+    
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-table th {
+      background: var(--bg);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .highlight-box {
+      background: var(--accent-light);
+      border-left: 4px solid var(--accent);
+      padding: 20px;
+      border-radius: var(--r);
+      margin: 32px 0;
+    }
+    
+    .highlight-box h3 {
+      color: var(--accent-dark);
+      margin: 0 0 8px 0;
+      font-size: 1.2rem;
+    }
+    
+    .highlight-box p {
+      margin: 0;
+      color: var(--text);
+    }
+    
+    /* Inline CTAs */
+    .inline-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: var(--accent);
+      color: white;
+      border-radius: 100px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      margin: 8px 0;
+    }
+    
+    .inline-cta:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      text-decoration: none;
+    }
+    
+    /* Sticky Bottom CTA */
+    .sticky-cta {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      padding: 16px 24px;
+      box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 100;
+      display: none;
+    }
+    
+    .sticky-cta.show {
+      display: block;
+      animation: slideUp 0.3s ease-out;
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+    
+    .sticky-cta-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    
+    .sticky-cta-text {
+      color: white;
+      flex: 1;
+    }
+    
+    .sticky-cta-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+    
+    .sticky-cta-subtitle {
+      font-size: 0.9rem;
+      opacity: 0.9;
+    }
+    
+    .sticky-cta-btn {
+      padding: 14px 28px;
+      background: white;
+      color: #059669;
+      border-radius: 100px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .sticky-cta-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .discount-banner-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .discount-badge {
+        font-size: 2rem;
+      }
+      
+      .sticky-cta-inner {
+        flex-direction: column;
+        text-align: center;
+        gap: 12px;
+      }
+      
+      .sticky-cta-btn {
+        width: 100%;
+      }
+      
+      .content {
+        padding-bottom: 120px;
+      }
+    }
+  </style>
+
+  <div class="article-header">
+    <div class="article-header-inner">
+      <h1>{provider.name} Cost: Complete Pricing Breakdown</h1>
+      <div class="article-meta">
+        Last Updated: {currentDate} | Reviewed by CompareWeightMeds Medical Team
+      </div>
+    </div>
+  </div>
+
+  {currentDiscount && provider.affiliateLink && (
+    <div class="discount-banner">
+      <div class="discount-banner-content">
+        <div class="discount-text">
+          <div class="discount-badge">💰 ${currentDiscount.amount} OFF</div>
+          <div class="discount-description">{currentDiscount.description}</div>
+          <div class="discount-code">Use code: {currentDiscount.code}</div>
+        </div>
+        <div class="discount-cta">
+          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="discount-btn">
+            Claim Discount →
+          </a>
+        </div>
+      </div>
+    </div>
+  )}
+
+  <div class="content">
+    <MedicalDisclaimer />
+    
+    <h2>{provider.name} Cost Breakdown</h2>
+    <p>Understanding the true cost of {provider.name} requires looking beyond the monthly medication price. {currentDiscount && <>Plus, <strong>new customers save {currentDiscount.description}</strong>—read on to see your actual costs!</>} Here's a complete breakdown:</p>
+    
+    <div class="cost-breakdown">
+      <div class="cost-row">
+        <span class="cost-label">Monthly Medication (Regular Price)</span>
+        <span class="cost-value">{provider.monthlyPrice}</span>
+      </div>
+      {currentDiscount && (
+        <div class="cost-row discount-row">
+          <span class="cost-label">🎉 First Month Discount</span>
+          <span class="cost-value">-${currentDiscount.amount}</span>
+        </div>
+      )}
+      <div class="cost-row">
+        <span class="cost-label">Initial Consultation</span>
+        <span class="cost-value">{provider.consultationFee}</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">Membership Fee</span>
+        <span class="cost-value">{provider.membershipFee}</span>
+      </div>
+      <div class="cost-row">
+        <span class="cost-label">Lab Work</span>
+        <span class="cost-value">{provider.labWork}</span>
+      </div>
+      {currentDiscount && (
+        <div class="cost-row total-savings">
+          <span class="cost-label">💵 Your First Month Cost (With Discount)</span>
+          <span class="cost-value">${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'}</span>
+        </div>
+      )}
+      <div class="cost-row">
+        <span class="cost-label">Estimated Total (First Month)</span>
+        <span class="cost-value">{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'} (with discount)` : provider.monthlyPrice}</span>
+      </div>
+    </div>
+    
+    {currentDiscount && provider.affiliateLink && (
+      <div style="text-align: center; margin: 32px 0;">
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="inline-cta">
+          💰 Claim ${currentDiscount.amount} Off Now →
+        </a>
+      </div>
+    )}
+    
+    <h2>What's Included in {provider.name} Price?</h2>
+    <p>Your {provider.name} subscription includes:</p>
+    <ul>
+      <li>💊 {provider.compounded ? 'Compounded' : 'Brand-name'} GLP-1 medication ({provider.medications[0]})</li>
+      <li>👨‍⚕️ {provider.telehealth ? 'Telehealth consultation with licensed provider' : 'Medical review by healthcare professional'}</li>
+      <li>📦 Shipping and cold-chain packaging</li>
+      <li>💉 Syringes, needles, and alcohol wipes (for injectables)</li>
+      <li>📞 {provider.support247 ? '24/7 customer support' : 'Customer support via email/chat'}</li>
+      {provider.coaching && <li>🎯 Lifestyle coaching and support</li>}
+      {provider.moneyBackGuarantee && <li>💰 Money-back guarantee (conditions apply)</li>}
+    </ul>
+    
+    <h2>Compare {provider.name} Cost with Competitors</h2>
+    <p>Here's how {provider.name}'s pricing compares to other popular GLP-1 telehealth providers:</p>
+    
+    <div class="comparison-table">
+      <table>
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Monthly Cost</th>
+            <th>Type</th>
+            <th>Details</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background: var(--accent-light);">
+            <td><strong>{provider.name}</strong></td>
+            <td><strong>{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : provider.monthlyPrice} (first month)` : provider.monthlyPrice}</strong></td>
+            <td>{provider.compounded ? 'Compounded' : 'Brand Name'}</td>
+            <td><a href={`/reviews/${provider.slug}/`}>Full Review</a></td>
+          </tr>
+          {providers.filter(p => p.slug !== provider.slug).slice(0, 4).map(p => (
+            <tr>
+              <td>{p.name}</td>
+              <td>{p.monthlyPrice}</td>
+              <td>{p.compounded ? 'Compounded' : 'Brand Name'}</td>
+              <td><a href={`/reviews/${p.slug}/`}>Full Review</a></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    
+    <h2>Ways to Reduce {provider.name} Costs</h2>
+    
+    {currentDiscount && provider.affiliateLink && (
+      <>
+        <h3>1. Use Our Exclusive ${currentDiscount.amount} Discount</h3>
+        <p>New customers can save {currentDiscount.description} when signing up through our link. This drops your first month cost from {provider.monthlyPrice} to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'significantly less'}—that's over {provider.slug === 'medvi' ? '67' : Math.round((currentDiscount.amount / (provider.monthlyPrice.includes('$199') ? 199 : 299)) * 100)}% off!</p>
+        <div style="margin: 16px 0;">
+          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="inline-cta">
+            Get ${currentDiscount.amount} Off →
+          </a>
+        </div>
+      </>
+    )}
+    
+    <h3>{currentDiscount ? '2' : '1'}. Use HSA/FSA Funds</h3>
+    <p>If your GLP-1 prescription is for medical weight loss (not cosmetic), you may be able to use pre-tax HSA or FSA dollars to pay for {provider.name}.</p>
+    
+    {provider.insurance && (
+      <>
+        <h3>{currentDiscount ? '3' : '2'}. Explore Insurance Coverage</h3>
+        <p>{provider.name} accepts insurance for prescriptions. While GLP-1 coverage varies by plan, using insurance can reduce your monthly costs from {provider.monthlyPrice} to as low as $25-50 copay.</p>
+      </>
+    )}
+    
+    <h3>{currentDiscount ? (provider.insurance ? '4' : '3') : (provider.insurance ? '3' : '2')}. Compare Compounded vs Brand Name</h3>
+    <p>{provider.compounded ? 
+      `${provider.name} uses compounded medications, which cost 50-70% less than brand names like Wegovy ($1,349/month) or Zepbound ($1,059/month).` :
+      `${provider.name} offers brand-name medications. If cost is a concern, consider compounded alternatives from providers like ${providers.filter(p => p.compounded).slice(0, 2).map(p => p.name).join(' or ')}.`
+    }</p>
+    
+    {currentDiscount && (
+      <div class="highlight-box">
+        <h3>💡 Limited-Time Offer</h3>
+        <p><strong>{currentDiscount.description}</strong> for new {provider.name} customers. This exclusive discount brings your first month cost down to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'under $150'}—the lowest price available anywhere.</p>
+      </div>
+    )}
+    
+    <h2>Is {provider.name} Worth the Cost?</h2>
+    <p>Whether {provider.name} is worth {currentDiscount ? `${provider.monthlyPrice} (or ${provider.monthlyPrice.includes('$199') ? '$49' : '$149'} with our discount)` : provider.monthlyPrice} depends on your priorities:</p>
+    
+    <ul>
+      <li><strong>If you want affordability:</strong> {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? `${provider.name} is among the cheapest options${currentDiscount ? `, and with our ${currentDiscount.description}, it's the best value available` : ''}` : `Compare with ${providers.filter(p => p.monthlyPrice.includes('$199') || p.monthlyPrice.includes('$179')).slice(0, 2).map(p => p.name).join(' or ')} for lower pricing`}</li>
+      <li><strong>If you want brand names:</strong> {provider.brandName ? `${provider.name} offers FDA-approved medications` : `Consider ${providers.filter(p => p.brandName).slice(0, 2).map(p => p.name).join(' or ')} for brand-name options`}</li>
+      <li><strong>If you want support:</strong> {provider.coaching || provider.support247 ? `${provider.name} includes ${provider.coaching ? 'coaching' : '24/7 support'}` : `Consider ${providers.filter(p => p.coaching || p.support247).slice(0, 2).map(p => p.name).join(' or ')} for more support`}</li>
+    </ul>
+    
+    <FAQSection faqs={faqs} />
+    
+    <h2>Bottom Line on {provider.name} Cost</h2>
+    <p>{provider.name}'s pricing of {provider.monthlyPrice} per month is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable in the GLP-1 telehealth market' : 'competitive with other telehealth providers'}. {currentDiscount && <>And with our exclusive {currentDiscount.description}, you'll pay just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : '$149'} for your first month—making it one of the most affordable ways to start your weight loss journey.</> }</p>
+    
+    <p>With {provider.consultationFee} consultation fees and {provider.membershipFee} membership costs, the total investment is transparent and predictable. For most patients, the cost of {provider.name} is offset by effective weight loss results, improved health markers, and potential savings on future medical expenses related to obesity.</p>
+    
+    <div style="text-align: center; margin-top: 48px;">
+      {provider.affiliateLink && (
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">
+          {currentDiscount ? `Get Started for $${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : '149'} →` : `Check ${provider.name} Current Pricing →`}
+        </a>
+      )}
+    </div>
+  </div>
+
+  {/* Sticky Bottom CTA */}
+  {currentDiscount && provider.affiliateLink && (
+    <div class="sticky-cta" id="stickyCta">
+      <div class="sticky-cta-inner">
+        <div class="sticky-cta-text">
+          <div class="sticky-cta-title">💰 Save {currentDiscount.description}</div>
+          <div class="sticky-cta-subtitle">Limited time offer for new {provider.name} customers</div>
+        </div>
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="sticky-cta-btn">
+          Claim Discount
+        </a>
+      </div>
+    </div>
+  )}
+
+  <script>
+    // Show sticky CTA after scrolling
+    const stickyCta = document.getElementById('stickyCta');
+    if (stickyCta) {
+      let lastScroll = 0;
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.pageYOffset;
+        if (currentScroll > 500) {
+          stickyCta.classList.add('show');
+        } else {
+          stickyCta.classList.remove('show');
+        }
+        lastScroll = currentScroll;
+      });
+    }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "MedicalWebPage",
+    "name": "{provider.name} Cost: Complete Pricing Breakdown ${new Date().getFullYear()}",
+    "datePublished": "{new Date().toISOString()}",
+    "dateModified": "{new Date().toISOString()}",
+    "reviewedBy": {
+      "@type": "Organization",
+      "name": "CompareWeightMeds Medical Team"
+    }
+  }
+  </script>
+</BaseLayout>

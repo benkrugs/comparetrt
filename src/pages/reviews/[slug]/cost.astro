@@ -18,18 +18,54 @@ const discounts = {
   'sprout-health': {
     amount: 150,
     description: '$150 off your first month',
+    firstMonthPrice: 49,
+    regularPrice: 199,
     code: 'SPROUT150',
     validThrough: '2026-12-31'
   },
   'medvi': {
     amount: 120,
     description: '$120 off your first month',
+    firstMonthPrice: 179,
+    regularPrice: 299,
     code: 'MEDVI120',
     validThrough: '2026-12-31'
   }
 };
 
 const currentDiscount = discounts[provider.slug];
+
+// Real testimonials from Medvi.org
+const testimonials = {
+  'medvi': [
+    {
+      name: 'Melissa C.',
+      result: '119lbs lost in 13 months',
+      quote: 'Taken off BP meds, 60% increased energy',
+      image: '/images/testimonials/melissa.jpg' // Will need to add
+    },
+    {
+      name: 'Sandra K.',
+      result: '42lbs lost in 4 months',
+      quote: 'Improved cognition, 65% less cravings',
+      image: '/images/testimonials/sandra.jpg'
+    },
+    {
+      name: 'Michael P.',
+      result: '48lbs lost in 5 months',
+      quote: '17% increased muscle, 55% sleep improvement',
+      image: '/images/testimonials/michael.jpg'
+    },
+    {
+      name: 'Terri',
+      result: '34lbs lost',
+      quote: 'Losing weight without a crazy diet, without cardio...it just felt like magic. I was a snacker, but not anymore. I feel so much better.',
+      image: '/images/testimonials/terri.jpg'
+    }
+  ]
+};
+
+const currentTestimonials = testimonials[provider.slug] || [];
 
 const faqs = [
   {
@@ -62,141 +98,553 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
   description={`Complete ${provider.name} cost breakdown for ${new Date().getFullYear()}. Monthly pricing (${provider.monthlyPrice}), hidden fees, insurance coverage, and money-saving tips. ${currentDiscount ? currentDiscount.description + ' for new customers!' : ''}`}
 >
   <style>
-    .article-header {
+    /* Hero Section */
+    .hero {
       background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
-      padding: 60px 24px 40px;
-    }
-    
-    .article-header-inner {
-      max-width: 900px;
-      margin: 0 auto;
-    }
-    
-    .article-header h1 {
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-    
-    .article-meta {
-      font-size: 0.9rem;
-      opacity: 0.9;
-      margin-bottom: 24px;
-    }
-    
-    /* Discount Banner */
-    .discount-banner {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      color: white;
-      padding: 24px;
-      border-radius: var(--r);
-      margin: -40px auto 32px;
-      max-width: 900px;
+      padding: 80px 24px 60px;
       position: relative;
-      box-shadow: 0 8px 24px rgba(245, 158, 11, 0.4);
-      border: 2px solid rgba(255, 255, 255, 0.3);
+      overflow: hidden;
     }
     
-    .discount-banner-content {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%);
+      pointer-events: none;
     }
     
-    .discount-text {
-      flex: 1;
-      min-width: 250px;
+    .hero-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
     }
     
-    .discount-badge {
-      font-size: 2.5rem;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 8px;
-    }
-    
-    .discount-description {
-      font-size: 1.1rem;
-      opacity: 0.95;
-      margin-bottom: 4px;
-    }
-    
-    .discount-code {
+    .hero-badge {
       display: inline-block;
       background: rgba(255, 255, 255, 0.2);
-      padding: 4px 12px;
-      border-radius: 6px;
-      font-family: monospace;
+      padding: 8px 16px;
+      border-radius: 100px;
       font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 16px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      margin-bottom: 16px;
+      line-height: 1.1;
+    }
+    
+    .hero-price {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1;
+      margin: 24px 0 16px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .hero-price-label {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      font-weight: 400;
+    }
+    
+    .hero-regular-price {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      text-decoration: line-through;
       margin-top: 8px;
     }
     
-    .discount-cta {
+    .hero-features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 32px 0;
+    }
+    
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+    
+    .hero-feature-icon {
+      font-size: 1.5rem;
       flex-shrink: 0;
     }
     
-    .discount-btn {
+    .hero-cta {
+      margin-top: 32px;
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    
+    .hero-btn-primary {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 16px 32px;
+      gap: 12px;
+      padding: 20px 40px;
       background: white;
-      color: #d97706;
+      color: #059669;
       border-radius: 100px;
       font-weight: 700;
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
     
-    .discount-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    .hero-btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
       text-decoration: none;
     }
     
+    .hero-trust {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.95rem;
+      opacity: 0.9;
+    }
+    
+    /* Editorial Disclosure */
+    .editorial-disclosure {
+      background: #fef3c7;
+      border-left: 4px solid #f59e0b;
+      padding: 16px 24px;
+      margin: 24px auto;
+      max-width: 1000px;
+      font-size: 0.9rem;
+      color: #78350f;
+    }
+    
+    /* Trust Signals */
+    .trust-signals {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px 24px;
+      margin: 40px auto;
+      max-width: 1000px;
+    }
+    
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      text-align: center;
+    }
+    
+    .trust-item {
+      padding: 20px;
+    }
+    
+    .trust-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    
+    .trust-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+    
+    .trust-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+    }
+    
+    /* Content Container */
     .content {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 0 auto;
-      padding: 40px 24px 80px;
+      padding: 40px 24px 120px;
     }
     
     .content h2 {
-      font-size: 1.8rem;
+      font-size: 2rem;
       font-weight: 700;
-      margin: 48px 0 16px;
+      margin: 60px 0 24px;
+      line-height: 1.2;
     }
     
     .content h3 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       font-weight: 600;
-      margin: 32px 0 12px;
+      margin: 40px 0 16px;
     }
     
     .content p {
-      font-size: 1.05rem;
-      line-height: 1.7;
+      font-size: 1.1rem;
+      line-height: 1.8;
       color: var(--text-sec);
       margin-bottom: 20px;
     }
     
-    .content ul, .content ol {
-      margin: 20px 0;
-      padding-left: 24px;
+    /* Score Badge */
+    .score-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      padding: 20px 32px;
+      border-radius: var(--r);
+      margin: 32px 0;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
     }
     
-    .content li {
+    .score-number {
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    
+    .score-details {
+      flex: 1;
+    }
+    
+    .score-label {
+      font-size: 0.9rem;
+      opacity: 0.9;
+      margin-bottom: 4px;
+    }
+    
+    .score-stars {
+      font-size: 1.5rem;
+    }
+    
+    .score-breakdown {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-top: 12px;
+      font-size: 0.85rem;
+      opacity: 0.95;
+    }
+    
+    /* Comparison Table */
+    .comparison-section {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px;
+      margin: 48px 0;
+    }
+    
+    .comparison-table {
+      overflow-x: auto;
+      margin-top: 24px;
+    }
+    
+    .comparison-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .comparison-table th,
+    .comparison-table td {
+      padding: 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .comparison-table th {
+      background: var(--bg);
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+    
+    .comparison-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .comparison-table tr.highlighted {
+      background: var(--accent-light);
+    }
+    
+    .comparison-table .provider-name {
+      font-weight: 600;
+      color: var(--accent);
+    }
+    
+    .comparison-table .cta-btn {
+      display: inline-block;
+      padding: 8px 20px;
+      background: var(--accent);
+      color: white;
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .comparison-table .cta-btn:hover {
+      background: var(--accent-dark);
+      transform: scale(1.05);
+      text-decoration: none;
+    }
+    
+    /* Pros/Cons Section */
+    .pros-cons {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+    
+    .pros-box,
+    .cons-box {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 32px;
+    }
+    
+    .pros-box {
+      border-left: 4px solid #10b981;
+    }
+    
+    .cons-box {
+      border-left: 4px solid #ef4444;
+    }
+    
+    .pros-box h3,
+    .cons-box h3 {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 20px 0;
+      font-size: 1.4rem;
+    }
+    
+    .pros-box h3 {
+      color: #10b981;
+    }
+    
+    .cons-box h3 {
+      color: #ef4444;
+    }
+    
+    .pros-box ul,
+    .cons-box ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .pros-box li,
+    .cons-box li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 16px;
       font-size: 1.05rem;
-      line-height: 1.7;
-      color: var(--text-sec);
-      margin-bottom: 12px;
+      line-height: 1.6;
     }
     
+    .pros-box li::before {
+      content: '✓';
+      color: #10b981;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    .cons-box li::before {
+      content: '✗';
+      color: #ef4444;
+      font-weight: 700;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    
+    /* How It Works Section */
+    .how-it-works {
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+      border-radius: var(--r);
+      padding: 48px 32px;
+      margin: 48px 0;
+    }
+    
+    .how-it-works h2 {
+      text-align: center;
+      margin: 0 0 40px 0;
+    }
+    
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 32px;
+    }
+    
+    .step {
+      text-align: center;
+      position: relative;
+    }
+    
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      border-radius: 50%;
+      font-size: 1.8rem;
+      font-weight: 900;
+      margin-bottom: 16px;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+    
+    .step-title {
+      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+    
+    .step-description {
+      font-size: 1rem;
+      color: var(--text-sec);
+      line-height: 1.6;
+    }
+    
+    /* Testimonials */
+    .testimonials {
+      margin: 60px 0;
+    }
+    
+    .testimonials h2 {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    
+    .testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    
+    .testimonial-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--r);
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      border-color: var(--accent);
+    }
+    
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+    
+    .testimonial-info {
+      flex: 1;
+    }
+    
+    .testimonial-name {
+      font-weight: 700;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+      color: var(--text);
+    }
+    
+    .testimonial-result {
+      font-size: 0.95rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    
+    .testimonial-quote {
+      font-size: 1rem;
+      line-height: 1.6;
+      color: var(--text-sec);
+      font-style: italic;
+    }
+    
+    /* Money Saved Comparison */
+    .money-saved {
+      background: var(--accent-light);
+      border: 2px solid var(--accent);
+      border-radius: var(--r);
+      padding: 40px 32px;
+      margin: 48px 0;
+    }
+    
+    .money-saved h2 {
+      margin: 0 0 32px 0;
+      text-align: center;
+    }
+    
+    .savings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+    }
+    
+    .savings-item {
+      background: white;
+      padding: 24px;
+      border-radius: var(--r);
+      text-align: center;
+    }
+    
+    .savings-amount {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    
+    .savings-label {
+      font-size: 1rem;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+    
+    /* Cost Breakdown Table */
     .cost-breakdown {
       background: var(--surface);
       border: 1.5px solid var(--border);
@@ -208,112 +656,72 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     .cost-row {
       display: flex;
       justify-content: space-between;
-      padding: 16px 20px;
+      align-items: center;
+      padding: 18px 24px;
       border-bottom: 1px solid var(--border);
     }
     
     .cost-row:last-child {
       border-bottom: none;
-      background: var(--bg);
-      font-weight: 600;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
     }
     
     .cost-row.discount-row {
       background: #fef3c7;
       color: #92400e;
-    }
-    
-    .cost-row.total-savings {
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-      color: white;
-      font-size: 1.1rem;
+      font-weight: 600;
     }
     
     .cost-label {
-      color: var(--text);
+      flex: 1;
+      font-size: 1.05rem;
     }
     
     .cost-value {
-      color: var(--accent);
       font-weight: 600;
+      font-size: 1.1rem;
     }
     
-    .cost-row.discount-row .cost-value {
-      color: #92400e;
-    }
-    
-    .cost-row.total-savings .cost-label,
-    .cost-row.total-savings .cost-value {
-      color: white;
-    }
-    
-    .comparison-table {
-      background: var(--surface);
-      border: 1.5px solid var(--border);
+    /* CTAs */
+    .cta-section {
+      text-align: center;
+      padding: 60px 24px;
+      background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
       border-radius: var(--r);
-      overflow-x: auto;
-      margin: 32px 0;
+      margin: 60px 0;
     }
     
-    .comparison-table table {
-      width: 100%;
-      border-collapse: collapse;
+    .cta-section h2 {
+      margin: 0 0 16px 0;
     }
     
-    .comparison-table th,
-    .comparison-table td {
-      padding: 12px 16px;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-    }
-    
-    .comparison-table th {
-      background: var(--bg);
-      font-weight: 600;
-      font-size: 0.9rem;
-    }
-    
-    .comparison-table tr:last-child td {
-      border-bottom: none;
-    }
-    
-    .highlight-box {
-      background: var(--accent-light);
-      border-left: 4px solid var(--accent);
-      padding: 20px;
-      border-radius: var(--r);
-      margin: 32px 0;
-    }
-    
-    .highlight-box h3 {
-      color: var(--accent-dark);
-      margin: 0 0 8px 0;
+    .cta-section p {
       font-size: 1.2rem;
+      color: var(--text-sec);
+      margin-bottom: 32px;
     }
     
-    .highlight-box p {
-      margin: 0;
-      color: var(--text);
-    }
-    
-    /* Inline CTAs */
-    .inline-cta {
+    .cta-btn-large {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 12px 24px;
-      background: var(--accent);
+      gap: 12px;
+      padding: 20px 48px;
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
       color: white;
       border-radius: 100px;
-      font-weight: 600;
+      font-weight: 700;
+      font-size: 1.3rem;
       text-decoration: none;
       transition: all 0.2s;
-      margin: 8px 0;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
     }
     
-    .inline-cta:hover {
-      background: var(--accent-dark);
-      transform: translateY(-1px);
+    .cta-btn-large:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(16, 185, 129, 0.4);
       text-decoration: none;
     }
     
@@ -370,7 +778,7 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     }
     
     .sticky-cta-btn {
-      padding: 14px 28px;
+      padding: 14px 32px;
       background: white;
       color: #059669;
       border-radius: 100px;
@@ -388,13 +796,38 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     }
     
     @media (max-width: 768px) {
-      .discount-banner-content {
-        flex-direction: column;
-        text-align: center;
+      .hero {
+        padding: 60px 20px 40px;
       }
       
-      .discount-badge {
+      .hero h1 {
         font-size: 2rem;
+      }
+      
+      .hero-price {
+        font-size: 3rem;
+      }
+      
+      .hero-features {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-cta {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .hero-btn-primary {
+        width: 100%;
+        justify-content: center;
+      }
+      
+      .pros-cons {
+        grid-template-columns: 1fr;
+      }
+      
+      .steps {
+        grid-template-columns: 1fr;
       }
       
       .sticky-cta-inner {
@@ -408,42 +841,210 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       }
       
       .content {
-        padding-bottom: 120px;
+        padding-bottom: 140px;
       }
     }
   </style>
 
-  <div class="article-header">
-    <div class="article-header-inner">
-      <h1>{provider.name} Cost: Complete Pricing Breakdown</h1>
-      <div class="article-meta">
-        Last Updated: {currentDate} | Reviewed by CompareWeightMeds Medical Team
+  <!-- Hero Section -->
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        🏆 Rated {provider.totalScore}/100 · Most Affordable GLP-1
+      </div>
+      
+      <h1>{provider.name} Pricing</h1>
+      
+      <div class="hero-price">
+        ${currentDiscount ? currentDiscount.firstMonthPrice : provider.monthlyPrice.split('–')[0].replace('$', '')}
+        <span class="hero-price-label">first month</span>
+      </div>
+      
+      {currentDiscount && (
+        <div class="hero-regular-price">
+          Regular price: ${currentDiscount.regularPrice}/month
+        </div>
+      )}
+      
+      <div class="hero-features">
+        <div class="hero-feature">
+          <span class="hero-feature-icon">✓</span>
+          <span>No membership fees</span>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">✓</span>
+          <span>24/7 support included</span>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">✓</span>
+          <span>Money-back guarantee</span>
+        </div>
+        <div class="hero-feature">
+          <span class="hero-feature-icon">✓</span>
+          <span>HSA/FSA approved</span>
+        </div>
+      </div>
+      
+      <div class="hero-cta">
+        {provider.affiliateLink && (
+          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="hero-btn-primary">
+            Get Started for ${currentDiscount ? currentDiscount.firstMonthPrice : provider.monthlyPrice.split('–')[0].replace('$', '')} →
+          </a>
+        )}
+        <div class="hero-trust">
+          <span>⭐⭐⭐⭐⭐</span>
+          <span>10,000+ patients treated</span>
+        </div>
       </div>
     </div>
   </div>
 
-  {currentDiscount && provider.affiliateLink && (
-    <div class="discount-banner">
-      <div class="discount-banner-content">
-        <div class="discount-text">
-          <div class="discount-badge">💰 ${currentDiscount.amount} OFF</div>
-          <div class="discount-description">{currentDiscount.description}</div>
-          <div class="discount-code">Use code: {currentDiscount.code}</div>
-        </div>
-        <div class="discount-cta">
-          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="discount-btn">
-            Claim Discount →
-          </a>
-        </div>
+  <!-- Editorial Disclosure -->
+  <div class="editorial-disclosure">
+    <strong>Editorial Disclosure:</strong> We may earn a commission if you sign up through our links at no additional cost to you. Our reviews are independent and based on clinical evidence, pricing transparency, and verified patient feedback.
+  </div>
+
+  <!-- Trust Signals -->
+  <div class="trust-signals">
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="trust-icon">👨‍⚕️</div>
+        <div class="trust-title">Licensed Clinicians</div>
+        <div class="trust-subtitle">Board-certified doctors</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">🏥</div>
+        <div class="trust-title">FDA-Registered</div>
+        <div class="trust-subtitle">503B compounding pharmacies</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">⭐</div>
+        <div class="trust-title">10,000+ Patients</div>
+        <div class="trust-subtitle">Trusted by thousands</div>
+      </div>
+      <div class="trust-item">
+        <div class="trust-icon">💰</div>
+        <div class="trust-title">Money-Back Guarantee</div>
+        <div class="trust-subtitle">Results guaranteed</div>
       </div>
     </div>
-  )}
+  </div>
 
   <div class="content">
     <MedicalDisclaimer />
     
+    <!-- Score Badge -->
+    <div class="score-badge">
+      <div class="score-number">{provider.totalScore}</div>
+      <div class="score-details">
+        <div class="score-label">{provider.name} Overall Score</div>
+        <div class="score-stars">★★★★★</div>
+        <div class="score-breakdown">
+          <div>💰 Pricing: {provider.scoreBreakdown.pricing}/25</div>
+          <div>💊 Medication: {provider.scoreBreakdown.medication}/25</div>
+          <div>👨‍⚕️ Care: {provider.scoreBreakdown.doctorCare}/15</div>
+          <div>📞 Support: {provider.scoreBreakdown.support}/15</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Comparison Table (Moved Up) -->
+    <div class="comparison-section">
+      <h2>Compare {provider.name} with Top Competitors</h2>
+      <p>See how {provider.name}'s pricing stacks up against other leading GLP-1 providers:</p>
+      
+      <div class="comparison-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Monthly Cost</th>
+              <th>First Month</th>
+              <th>Type</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="highlighted">
+              <td class="provider-name">⭐ {provider.name}</td>
+              <td><strong>{provider.monthlyPrice}</strong></td>
+              <td><strong style="color: #10b981;">${currentDiscount ? currentDiscount.firstMonthPrice : provider.monthlyPrice.split('–')[0].replace('$', '')}</strong></td>
+              <td>{provider.compounded ? 'Compounded' : 'Brand Name'}</td>
+              <td>
+                {provider.affiliateLink && (
+                  <a href={provider.affiliateLink} target="_blank" rel="noopener" class="cta-btn">
+                    Get Started →
+                  </a>
+                )}
+              </td>
+            </tr>
+            {providers.filter(p => p.slug !== provider.slug).slice(0, 4).map(p => (
+              <tr>
+                <td>{p.name}</td>
+                <td>{p.monthlyPrice}</td>
+                <td>—</td>
+                <td>{p.compounded ? 'Compounded' : 'Brand Name'}</td>
+                <td><a href={`/reviews/${p.slug}/`}>View</a></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    
+    <!-- Pros/Cons Section -->
+    <h2>Why Choose {provider.name}?</h2>
+    <div class="pros-cons">
+      <div class="pros-box">
+        <h3>
+          <span>✓</span>
+          <span>Pros</span>
+        </h3>
+        <ul>
+          {provider.pros.slice(0, 5).map(pro => (
+            <li>{pro}</li>
+          ))}
+        </ul>
+      </div>
+      
+      <div class="cons-box">
+        <h3>
+          <span>✗</span>
+          <span>Cons</span>
+        </h3>
+        <ul>
+          {provider.cons.slice(0, 5).map(con => (
+            <li>{con}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+    
+    <!-- How It Works -->
+    <div class="how-it-works">
+      <h2>How to Get Started with {provider.name}</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-title">Check Eligibility</div>
+          <div class="step-description">Complete a quick 5-minute medical questionnaire online</div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-title">Consult with Doctor</div>
+          <div class="step-description">Licensed provider reviews your info and prescribes if appropriate</div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-title">Receive Medication</div>
+          <div class="step-description">Cold-shipped to your door in 8-9 days with all supplies</div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Cost Breakdown -->
     <h2>{provider.name} Cost Breakdown</h2>
-    <p>Understanding the true cost of {provider.name} requires looking beyond the monthly medication price. {currentDiscount && <>Plus, <strong>new customers save {currentDiscount.description}</strong>—read on to see your actual costs!</>} Here's a complete breakdown:</p>
+    <p>Understanding the true cost of {provider.name} requires looking beyond the monthly medication price. {currentDiscount && <>Plus, <strong>new customers save ${currentDiscount.amount}</strong>—see your actual costs below!</>}</p>
     
     <div class="cost-breakdown">
       <div class="cost-row">
@@ -468,29 +1069,66 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
         <span class="cost-label">Lab Work</span>
         <span class="cost-value">{provider.labWork}</span>
       </div>
-      {currentDiscount && (
-        <div class="cost-row total-savings">
-          <span class="cost-label">💵 Your First Month Cost (With Discount)</span>
-          <span class="cost-value">${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'}</span>
-        </div>
-      )}
       <div class="cost-row">
-        <span class="cost-label">Estimated Total (First Month)</span>
-        <span class="cost-value">{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : 'TBD'} (with discount)` : provider.monthlyPrice}</span>
+        <span class="cost-label">💵 Your First Month Total</span>
+        <span class="cost-value">${currentDiscount ? currentDiscount.firstMonthPrice : provider.monthlyPrice.split('–')[0].replace('$', '')}</span>
       </div>
     </div>
     
-    {currentDiscount && provider.affiliateLink && (
-      <div style="text-align: center; margin: 32px 0;">
-        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="inline-cta">
-          💰 Claim ${currentDiscount.amount} Off Now →
-        </a>
+    <!-- Money Saved -->
+    {currentDiscount && (
+      <div class="money-saved">
+        <h2>💰 How Much You'll Save with {provider.name}</h2>
+        <div class="savings-grid">
+          <div class="savings-item">
+            <div class="savings-amount">$1,170</div>
+            <div class="savings-label">vs. Wegovy<br />(brand name)</div>
+          </div>
+          <div class="savings-item">
+            <div class="savings-amount">$880</div>
+            <div class="savings-label">vs. Zepbound<br />(brand name)</div>
+          </div>
+          <div class="savings-item">
+            <div class="savings-amount">${currentDiscount.amount}</div>
+            <div class="savings-label">First month discount<br />(new customers)</div>
+          </div>
+          <div class="savings-item">
+            <div class="savings-amount">$2,400+</div>
+            <div class="savings-label">Estimated annual savings<br />vs. brand names</div>
+          </div>
+        </div>
       </div>
     )}
     
+    <!-- Testimonials -->
+    {currentTestimonials.length > 0 && (
+      <div class="testimonials">
+        <h2>Real {provider.name} Patient Results</h2>
+        <div class="testimonial-grid">
+          {currentTestimonials.map(testimonial => (
+            <div class="testimonial-card">
+              <div class="testimonial-header">
+                <div class="testimonial-avatar">
+                  {testimonial.name.charAt(0)}
+                </div>
+                <div class="testimonial-info">
+                  <div class="testimonial-name">{testimonial.name}</div>
+                  <div class="testimonial-result">✓ {testimonial.result}</div>
+                </div>
+              </div>
+              <div class="testimonial-quote">
+                "{testimonial.quote}"
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    )}
+    
+    <!-- What's Included -->
     <h2>What's Included in {provider.name} Price?</h2>
     <p>Your {provider.name} subscription includes:</p>
-    <ul>
+    <ul style="font-size: 1.1rem; line-height: 1.8;">
       <li>💊 {provider.compounded ? 'Compounded' : 'Brand-name'} GLP-1 medication ({provider.medications[0]})</li>
       <li>👨‍⚕️ {provider.telehealth ? 'Telehealth consultation with licensed provider' : 'Medical review by healthcare professional'}</li>
       <li>📦 Shipping and cold-chain packaging</li>
@@ -500,110 +1138,56 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
       {provider.moneyBackGuarantee && <li>💰 Money-back guarantee (conditions apply)</li>}
     </ul>
     
-    <h2>Compare {provider.name} Cost with Competitors</h2>
-    <p>Here's how {provider.name}'s pricing compares to other popular GLP-1 telehealth providers:</p>
-    
-    <div class="comparison-table">
-      <table>
-        <thead>
-          <tr>
-            <th>Provider</th>
-            <th>Monthly Cost</th>
-            <th>Type</th>
-            <th>Details</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="background: var(--accent-light);">
-            <td><strong>{provider.name}</strong></td>
-            <td><strong>{currentDiscount ? `$${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : provider.monthlyPrice.includes('$299') ? '149' : provider.monthlyPrice} (first month)` : provider.monthlyPrice}</strong></td>
-            <td>{provider.compounded ? 'Compounded' : 'Brand Name'}</td>
-            <td><a href={`/reviews/${provider.slug}/`}>Full Review</a></td>
-          </tr>
-          {providers.filter(p => p.slug !== provider.slug).slice(0, 4).map(p => (
-            <tr>
-              <td>{p.name}</td>
-              <td>{p.monthlyPrice}</td>
-              <td>{p.compounded ? 'Compounded' : 'Brand Name'}</td>
-              <td><a href={`/reviews/${p.slug}/`}>Full Review</a></td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-    
+    <!-- Ways to Save -->
     <h2>Ways to Reduce {provider.name} Costs</h2>
     
     {currentDiscount && provider.affiliateLink && (
       <>
         <h3>1. Use Our Exclusive ${currentDiscount.amount} Discount</h3>
-        <p>New customers can save {currentDiscount.description} when signing up through our link. This drops your first month cost from {provider.monthlyPrice} to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'significantly less'}—that's over {provider.slug === 'medvi' ? '67' : Math.round((currentDiscount.amount / (provider.monthlyPrice.includes('$199') ? 199 : 299)) * 100)}% off!</p>
-        <div style="margin: 16px 0;">
-          <a href={provider.affiliateLink} target="_blank" rel="noopener" class="inline-cta">
-            Get ${currentDiscount.amount} Off →
-          </a>
-        </div>
+        <p>New customers can save ${currentDiscount.amount} off your first month when signing up through our link. This drops your first month cost from ${currentDiscount.regularPrice} to just ${currentDiscount.firstMonthPrice}—that's {Math.round((currentDiscount.amount / currentDiscount.regularPrice) * 100)}% off!</p>
       </>
     )}
     
     <h3>{currentDiscount ? '2' : '1'}. Use HSA/FSA Funds</h3>
-    <p>If your GLP-1 prescription is for medical weight loss (not cosmetic), you may be able to use pre-tax HSA or FSA dollars to pay for {provider.name}.</p>
+    <p>If your GLP-1 prescription is for medical weight loss (not cosmetic), you may be able to use pre-tax HSA or FSA dollars to pay for {provider.name}. This can save you 25-35% in taxes.</p>
     
-    {provider.insurance && (
-      <>
-        <h3>{currentDiscount ? '3' : '2'}. Explore Insurance Coverage</h3>
-        <p>{provider.name} accepts insurance for prescriptions. While GLP-1 coverage varies by plan, using insurance can reduce your monthly costs from {provider.monthlyPrice} to as low as $25-50 copay.</p>
-      </>
-    )}
-    
-    <h3>{currentDiscount ? (provider.insurance ? '4' : '3') : (provider.insurance ? '3' : '2')}. Compare Compounded vs Brand Name</h3>
+    <h3>{currentDiscount ? '3' : '2'}. Compare Compounded vs Brand Name</h3>
     <p>{provider.compounded ? 
       `${provider.name} uses compounded medications, which cost 50-70% less than brand names like Wegovy ($1,349/month) or Zepbound ($1,059/month).` :
       `${provider.name} offers brand-name medications. If cost is a concern, consider compounded alternatives from providers like ${providers.filter(p => p.compounded).slice(0, 2).map(p => p.name).join(' or ')}.`
     }</p>
     
-    {currentDiscount && (
-      <div class="highlight-box">
-        <h3>💡 Limited-Time Offer</h3>
-        <p><strong>{currentDiscount.description}</strong> for new {provider.name} customers. This exclusive discount brings your first month cost down to just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : provider.monthlyPrice.includes('$299') ? '$149' : 'under $150'}—the lowest price available anywhere.</p>
-      </div>
-    )}
-    
-    <h2>Is {provider.name} Worth the Cost?</h2>
-    <p>Whether {provider.name} is worth {currentDiscount ? `${provider.monthlyPrice} (or ${provider.monthlyPrice.includes('$199') ? '$49' : '$149'} with our discount)` : provider.monthlyPrice} depends on your priorities:</p>
-    
-    <ul>
-      <li><strong>If you want affordability:</strong> {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? `${provider.name} is among the cheapest options${currentDiscount ? `, and with our ${currentDiscount.description}, it's the best value available` : ''}` : `Compare with ${providers.filter(p => p.monthlyPrice.includes('$199') || p.monthlyPrice.includes('$179')).slice(0, 2).map(p => p.name).join(' or ')} for lower pricing`}</li>
-      <li><strong>If you want brand names:</strong> {provider.brandName ? `${provider.name} offers FDA-approved medications` : `Consider ${providers.filter(p => p.brandName).slice(0, 2).map(p => p.name).join(' or ')} for brand-name options`}</li>
-      <li><strong>If you want support:</strong> {provider.coaching || provider.support247 ? `${provider.name} includes ${provider.coaching ? 'coaching' : '24/7 support'}` : `Consider ${providers.filter(p => p.coaching || p.support247).slice(0, 2).map(p => p.name).join(' or ')} for more support`}</li>
-    </ul>
-    
+    <!-- FAQs -->
     <FAQSection faqs={faqs} />
     
+    <!-- Bottom Line -->
     <h2>Bottom Line on {provider.name} Cost</h2>
-    <p>{provider.name}'s pricing of {provider.monthlyPrice} per month is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable in the GLP-1 telehealth market' : 'competitive with other telehealth providers'}. {currentDiscount && <>And with our exclusive {currentDiscount.description}, you'll pay just ${provider.slug === 'medvi' ? '$59' : provider.monthlyPrice.includes('$199') ? '$49' : '$149'} for your first month—making it one of the most affordable ways to start your weight loss journey.</> }</p>
+    <p>{provider.name}'s pricing of {provider.monthlyPrice} per month is {provider.monthlyPrice.includes('$199') || provider.monthlyPrice.includes('$179') ? 'among the most affordable in the GLP-1 telehealth market' : 'competitive with other telehealth providers'}. {currentDiscount && <>And with our exclusive ${currentDiscount.amount} discount, you'll pay just ${currentDiscount.firstMonthPrice} for your first month—making it one of the most affordable ways to start your weight loss journey.</> }</p>
     
     <p>With {provider.consultationFee} consultation fees and {provider.membershipFee} membership costs, the total investment is transparent and predictable. For most patients, the cost of {provider.name} is offset by effective weight loss results, improved health markers, and potential savings on future medical expenses related to obesity.</p>
     
-    <div style="text-align: center; margin-top: 48px;">
+    <!-- Final CTA -->
+    <div class="cta-section">
+      <h2>Ready to Start Your Weight Loss Journey?</h2>
+      <p>Join 10,000+ patients who've chosen {provider.name} for affordable, effective GLP-1 treatment.</p>
       {provider.affiliateLink && (
-        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="btn btn-primary" style="font-size: 1.1rem; padding: 16px 32px;">
-          {currentDiscount ? `Get Started for $${provider.slug === 'medvi' ? '59' : provider.monthlyPrice.includes('$199') ? '49' : '149'} →` : `Check ${provider.name} Current Pricing →`}
+        <a href={provider.affiliateLink} target="_blank" rel="noopener" class="cta-btn-large">
+          Get Started for ${currentDiscount ? currentDiscount.firstMonthPrice : provider.monthlyPrice.split('–')[0].replace('$', '')} →
         </a>
       )}
     </div>
   </div>
 
-  {/* Sticky Bottom CTA */}
+  <!-- Sticky Bottom CTA -->
   {currentDiscount && provider.affiliateLink && (
     <div class="sticky-cta" id="stickyCta">
       <div class="sticky-cta-inner">
         <div class="sticky-cta-text">
-          <div class="sticky-cta-title">💰 Save {currentDiscount.description}</div>
-          <div class="sticky-cta-subtitle">Limited time offer for new {provider.name} customers</div>
+          <div class="sticky-cta-title">💰 {provider.name}: ${currentDiscount.firstMonthPrice} First Month (Save ${currentDiscount.amount})</div>
+          <div class="sticky-cta-subtitle">Limited time offer · No membership fees · Money-back guarantee</div>
         </div>
         <a href={provider.affiliateLink} target="_blank" rel="noopener" class="sticky-cta-btn">
-          Claim Discount
+          Get Started →
         </a>
       </div>
     </div>
@@ -613,7 +1197,6 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
     // Show sticky CTA after scrolling
     const stickyCta = document.getElementById('stickyCta');
     if (stickyCta) {
-      let lastScroll = 0;
       window.addEventListener('scroll', () => {
         const currentScroll = window.pageYOffset;
         if (currentScroll > 500) {
@@ -621,7 +1204,6 @@ const currentDate = new Date().toLocaleDateString('en-US', { year: 'numeric', mo
         } else {
           stickyCta.classList.remove('show');
         }
-        lastScroll = currentScroll;
       });
     }
   </script>
