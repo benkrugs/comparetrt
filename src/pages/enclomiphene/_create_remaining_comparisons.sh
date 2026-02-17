@@ -1,0 +1,132 @@
+#!/bin/bash
+
+# Page 9: vs-clomid
+cat > vs-clomid.astro << 'P9'
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout 
+  title="Enclomiphene vs Clomid (Clomiphene): Which Is Better for TRT?"
+  description="Enclomiphene (pure isomer) vs Clomid (mixed zuclomiphene + enclomiphene). Fewer side effects, better results. Compare dosing, cost, effectiveness."
+>
+
+<style>
+  .hero { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--bg); font-weight: 700; }
+</style>
+
+<div class="hero">
+  <h1>Enclomiphene vs Clomid: The Pure Isomer Advantage</h1>
+  <p>Enclomiphene (pure) vs Clomid (mixed 62% zuclomiphene + 38% enclomiphene). Fewer side effects, better results.</p>
+</div>
+
+<div class="content">
+
+<h2>The Key Difference: Pure vs Mixed</h2>
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 32px 0;">
+  <div style="background: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 100%); border: 2px solid #8b5cf6; border-radius: var(--r); padding: 24px;">
+    <h3 style="margin-top: 0; color: #6d28d9;">Enclomiphene (Pure)</h3>
+    <p><strong>100% enclomiphene citrate</strong> (the active isomer)</p>
+    <ul style="font-size: 0.9rem; margin-top: 12px;">
+      <li>Blocks estrogen receptors → Stimulates LH/FSH</li>
+      <li>Cleared from body in 4-7 days</li>
+      <li>Fewer side effects (no zuclomiphene)</li>
+    </ul>
+  </div>
+  
+  <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: var(--r); padding: 24px;">
+    <h3 style="margin-top: 0; color: #d97706;">Clomid (Mixed)</h3>
+    <p><strong>62% zuclomiphene + 38% enclomiphene</strong></p>
+    <ul style="font-size: 0.9rem; margin-top: 12px;">
+      <li>Enclomiphene = active (blocks estrogen)</li>
+      <li>Zuclomiphene = weak estrogen agonist (lingers 4-6 weeks)</li>
+      <li>More side effects from zuclomiphene buildup</li>
+    </ul>
+  </div>
+</div>
+
+<h2>Side Effects Comparison</h2>
+
+<table>
+  <thead><tr><th>Side Effect</th><th>Enclomiphene</th><th>Clomid</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Vision changes</strong></td><td>Rare (under 5%)</td><td>Moderate (10-15%)</td></tr>
+    <tr><td><strong>Mood swings</strong></td><td>10-15%</td><td>20-30% (worse from zuclomiphene)</td></tr>
+    <tr><td><strong>Hot flashes</strong></td><td>5%</td><td>15-20%</td></tr>
+    <tr><td><strong>Headaches</strong></td><td>5-10%</td><td>15-20%</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Why enclomiphene has fewer side effects:</strong> No zuclomiphene buildup. Zuclomiphene acts as a weak estrogen agonist and stays in the body for weeks, causing estrogen-related side effects.</p>
+
+<h2>Testosterone Results</h2>
+
+<table>
+  <thead><tr><th>Outcome</th><th>Enclomiphene</th><th>Clomid</th></tr></thead>
+  <tbody>
+    <tr><td><strong>Testosterone increase</strong></td><td>300-500 ng/dL boost</td><td>250-400 ng/dL boost</td></tr>
+    <tr><td><strong>Response rate</strong></td><td>70-85% responders</td><td>65-80% responders</td></tr>
+    <tr><td><strong>Fertility preservation</strong></td><td>✅ Excellent</td><td>✅ Excellent</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Bottom line:</strong> Enclomiphene produces slightly better testosterone increases with fewer side effects. Both preserve fertility equally well.</p>
+
+<h2>Dosing Comparison</h2>
+
+<p><strong>Enclomiphene:</strong> 12.5-25mg twice weekly (Monday/Thursday)</p>
+<p><strong>Clomid:</strong> 25-50mg every other day OR daily</p>
+
+<p>Enclomiphene requires less frequent dosing because you're taking pure active ingredient (no inactive zuclomiphene).</p>
+
+<h2>Cost</h2>
+
+<p><strong>Enclomiphene:</strong> $150-300/month (telehealth all-in)</p>
+<p><strong>Clomid:</strong> $20-60/month (generic, if you can get a prescription)</p>
+
+<p>Clomid is much cheaper BUT it's harder to get prescribed off-label for men. Most doctors prescribe Clomid for female fertility, not male hypogonadism.</p>
+
+<h2>Which Should You Choose?</h2>
+
+<p><strong>Choose Enclomiphene if:</strong></p>
+<ul style="margin: 24px 0;">
+  <li>✅ Want fewer side effects (especially vision, mood)</li>
+  <li>✅ Prefer telehealth convenience (easier to get)</li>
+  <li>✅ Don't mind paying $150-300/month</li>
+</ul>
+
+<p><strong>Choose Clomid if:</strong></p>
+<ul style="margin: 24px 0;">
+  <li>✅ Already have a prescription (cheap generic available)</li>
+  <li>✅ Budget-conscious ($20-60/month)</li>
+  <li>✅ Can tolerate more side effects</li>
+</ul>
+
+<h2>Get Started with Enclomiphene</h2>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 32px 0;">
+  <div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center;">
+    <h3>Hims TRT</h3>
+    <p style="font-size: 2rem; font-weight: 700; color: var(--accent);">$79-199/mo</p>
+    <a href="https://track.revoffers.com/aff_c?offer_id=1075&aff_id=9953&url_id=10995" target="_blank" rel="noopener" style="display: block; background: var(--accent); color: white; padding: 12px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 16px;">Get Pure Enclomiphene →</a>
+  </div>
+  <div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center;">
+    <h3>Fridays TRT</h3>
+    <p style="font-size: 2rem; font-weight: 700; color: var(--accent);">$149-249/mo</p>
+    <a href="https://track.revoffers.com/aff_c?offer_id=1284&aff_id=9953&url_id=11752" target="_blank" rel="noopener" style="display: block; background: var(--accent); color: white; padding: 12px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 16px;">Get Started →</a>
+  </div>
+</div>
+
+</div>
+</BaseLayout>
+P9
+
+echo "✅ Created vs-clomid.astro (Page 9/50)"
+
