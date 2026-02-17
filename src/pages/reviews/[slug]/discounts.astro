@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { providers } from '../../../data/providers';
+
+export async function getStaticPaths() {
+  return providers.map((provider) => ({
+    params: { slug: provider.slug },
+    props: { provider },
+  }));
+}
+
+const { provider } = Astro.props;
+---
+
+<BaseLayout 
+  title="{provider.name} Discounts & Promo Codes (2026)"
+  description="Latest {provider.name} discounts, coupon codes, and promotional offers. Save on TRT medication and consultations."
+>
+
+<style>
+  .hero { background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+  .discount-card { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: var(--r); padding: 32px; margin: 24px 0; }
+</style>
+
+<div class="hero">
+  <h1>{provider.name} Discounts & Promo Codes</h1>
+  <p>Current promotional offers and savings for {provider.name} testosterone therapy.</p>
+</div>
+
+<div class="content">
+
+<div class="discount-card">
+  <h2 style="margin-top: 0; color: #d97706;">💰 Current Offer</h2>
+  <p style="font-size: 1.3rem; font-weight: 700; margin: 16px 0;">Get Started at {provider.monthlyPrice}/month</p>
+  <p>Includes doctor consultation, medication, and ongoing support.</p>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: #f59e0b; color: white; padding: 12px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; margin-top: 16px;">Claim Offer →</a>
+</div>
+
+<h2>Ways to Save</h2>
+
+<ul style="margin: 24px 0; font-size: 1.1rem;">
+  <li>✅ Starting price: {provider.monthlyPrice}/month</li>
+  {provider.moneyBackGuarantee && <li>✅ Money-back guarantee available</li>}
+  {provider.unlimitedConsults && <li>✅ Unlimited consultations included</li>}
+  <li>✅ Free shipping on all orders</li>
+  <li>✅ HSA/FSA eligible</li>
+</ul>
+
+<h2>Get Started with {provider.name}</h2>
+
+<div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center; margin: 32px 0;">
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1.1rem;">Get Started →</a>
+</div>
+
+<p style="text-align: center; margin-top: 32px;"><a href="/reviews/{provider.slug}/">← Back to {provider.name} Review</a></p>
+
+</div>
+
+</BaseLayout>

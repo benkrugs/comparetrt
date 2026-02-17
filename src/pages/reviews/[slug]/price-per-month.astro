@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { providers } from '../../../data/providers';
+
+export async function getStaticPaths() {
+  return providers.map((provider) => ({
+    params: { slug: provider.slug },
+    props: { provider },
+  }));
+}
+
+const { provider } = Astro.props;
+---
+
+<BaseLayout 
+  title="{provider.name} Price Per Month: {provider.monthlyPrice} (2026 Pricing)"
+  description="{provider.name} costs {provider.monthlyPrice} per month. Complete pricing: medication, labs, consultations. Compare to competitors."
+>
+
+<style>
+  .hero { background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+  .price-hero { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border: 2px solid #f59e0b; border-radius: var(--r); padding: 48px; margin: 32px 0; text-align: center; }
+  .price-hero .amount { font-size: 4rem; font-weight: 700; color: #d97706; margin: 16px 0; }
+</style>
+
+<div class="hero">
+  <h1>{provider.name} Price Per Month: {provider.monthlyPrice}</h1>
+  <p>Complete monthly pricing breakdown for {provider.name} testosterone therapy.</p>
+</div>
+
+<div class="content">
+
+<div class="price-hero">
+  <h2 style="margin-top: 0; color: #d97706;">Monthly Price</h2>
+  <div class="amount">{provider.monthlyPrice}</div>
+  <p style="font-size: 1.2rem; color: var(--text-sec);">All-inclusive TRT pricing</p>
+</div>
+
+<h2>What You Get for {provider.monthlyPrice}/Month</h2>
+
+<ul style="margin: 24px 0; font-size: 1.1rem;">
+  <li>✅ Testosterone medication</li>
+  <li>✅ Doctor consultations ({provider.consultationFee})</li>
+  <li>✅ Prescription management</li>
+  <li>✅ Free shipping</li>
+  {provider.unlimitedConsults && <li>✅ Unlimited follow-ups</li>}
+  {provider.homeLabTesting && <li>✅ At-home lab testing</li>}
+</ul>
+
+<h2>Annual Cost: {provider.monthlyPrice === '$159' ? '$1,908' : 'Calculate Below'}</h2>
+
+<p>Based on {provider.monthlyPrice}/month × 12 months</p>
+
+<h2>Get Started with {provider.name}</h2>
+
+<div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center; margin: 32px 0;">
+  <h3 style="margin-top: 0;">Start at {provider.monthlyPrice}/month</h3>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1.1rem; margin-top: 16px;">Get Started →</a>
+</div>
+
+<p style="text-align: center; margin-top: 32px;"><a href="/reviews/{provider.slug}/">← Back to {provider.name} Review</a></p>
+
+</div>
+
+</BaseLayout>

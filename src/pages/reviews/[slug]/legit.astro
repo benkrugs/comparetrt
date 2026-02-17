@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { providers } from '../../../data/providers';
+
+export async function getStaticPaths() {
+  return providers.map((provider) => ({
+    params: { slug: provider.slug },
+    props: { provider },
+  }));
+}
+
+const { provider } = Astro.props;
+---
+
+<BaseLayout 
+  title="Is {provider.name} Legit? Safety, Reviews, & Trustworthiness (2026)"
+  description="Is {provider.name} legitimate? {provider.trustpilotRating}/5 stars ({provider.trustpilotReviews} reviews). Doctor-prescribed TRT, FDA-approved medications."
+>
+
+<style>
+  .hero { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+  .verdict-box { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; border-radius: var(--r); padding: 32px; margin: 32px 0; }
+</style>
+
+<div class="hero">
+  <h1>Is {provider.name} Legit?</h1>
+  <p>Safety, legitimacy, and trustworthiness review of {provider.name} TRT services.</p>
+</div>
+
+<div class="content">
+
+<div class="verdict-box">
+  <h2 style="margin-top: 0; color: #059669;">✅ Verdict: {provider.name} is Legitimate</h2>
+  <p style="font-size: 1.2rem;">{provider.name} is a legitimate telehealth provider offering doctor-prescribed testosterone replacement therapy with FDA-approved medications.</p>
+  {provider.trustpilotRating && (
+    <p style="margin-top: 16px;"><strong>Trustpilot Rating:</strong> {provider.trustpilotRating}/5 stars ({provider.trustpilotReviews} reviews)</p>
+  )}
+</div>
+
+<h2>Why {provider.name} is Legitimate</h2>
+
+<ul style="margin: 24px 0; font-size: 1.1rem;">
+  <li>✅ Licensed physicians prescribe all medications</li>
+  <li>✅ FDA-approved testosterone medications</li>
+  <li>✅ Requires blood testing before prescribing</li>
+  {provider.telehealth && <li>✅ Registered telehealth provider</li>}
+  {provider.trustpilotRating && <li>✅ {provider.trustpilotRating}/5 stars on Trustpilot</li>}
+  <li>✅ Transparent pricing: {provider.monthlyPrice}/month</li>
+</ul>
+
+<h2>Safety & Quality</h2>
+
+<p>All medications are:</p>
+<ul style="margin: 24px 0;">
+  <li>Prescribed by licensed U.S. physicians</li>
+  <li>Dispensed by licensed U.S. pharmacies</li>
+  <li>FDA-approved testosterone formulations</li>
+  <li>Shipped in medical-grade packaging</li>
+</ul>
+
+<h2>Get Started with {provider.name}</h2>
+
+<div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center; margin: 32px 0;">
+  <p style="font-size: 1.1rem; margin-bottom: 16px;">Legitimate TRT starting at {provider.monthlyPrice}/month</p>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1.1rem;">Get Started →</a>
+</div>
+
+<p style="text-align: center; margin-top: 32px;"><a href="/reviews/{provider.slug}/">← Back to {provider.name} Review</a></p>
+
+</div>
+
+</BaseLayout>

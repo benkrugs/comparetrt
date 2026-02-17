@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { providers } from '../../../data/providers';
+
+export async function getStaticPaths() {
+  return providers.map((provider) => ({
+    params: { slug: provider.slug },
+    props: { provider },
+  }));
+}
+
+const { provider } = Astro.props;
+---
+
+<BaseLayout 
+  title="{provider.name} Cost: Complete Pricing Breakdown ({provider.monthlyPrice}/month)"
+  description="Complete {provider.name} pricing: {provider.monthlyPrice} medication + {provider.labTestingFee} labs. Hidden fees, insurance, HSA/FSA eligibility."
+>
+
+<style>
+  .hero { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
+  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
+  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
+  th { background: var(--bg); font-weight: 700; }
+  .price-card { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; border-radius: var(--r); padding: 32px; margin: 32px 0; text-align: center; }
+  .price-card .big-price { font-size: 3rem; font-weight: 700; color: #059669; margin: 16px 0; }
+</style>
+
+<div class="hero">
+  <h1>{provider.name} Cost: Complete Pricing Breakdown</h1>
+  <p>Everything you need to know about {provider.name} pricing, fees, and hidden costs.</p>
+</div>
+
+<div class="content">
+
+<div class="price-card">
+  <h2 style="margin-top: 0; color: #059669;">Monthly All-In Cost</h2>
+  <div class="big-price">{provider.monthlyPrice}</div>
+  <p style="font-size: 1.1rem; color: var(--text-sec);">Medication + Consultations + Labs</p>
+</div>
+
+<h2>Cost Breakdown</h2>
+
+<table>
+  <thead>
+    <tr><th>Item</th><th>Cost</th><th>Frequency</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Medication</strong></td><td>{provider.monthlyPrice}</td><td>Monthly</td></tr>
+    <tr><td><strong>Doctor Consultation</strong></td><td>{provider.consultationFee}</td><td>As needed</td></tr>
+    <tr><td><strong>Lab Testing</strong></td><td>{provider.labTestingFee}</td><td>Every 3-6 months</td></tr>
+  </tbody>
+</table>
+
+<h2>What's Included</h2>
+
+<ul style="margin: 24px 0;">
+  {provider.treatmentTypes.map(type => (
+    <li>{type}</li>
+  ))}
+</ul>
+
+<h2>Get Started with {provider.name}</h2>
+
+<div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center; margin: 32px 0;">
+  <h3 style="margin-top: 0;">Start at {provider.monthlyPrice}</h3>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1.1rem; margin-top: 16px;">Get Started →</a>
+</div>
+
+<p style="text-align: center; margin-top: 32px;"><a href="/reviews/{provider.slug}/">← Back to {provider.name} Review</a></p>
+
+</div>
+
+</BaseLayout>
