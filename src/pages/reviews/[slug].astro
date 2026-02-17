@@ -37,8 +37,8 @@ const currentDiscount = discounts[provider.slug];
 ---
 
 <BaseLayout 
-  title={`${provider.name} Review: Is It Worth It? | CompareWeightMeds`}
-  description={`Unbiased ${provider.name} review. Pricing, medications, pros/cons, and our TeleHealth Score (${provider.totalScore}/100). ${provider.tagline}`}
+  title={`${provider.name} Review: Is It Worth It? | TRTComparison`}
+  description={`Unbiased ${provider.name} review. Pricing, treatment options, pros/cons, and our TRT Score (${provider.totalScore}/100). ${provider.tagline}`}
 >
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
@@ -582,11 +582,11 @@ const currentDiscount = discounts[provider.slug];
         </div>
       </div>
       
-      <h2>Medications Offered</h2>
+      <h2>Treatment Options</h2>
       <ul style="list-style: none; padding: 0;">
-        {provider.medications.map(med => (
+        {provider.treatmentTypes.map(treatment => (
           <li style="padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem;">
-            {med}
+            {treatment}
           </li>
         ))}
       </ul>
@@ -639,20 +639,24 @@ const currentDiscount = discounts[provider.slug];
           <span class="info-value">{provider.consultationFee}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Membership Fee</span>
-          <span class="info-value">{provider.membershipFee}</span>
+          <span class="info-label">Lab Testing</span>
+          <span class="info-value">{provider.labTestingFee}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Lab Work</span>
-          <span class="info-value">{provider.labWork}</span>
+          <span class="info-label">Injections</span>
+          <span class="info-value">{provider.injectionsAvailable ? 'Yes' : 'No'}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Insurance</span>
-          <span class="info-value">{provider.insurance ? 'Yes' : 'No'}</span>
+          <span class="info-label">Oral Options</span>
+          <span class="info-value">{provider.oralAvailable ? 'Yes' : 'No'}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">24/7 Support</span>
-          <span class="info-value">{provider.support247 ? 'Yes' : 'No'}</span>
+          <span class="info-label">Fertility-Friendly</span>
+          <span class="info-value">{provider.fertilityFriendly ? 'Yes' : 'No'}</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">Unlimited Consults</span>
+          <span class="info-value">{provider.unlimitedConsults ? 'Yes' : 'No'}</span>
         </div>
         <div class="info-row">
           <span class="info-label">Money-Back</span>
@@ -672,11 +676,11 @@ const currentDiscount = discounts[provider.slug];
           </div>
           
           <div class="score-item">
-            <span>Medication</span>
+            <span>Treatment</span>
             <div class="score-bar">
-              <div class="score-fill" style={`width: ${(provider.scoreBreakdown.medication / 25) * 100}%`}></div>
+              <div class="score-fill" style={`width: ${(provider.scoreBreakdown.treatment / 25) * 100}%`}></div>
             </div>
-            <span>{provider.scoreBreakdown.medication}/25</span>
+            <span>{provider.scoreBreakdown.treatment}/25</span>
           </div>
           
           <div class="score-item">
@@ -696,11 +700,11 @@ const currentDiscount = discounts[provider.slug];
           </div>
           
           <div class="score-item">
-            <span>Delivery</span>
+            <span>Convenience</span>
             <div class="score-bar">
-              <div class="score-fill" style={`width: ${(provider.scoreBreakdown.delivery / 10) * 100}%`}></div>
+              <div class="score-fill" style={`width: ${(provider.scoreBreakdown.convenience / 10) * 100}%`}></div>
             </div>
-            <span>{provider.scoreBreakdown.delivery}/10</span>
+            <span>{provider.scoreBreakdown.convenience}/10</span>
           </div>
           
           <div class="score-item">

@@ -24,18 +24,18 @@ const { title, description } = Astro.props;
   
   <!-- Open Graph / Social -->
   <meta property="og:type" content="website">
-  <meta property="og:url" content={`https://compareweightmeds.com${Astro.url.pathname}`}>
+  <meta property="og:url" content={`https://trtcomparison.com${Astro.url.pathname}`}>
   <meta property="og:title" content={title}>
   <meta property="og:description" content={description}>
-  <meta property="og:site_name" content="CompareWeightMeds">
+  <meta property="og:site_name" content="TRTComparison">
   
   <!-- Organization Schema for Google -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "CompareWeightMeds",
-    "url": "https://compareweightmeds.com",
-    "logo": "https://compareweightmeds.com/favicon.svg"
+    "name": "TRTComparison",
+    "url": "https://trtcomparison.com",
+    "logo": "https://trtcomparison.com/favicon.svg"
   })} />
   
   <style is:global>
@@ -326,8 +326,8 @@ const { title, description } = Astro.props;
   <header class="header">
     <div class="header-inner">
       <a href="/" class="logo">
-        <span>💊</span>
-        <span>CompareWeightMeds</span>
+        <span>💪</span>
+        <span>TRTComparison</span>
       </a>
       <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Toggle menu">
         ☰
@@ -335,8 +335,8 @@ const { title, description } = Astro.props;
       <nav class="nav" id="mobile-nav">
         <a href="/">Compare</a>
         <a href="/reviews/">Reviews</a>
-        <a href="/best-tirzepatide-providers/">Tirzepatide</a>
         <a href="/guides/">Guides</a>
+        <a href="/about/">About</a>
       </nav>
     </div>
   </header>
@@ -401,7 +401,7 @@ const { title, description } = Astro.props;
     </div>
     
     <div class="footer-bottom">
-      <p>&copy; 2026 CompareWeightMeds. All rights reserved.</p>
+      <p>&copy; 2026 TRTComparison. All rights reserved.</p>
       <p style="margin-top: 8px; font-size: 0.8rem;">This site is for informational purposes only and does not provide medical advice. Always consult a licensed healthcare professional before starting any medication.</p>
       <p style="margin-top: 8px; font-size: 0.8rem;">We may earn a commission when you purchase through our links, at no additional cost to you.</p>
     </div>

@@ -4,6 +4,6 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://compareweightmeds.com',
+  site: 'https://trtcomparison.com',
   integrations: [sitemap()]
 });
