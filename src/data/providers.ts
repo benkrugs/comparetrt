@@ -600,7 +600,7 @@ export const providers: Provider[] = [
     slug: 'male-excel',
     tagline: 'Comprehensive Men\'s Health & TRT Optimization',
     website: 'https://www.maleexcel.com',
-    affiliateLink: '', // User will provide
+    affiliateLink: 'https://www.trt3q6ct.com/3QJ6DW/7XDN2/',
     
     monthlyPrice: '$159–$299',
     consultationFee: 'Included',
