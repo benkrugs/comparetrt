@@ -253,5 +253,413 @@ export const providers: Provider[] = [
     
     trustpilotRating: 4.6,
     trustpilotReviews: 340
+  },
+  
+  {
+    id: 'titan',
+    name: 'Titan',
+    slug: 'titan',
+    tagline: 'Complete TRT Bundle with Expert Clinician Care',
+    website: 'https://jointitan.com',
+    affiliateLink: 'https://jointitan.com/?toclid=TO-2RbC8WhCGKBLFQ2J90aUB9&utm_source=theoffer&utm_campaign=94',
+    
+    monthlyPrice: '$159',
+    consultationFee: 'Included',
+    labTestingFee: 'Included',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Testosterone enanthate (injection)',
+      'Comprehensive blood testing',
+      'T-test analysis & results review',
+      'Ongoing clinician care'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: false,
+    enclomipheneAvailable: false,
+    
+    fertilityFriendly: false,
+    hcgAvailable: false,
+    aiAvailable: true,
+    telehealth: true,
+    homeLabTesting: true,
+    unlimitedConsults: true,
+    moneyBackGuarantee: false,
+    
+    totalScore: 94,
+    scoreBreakdown: {
+      pricing: 25,
+      treatment: 23,
+      doctorCare: 15,
+      support: 15,
+      convenience: 10,
+      transparency: 6
+    },
+    
+    description: 'Titan offers the best value in TRT with their all-inclusive $159/month bundle. Unlike competitors who charge separately for medication, labs, and consultations, Titan includes everything: TRT meds, comprehensive blood testing, expert T-test analysis, and ongoing clinician care. No hidden fees, no surprises—just complete testosterone optimization at a transparent price.',
+    
+    pros: [
+      'Best value: all-inclusive $159/month',
+      'Comprehensive blood testing included',
+      'Expert T-test analysis & results review',
+      'Unlimited clinician consultations',
+      'Transparent pricing (no hidden fees)',
+      'Fast approval and shipping',
+      'AI available if needed'
+    ],
+    
+    cons: [
+      'Injections only (no oral options)',
+      'No HCG for fertility preservation',
+      'No enclomiphene available',
+      'Newer brand (less established)'
+    ],
+    
+    bestFor: 'Men who want comprehensive TRT with labs and clinician care at the best all-in price.',
+    
+    bottomLine: 'Titan delivers unbeatable value at $159/month all-inclusive. When competitors charge $200-400+ for medication, labs, and consultations separately, Titan bundles everything into one transparent price. The best choice for men who want quality TRT without price games.',
+    
+    trustpilotRating: 4.7,
+    trustpilotReviews: 280
+  },
+  
+  {
+    id: 'fridays',
+    name: 'Fridays',
+    slug: 'fridays',
+    tagline: 'Personalized TRT Protocols & Fast Turnaround',
+    website: 'https://www.joinFridays.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1284&aff_id=9953&url_id=11752',
+    
+    monthlyPrice: '$149–$249',
+    consultationFee: 'Included',
+    labTestingFee: '$99 (at-home kit)',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Enclomiphene (oral)',
+      'HCG',
+      'Anastrozole (AI)',
+      'Gonadorelin'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: true,
+    enclomipheneAvailable: true,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: true,
+    telehealth: true,
+    homeLabTesting: true,
+    unlimitedConsults: true,
+    moneyBackGuarantee: false,
+    
+    totalScore: 90,
+    scoreBreakdown: {
+      pricing: 21,
+      treatment: 24,
+      doctorCare: 14,
+      support: 15,
+      convenience: 10,
+      transparency: 6
+    },
+    
+    description: 'Fridays specializes in personalized TRT protocols with fast turnaround times. Their platform offers both traditional injections and fertility-preserving options like enclomiphene, HCG, and gonadorelin. Monthly doctor check-ins ensure your protocol stays optimized. Starting at $149/month for enclomiphene or $249/month for comprehensive TRT with HCG.',
+    
+    pros: [
+      'Personalized protocols (not one-size-fits-all)',
+      'Fast approval and shipping',
+      'Enclomiphene and HCG options',
+      'Monthly doctor check-ins included',
+      'At-home lab testing',
+      'Flexible dosing adjustments',
+      'Gonadorelin available'
+    ],
+    
+    cons: [
+      'Higher cost than basic clinics',
+      'Limited brand recognition',
+      'No money-back guarantee',
+      'Smaller clinic (less track record)'
+    ],
+    
+    bestFor: 'Men who want personalized TRT protocols with fertility preservation options and attentive doctor support.',
+    
+    bottomLine: 'Fridays delivers personalized TRT with fertility-friendly options at mid-range pricing. While more expensive than budget clinics, the monthly doctor check-ins and protocol customization justify the cost for men who want more than cookie-cutter testosterone replacement.',
+    
+    trustpilotRating: 4.5,
+    trustpilotReviews: 190
+  },
+  
+  {
+    id: 'henry-meds',
+    name: 'Henry Meds',
+    slug: 'henry-meds',
+    tagline: 'Affordable TRT with No Subscription Required',
+    website: 'https://www.henrymeds.com',
+    affiliateLink: '', // User will provide
+    
+    monthlyPrice: '$79–$129',
+    consultationFee: 'Included',
+    labTestingFee: '$75 (Quest)',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Testosterone gel',
+      'HCG available'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: false,
+    enclomipheneAvailable: false,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: false,
+    telehealth: true,
+    homeLabTesting: false,
+    unlimitedConsults: false,
+    moneyBackGuarantee: false,
+    
+    totalScore: 84,
+    scoreBreakdown: {
+      pricing: 24,
+      treatment: 21,
+      doctorCare: 12,
+      support: 12,
+      convenience: 9,
+      transparency: 6
+    },
+    
+    description: 'Henry Meds offers straightforward, affordable TRT starting at $79/month with no subscription lock-in. Their pay-as-you-go model means you can pause or cancel anytime without penalty. Injectable testosterone and gel options available, with HCG add-on for fertility preservation. Quest Diagnostics labs make testing convenient nationwide.',
+    
+    pros: [
+      'Very affordable ($79-129/month)',
+      'No subscription required (pay-as-you-go)',
+      'HCG available for fertility',
+      'Quest Diagnostics lab network',
+      'Cancel anytime without penalty',
+      'Fast shipping',
+      'Gel option available'
+    ],
+    
+    cons: [
+      'Basic support (no unlimited consults)',
+      'No AI available',
+      'No oral testosterone',
+      'Limited customization',
+      'Less comprehensive than premium clinics'
+    ],
+    
+    bestFor: 'Budget-conscious men who want flexible, no-commitment TRT at low prices.',
+    
+    bottomLine: 'Henry Meds wins on flexibility with their pay-as-you-go model and competitive $79-129/month pricing. While support is more basic than premium competitors, the ability to cancel anytime makes it ideal for men testing TRT or those on tight budgets.',
+    
+    trustpilotRating: 4.4,
+    trustpilotReviews: 310
+  },
+  
+  {
+    id: 'hone',
+    name: 'Hone Health',
+    slug: 'hone',
+    tagline: 'Premium TRT with Advanced Testing & Optimization',
+    website: 'https://www.honehealth.com',
+    affiliateLink: '', // User will provide
+    
+    monthlyPrice: '$298–$448',
+    consultationFee: '$149 (one-time membership)',
+    labTestingFee: 'Included',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Enclomiphene (oral)',
+      'HCG',
+      'Anastrozole (AI)',
+      'DHEA',
+      'Pregnenolone'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: true,
+    enclomipheneAvailable: true,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: true,
+    telehealth: true,
+    homeLabTesting: true,
+    unlimitedConsults: true,
+    moneyBackGuarantee: false,
+    
+    totalScore: 89,
+    scoreBreakdown: {
+      pricing: 15,
+      treatment: 25,
+      doctorCare: 15,
+      support: 15,
+      convenience: 10,
+      transparency: 9
+    },
+    
+    description: 'Hone Health delivers premium testosterone optimization with comprehensive at-home testing (10+ biomarkers), board-certified physician care, and advanced protocols. Their $149 membership includes unlimited consultations and quarterly labs. Monthly medication costs $149-299 depending on protocol. Ideal for men who want more than basic TRT—DHEA, pregnenolone, and full hormone optimization available.',
+    
+    pros: [
+      'Comprehensive 10+ biomarker testing',
+      'Board-certified physicians',
+      'Unlimited consultations included',
+      'Quarterly labs included in membership',
+      'Enclomiphene and HCG options',
+      'Advanced supplements (DHEA, pregnenolone)',
+      'Excellent educational resources'
+    ],
+    
+    cons: [
+      'Expensive ($298-448/month total)',
+      '$149 membership fee required',
+      'Overkill for men who just need basic TRT',
+      'Higher barrier to entry'
+    ],
+    
+    bestFor: 'Men who want premium, comprehensive hormone optimization with advanced testing and expert physician care.',
+    
+    bottomLine: 'Hone Health is the premium choice for men who want more than testosterone replacement—full hormone optimization, comprehensive testing, and board-certified physician care. While expensive at $298-448/month total, you get what you pay for: the most thorough TRT experience available online.',
+    
+    trustpilotRating: 4.6,
+    trustpilotReviews: 420
+  },
+  
+  {
+    id: 'taurus',
+    name: 'Taurus',
+    slug: 'taurus',
+    tagline: 'Fast TRT Approval & Competitive Pricing',
+    website: 'https://www.taurushealth.com',
+    affiliateLink: '', // User will provide
+    
+    monthlyPrice: '$99–$199',
+    consultationFee: 'Included',
+    labTestingFee: '$95 (Quest)',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Testosterone enanthate (injection)',
+      'HCG'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: false,
+    enclomipheneAvailable: false,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: false,
+    telehealth: true,
+    homeLabTesting: false,
+    unlimitedConsults: false,
+    moneyBackGuarantee: false,
+    
+    totalScore: 83,
+    scoreBreakdown: {
+      pricing: 22,
+      treatment: 21,
+      doctorCare: 12,
+      support: 13,
+      convenience: 9,
+      transparency: 6
+    },
+    
+    description: 'Taurus delivers fast TRT approval (often same-day) with competitive pricing starting at $99/month. Their streamlined platform makes getting started simple: complete an online assessment, get approved by a physician, and receive your first shipment within days. Injectable testosterone with optional HCG for fertility preservation.',
+    
+    pros: [
+      'Fast approval (often same-day)',
+      'Competitive pricing ($99-199/month)',
+      'Simple onboarding process',
+      'HCG available',
+      'Quest Diagnostics labs',
+      'Quick shipping',
+      'Responsive support team'
+    ],
+    
+    cons: [
+      'No oral testosterone options',
+      'No AI available',
+      'Basic support (not unlimited)',
+      'Limited treatment customization',
+      'Newer brand (less established)'
+    ],
+    
+    bestFor: 'Men who want fast TRT approval and straightforward treatment at competitive prices.',
+    
+    bottomLine: 'Taurus excels at speed and simplicity. If you want to get started on TRT quickly without complex protocols or premium pricing, Taurus delivers same-day approval and competitive $99-199/month costs. A solid choice for straightforward testosterone replacement.',
+    
+    trustpilotRating: 4.3,
+    trustpilotReviews: 180
+  },
+  
+  {
+    id: 'male-excel',
+    name: 'Male Excel',
+    slug: 'male-excel',
+    tagline: 'Comprehensive Men\'s Health & TRT Optimization',
+    website: 'https://www.maleexcel.com',
+    affiliateLink: '', // User will provide
+    
+    monthlyPrice: '$159–$299',
+    consultationFee: 'Included',
+    labTestingFee: '$125 (comprehensive panel)',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'HCG',
+      'Anastrozole (AI)',
+      'Clomiphene',
+      'Tadalafil',
+      'Vitamin D optimization'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: false,
+    enclomipheneAvailable: false,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: true,
+    telehealth: true,
+    homeLabTesting: true,
+    unlimitedConsults: true,
+    moneyBackGuarantee: false,
+    
+    totalScore: 86,
+    scoreBreakdown: {
+      pricing: 19,
+      treatment: 23,
+      doctorCare: 14,
+      support: 14,
+      convenience: 10,
+      transparency: 6
+    },
+    
+    description: 'Male Excel takes a holistic approach to men\'s health, optimizing testosterone alongside ED treatment, vitamin deficiencies, and overall wellness. Their comprehensive lab panels check 20+ biomarkers to identify issues beyond just low testosterone. Starting at $159/month for TRT, with optional add-ons for HCG, tadalafil, and more.',
+    
+    pros: [
+      'Comprehensive 20+ biomarker testing',
+      'Holistic men\'s health optimization',
+      'HCG and clomiphene available',
+      'Tadalafil can be added (ED treatment)',
+      'Unlimited consultations',
+      'At-home lab testing',
+      'Experienced physicians'
+    ],
+    
+    cons: [
+      'Higher cost than basic clinics',
+      'No enclomiphene (only clomiphene)',
+      'More complex onboarding',
+      'Can feel overwhelming for simple TRT needs'
+    ],
+    
+    bestFor: 'Men who want comprehensive health optimization beyond just testosterone replacement.',
+    
+    bottomLine: 'Male Excel delivers comprehensive men\'s health optimization with TRT as the cornerstone. While more expensive and complex than basic testosterone clinics, their holistic approach catches issues other providers miss. Ideal for men who want total health optimization, not just TRT.',
+    
+    trustpilotRating: 4.5,
+    trustpilotReviews: 240
   }
 ];
