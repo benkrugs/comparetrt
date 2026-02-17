@@ -254,7 +254,7 @@ export const providers: Provider[] = [
     slug: 'shed',
     tagline: 'Quick Approval with 10% Weight Loss Guarantee',
     website: 'https://shed.com',
-    affiliateLink: '', // User does not have this yet
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1516&aff_id=9953',
     
     monthlyPrice: '$199–$499',
     consultationFee: 'Included',
