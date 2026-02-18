@@ -193,7 +193,7 @@ export const providers: Provider[] = [
     slug: 'petermd',
     tagline: 'Lowest Cost TRT with Price Match Guarantee',
     website: 'https://getpetermd.com',
-    affiliateLink: '', // User will provide
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1344&aff_id=9953&url_id=10948',
     
     monthlyPrice: '$99–$139',
     consultationFee: 'Included',
@@ -600,7 +600,7 @@ export const providers: Provider[] = [
     slug: 'male-excel',
     tagline: 'Comprehensive Men\'s Health & TRT Optimization',
     website: 'https://www.maleexcel.com',
-    affiliateLink: 'https://www.trt3q6ct.com/3QJ6DW/7XDN2/',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1420&aff_id=9953',
     
     monthlyPrice: '$159–$299',
     consultationFee: 'Included',
@@ -661,5 +661,71 @@ export const providers: Provider[] = [
     
     trustpilotRating: 4.5,
     trustpilotReviews: 240
+  },
+  {
+    id: 'dude-meds',
+    name: 'Dude Meds',
+    slug: 'dude-meds',
+    tagline: 'Straightforward Telehealth TRT',
+    website: 'https://dudemeds.com',
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1361&aff_id=9953&url_id=11182',
+    
+    monthlyPrice: '$159–$249',
+    consultationFee: 'Included',
+    labTestingFee: '$99 (at-home or Quest)',
+    
+    treatmentTypes: [
+      'Testosterone cypionate (injection)',
+      'Testosterone enanthate (injection)',
+      'HCG',
+      'Anastrozole (AI)'
+    ],
+    injectionsAvailable: true,
+    oralAvailable: false,
+    enclomipheneAvailable: false,
+    
+    fertilityFriendly: true,
+    hcgAvailable: true,
+    aiAvailable: true,
+    telehealth: true,
+    homeLabTesting: true,
+    unlimitedConsults: true,
+    moneyBackGuarantee: false,
+    
+    totalScore: 84,
+    scoreBreakdown: {
+      pricing: 18,
+      treatment: 22,
+      doctorCare: 13,
+      support: 14,
+      convenience: 10,
+      transparency: 7
+    },
+    
+    description: 'Dude Meds offers straightforward telehealth testosterone replacement therapy with licensed physicians and at-home lab testing. Their no-nonsense approach provides traditional TRT protocols with optional HCG for fertility preservation. Starting at $159/month, Dude Meds focuses on reliable, effective TRT without unnecessary complexity.',
+    
+    pros: [
+      'Simple, straightforward TRT process',
+      'Competitive pricing at $159-249/month',
+      'HCG available for fertility',
+      'At-home lab testing option',
+      'Unlimited doctor messaging',
+      'Fast onboarding (5-7 days)',
+      'Discreet shipping'
+    ],
+    
+    cons: [
+      'No enclomiphene (oral TRT alternative)',
+      'Limited treatment options beyond standard TRT',
+      'Newer company with fewer reviews',
+      'No advanced peptides or supplements'
+    ],
+    
+    bestFor: 'Men who want no-frills, affordable TRT without complex optimization programs.',
+    
+    bottomLine: 'Dude Meds delivers solid, affordable testosterone replacement therapy without the bells and whistles. Their straightforward approach and competitive pricing make them a good choice for men who want reliable TRT without paying for extras they don\'t need.',
+    
+    trustpilotRating: 4.2,
+    trustpilotReviews: 180
   }
 ];
