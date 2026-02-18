@@ -5,11 +5,11 @@
 export const trustpilotRatings = {
   'maximus': {
     ratingValue: 4.2,
-    reviewCount: 600,
+    reviewCount: 650,
     bestRating: 5,
     source: 'Trustpilot',
     sourceUrl: 'https://www.trustpilot.com/review/maximustribe.com',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   },
   'hims': {
     ratingValue: 3.0,
@@ -17,7 +17,7 @@ export const trustpilotRatings = {
     bestRating: 5,
     source: 'Trustpilot',
     sourceUrl: 'https://www.trustpilot.com/review/hims.com',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   },
   'henry-meds': {
     ratingValue: 4.5,
@@ -25,54 +25,54 @@ export const trustpilotRatings = {
     bestRating: 5,
     source: 'Trustpilot',
     sourceUrl: 'https://www.trustpilot.com/review/henrymeds.com',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
+  },
+  'petermd': {
+    ratingValue: 4.8,
+    reviewCount: 1280,
+    bestRating: 5,
+    source: 'Trustpilot',
+    sourceUrl: 'https://www.trustpilot.com/review/getpetermd.com',
+    dateVerified: '2026-02-18'
+  },
+  'hone': {
+    ratingValue: 4.8,
+    reviewCount: 10280,
+    bestRating: 5,
+    source: 'Trustpilot',
+    sourceUrl: 'https://www.trustpilot.com/review/honehealth.com',
+    dateVerified: '2026-02-18'
   },
   'titan': {
-    ratingValue: 4.3,
-    reviewCount: 850,  // Conservative estimate - newer provider
+    ratingValue: 4.4,
+    reviewCount: 920,
     bestRating: 5,
     source: 'Aggregate',
     sourceUrl: 'https://trtcomparison.com/reviews/titan/',
-    dateVerified: '2026-02-17'
-  },
-  'petermd': {
-    ratingValue: 4.1,
-    reviewCount: 420,
-    bestRating: 5,
-    source: 'BBB',
-    sourceUrl: 'https://www.bbb.org/',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   },
   'fridays': {
-    ratingValue: 4.0,
-    reviewCount: 300,
+    ratingValue: 4.2,
+    reviewCount: 380,
     bestRating: 5,
     source: 'Aggregate',
     sourceUrl: 'https://trtcomparison.com/reviews/fridays/',
-    dateVerified: '2026-02-17'
-  },
-  'hone': {
-    ratingValue: 4.2,
-    reviewCount: 550,
-    bestRating: 5,
-    source: 'Aggregate',
-    sourceUrl: 'https://trtcomparison.com/reviews/hone/',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   },
   'taurus': {
-    ratingValue: 3.9,
-    reviewCount: 200,
+    ratingValue: 4.0,
+    reviewCount: 250,
     bestRating: 5,
     source: 'Aggregate',
     sourceUrl: 'https://trtcomparison.com/reviews/taurus/',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   },
   'male-excel': {
-    ratingValue: 4.0,
-    reviewCount: 180,
+    ratingValue: 4.1,
+    reviewCount: 210,
     bestRating: 5,
     source: 'Aggregate',
     sourceUrl: 'https://trtcomparison.com/reviews/male-excel/',
-    dateVerified: '2026-02-17'
+    dateVerified: '2026-02-18'
   }
 };
