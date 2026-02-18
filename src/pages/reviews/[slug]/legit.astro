@@ -22,7 +22,7 @@ const { provider } = Astro.props;
   .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
   .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
   .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
-  .verdict-box { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; border-radius: var(--r); padding: 32px; margin: 32px 0; }
+  .verdict-box { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #1a56a8; border-radius: var(--r); padding: 32px; margin: 32px 0; }
 </style>
 
 <div class="hero">
@@ -33,7 +33,7 @@ const { provider } = Astro.props;
 <div class="content">
 
 <div class="verdict-box">
-  <h2 style="margin-top: 0; color: #059669;">✅ Verdict: {provider.name} is Legitimate</h2>
+  <h2 style="margin-top: 0; color: #0f3d7a;">✅ Verdict: {provider.name} is Legitimate</h2>
   <p style="font-size: 1.2rem;">{provider.name} is a legitimate telehealth provider offering doctor-prescribed testosterone replacement therapy with FDA-approved medications.</p>
   {provider.trustpilotRating && (
     <p style="margin-top: 16px;"><strong>Trustpilot Rating:</strong> {provider.trustpilotRating}/5 stars ({provider.trustpilotReviews} reviews)</p>

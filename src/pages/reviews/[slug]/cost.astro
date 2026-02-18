@@ -18,15 +18,15 @@ const { provider } = Astro.props;
 >
 
 <style>
-  .hero { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; padding: 80px 24px 60px; text-align: center; }
+  .hero { background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%); color: white; padding: 80px 24px 60px; text-align: center; }
   .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
   .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
   .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
   table { width: 100%; border-collapse: collapse; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
   th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
   th { background: var(--bg); font-weight: 700; }
-  .price-card { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #10b981; border-radius: var(--r); padding: 32px; margin: 32px 0; text-align: center; }
-  .price-card .big-price { font-size: 3rem; font-weight: 700; color: #059669; margin: 16px 0; }
+  .price-card { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #1a56a8; border-radius: var(--r); padding: 32px; margin: 32px 0; text-align: center; }
+  .price-card .big-price { font-size: 3rem; font-weight: 700; color: #0f3d7a; margin: 16px 0; }
 </style>
 
 <div class="hero">
@@ -37,7 +37,7 @@ const { provider } = Astro.props;
 <div class="content">
 
 <div class="price-card">
-  <h2 style="margin-top: 0; color: #059669;">Monthly All-In Cost</h2>
+  <h2 style="margin-top: 0; color: #0f3d7a;">Monthly All-In Cost</h2>
   <div class="big-price">{provider.monthlyPrice}</div>
   <p style="font-size: 1.1rem; color: var(--text-sec);">Medication + Consultations + Labs</p>
 </div>
