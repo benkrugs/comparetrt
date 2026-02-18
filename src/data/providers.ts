@@ -125,7 +125,7 @@ export const providers: Provider[] = [
     slug: 'hims',
     tagline: 'All-in-One Men\'s Health Platform',
     website: 'https://www.hims.com/testosterone',
-    affiliateLink: '', // User will provide
+    affiliateLink: 'https://track.revoffers.com/aff_c?offer_id=1075&aff_id=9953&url_id=10995',
     
     monthlyPrice: '$99–$199',
     consultationFee: 'Included',
