@@ -1,0 +1,259 @@
+---
+interface Props {
+  formId: string;
+  site: 'cmw' | 'ed' | 'hair' | 'trt';
+  product: string;
+  pageType: 'review' | 'price' | 'discount' | 'comparison' | 'home';
+  headline: string;
+  subtext: string;
+  ctaText?: string;
+}
+
+const { 
+  formId, 
+  site, 
+  product, 
+  pageType, 
+  headline, 
+  subtext, 
+  ctaText = "Get Discount Codes" 
+} = Astro.props;
+---
+
+<div id="email-popup-overlay" class="email-popup-overlay">
+  <div class="email-popup">
+    <button class="close-btn" id="close-popup">&times;</button>
+    <div class="popup-content">
+      <h3>{headline}</h3>
+      <p>{subtext}</p>
+      <form 
+        class="email-form" 
+        action={`https://app.convertkit.com/forms/${formId}/subscriptions`} 
+        method="post"
+        data-sv-form={formId}
+      >
+        <input 
+          type="email" 
+          name="email_address" 
+          placeholder="Enter your email" 
+          required 
+          class="email-input"
+        />
+        <input type="hidden" name="tags[]" value={`site-${site}`} />
+        <input type="hidden" name="tags[]" value={`product-${product}`} />
+        <input type="hidden" name="tags[]" value={`page-${pageType}`} />
+        <input type="hidden" name="tags[]" value={pageType === 'price' ? 'intent-high' : pageType === 'review' ? 'intent-medium' : 'intent-low'} />
+        <button type="submit" class="submit-btn">{ctaText}</button>
+      </form>
+      <p class="privacy-note">We respect your privacy. Unsubscribe anytime. <a href="/privacy/">Privacy Policy</a></p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .email-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  .email-popup-overlay.show {
+    display: flex;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .email-popup {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease;
+  }
+  
+  @keyframes slideUp {
+    from { 
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to { 
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #9ca3af;
+    cursor: pointer;
+    line-height: 1;
+    padding: 4px 8px;
+    transition: color 0.2s;
+  }
+  
+  .close-btn:hover {
+    color: #1f2937;
+  }
+  
+  .popup-content h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: #1f2937;
+  }
+  
+  .popup-content p {
+    font-size: 1rem;
+    color: #6b7280;
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+  
+  .email-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .email-input {
+    padding: 14px 16px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+  }
+  
+  .email-input:focus {
+    outline: none;
+    border-color: #1a56a8;
+  }
+  
+  .submit-btn {
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+    color: white;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+  }
+  
+  .privacy-note {
+    font-size: 0.8rem;
+    color: #9ca3af;
+    margin-top: 12px;
+    margin-bottom: 0;
+  }
+  
+  .privacy-note a {
+    color: #1a56a8;
+    text-decoration: none;
+  }
+  
+  .privacy-note a:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 640px) {
+    .email-popup {
+      padding: 24px;
+      width: 95%;
+    }
+    
+    .popup-content h3 {
+      font-size: 1.4rem;
+    }
+  }
+</style>
+
+<script>
+  // Exit-intent detection
+  let popupShown = false;
+  const overlay = document.getElementById('email-popup-overlay');
+  const closeBtn = document.getElementById('close-popup');
+  
+  // Check if user already subscribed (localStorage)
+  const hasSubscribed = localStorage.getItem('email_subscribed');
+  const popupDismissed = localStorage.getItem('popup_dismissed');
+  const dismissedTime = localStorage.getItem('popup_dismissed_time');
+  
+  // Don't show if subscribed or dismissed within 7 days
+  if (hasSubscribed || (popupDismissed && dismissedTime && (Date.now() - parseInt(dismissedTime)) < 7 * 24 * 60 * 60 * 1000)) {
+    // Do nothing
+  } else {
+    // Exit-intent: detect mouse leaving viewport
+    document.addEventListener('mouseleave', (e) => {
+      if (e.clientY < 0 && !popupShown && overlay) {
+        overlay.classList.add('show');
+        popupShown = true;
+      }
+    });
+    
+    // Backup: show after 30 seconds if no exit-intent
+    setTimeout(() => {
+      if (!popupShown && overlay) {
+        overlay.classList.add('show');
+        popupShown = true;
+      }
+    }, 30000);
+  }
+  
+  // Close button
+  if (closeBtn && overlay) {
+    closeBtn.addEventListener('click', () => {
+      overlay.classList.remove('show');
+      localStorage.setItem('popup_dismissed', 'true');
+      localStorage.setItem('popup_dismissed_time', Date.now().toString());
+    });
+  }
+  
+  // Close on overlay click (outside popup)
+  if (overlay) {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.classList.remove('show');
+        localStorage.setItem('popup_dismissed', 'true');
+        localStorage.setItem('popup_dismissed_time', Date.now().toString());
+      }
+    });
+  }
+  
+  // Handle form submission
+  const form = document.querySelector('.email-form');
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      // Let form submit to ConvertKit
+      localStorage.setItem('email_subscribed', 'true');
+      setTimeout(() => {
+        if (overlay) overlay.classList.remove('show');
+        alert('✅ Success! Check your email for your discount code.');
+      }, 1000);
+    });
+  }
+</script>

@@ -1,0 +1,230 @@
+---
+interface Props {
+  formId: string;
+  site: 'cmw' | 'ed' | 'hair' | 'trt';
+  product: string;
+  pageType?: 'review' | 'price' | 'discount' | 'comparison' | 'home';
+  text: string;
+  buttonText?: string;
+}
+
+const { 
+  formId, 
+  site, 
+  product, 
+  pageType = 'home',
+  text, 
+  buttonText = "Subscribe" 
+} = Astro.props;
+---
+
+<div id="email-sticky-bar" class="email-sticky-bar">
+  <div class="sticky-bar-content">
+    <p class="sticky-text">{text}</p>
+    <form 
+      class="sticky-form" 
+      action={`https://app.convertkit.com/forms/${formId}/subscriptions`} 
+      method="post"
+      data-sv-form={formId}
+    >
+      <input 
+        type="email" 
+        name="email_address" 
+        placeholder="Your email" 
+        required 
+        class="sticky-input"
+      />
+      <input type="hidden" name="tags[]" value={`site-${site}`} />
+      <input type="hidden" name="tags[]" value={`product-${product}`} />
+      <input type="hidden" name="tags[]" value={`page-${pageType}`} />
+      <input type="hidden" name="tags[]" value="intent-low" />
+      <button type="submit" class="sticky-btn">{buttonText}</button>
+    </form>
+    <button class="dismiss-btn" id="dismiss-sticky-bar">&times;</button>
+  </div>
+</div>
+
+<style>
+  .email-sticky-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+    color: white;
+    padding: 12px 16px;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999;
+    animation: slideInBottom 0.5s ease;
+  }
+  
+  @keyframes slideInBottom {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+  
+  .email-sticky-bar.hidden {
+    display: none;
+  }
+  
+  .sticky-bar-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  
+  .sticky-text {
+    flex: 1;
+    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    min-width: 200px;
+  }
+  
+  .sticky-form {
+    display: flex;
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+  
+  .sticky-input {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    min-width: 200px;
+  }
+  
+  .sticky-input:focus {
+    outline: 2px solid #fbbf24;
+  }
+  
+  .sticky-btn {
+    background: #fbbf24;
+    color: #1f2937;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  
+  .sticky-btn:hover {
+    background: #f59e0b;
+    transform: translateY(-1px);
+  }
+  
+  .dismiss-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 8px;
+    line-height: 1;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  
+  .dismiss-btn:hover {
+    opacity: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .email-sticky-bar {
+      padding: 10px 12px;
+    }
+    
+    .sticky-bar-content {
+      gap: 10px;
+    }
+    
+    .sticky-text {
+      font-size: 0.85rem;
+      min-width: 150px;
+      flex: 1 1 100%;
+    }
+    
+    .sticky-form {
+      flex: 1 1 100%;
+      width: 100%;
+    }
+    
+    .sticky-input {
+      flex: 1;
+      min-width: 0;
+      font-size: 0.85rem;
+    }
+    
+    .sticky-btn {
+      padding: 10px 16px;
+      font-size: 0.85rem;
+    }
+    
+    .dismiss-btn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .sticky-form {
+      flex-direction: column;
+    }
+    
+    .sticky-input {
+      width: 100%;
+    }
+    
+    .sticky-btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // Check if user dismissed or subscribed
+  const stickyBar = document.getElementById('email-sticky-bar');
+  const dismissBtn = document.getElementById('dismiss-sticky-bar');
+  
+  const hasSubscribed = localStorage.getItem('email_subscribed');
+  const barDismissed = localStorage.getItem('sticky_bar_dismissed');
+  const dismissedTime = localStorage.getItem('sticky_bar_dismissed_time');
+  
+  // Hide if subscribed or dismissed within 3 days
+  if (hasSubscribed || (barDismissed && dismissedTime && (Date.now() - parseInt(dismissedTime)) < 3 * 24 * 60 * 60 * 1000)) {
+    if (stickyBar) stickyBar.classList.add('hidden');
+  }
+  
+  // Dismiss button
+  if (dismissBtn && stickyBar) {
+    dismissBtn.addEventListener('click', () => {
+      stickyBar.classList.add('hidden');
+      localStorage.setItem('sticky_bar_dismissed', 'true');
+      localStorage.setItem('sticky_bar_dismissed_time', Date.now().toString());
+    });
+  }
+  
+  // Handle form submission
+  const stickyForm = stickyBar?.querySelector('.sticky-form');
+  if (stickyForm) {
+    stickyForm.addEventListener('submit', (e) => {
+      // Let form submit to ConvertKit
+      localStorage.setItem('email_subscribed', 'true');
+      setTimeout(() => {
+        if (stickyBar) stickyBar.classList.add('hidden');
+      }, 1000);
+    });
+  }
+</script>
