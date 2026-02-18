@@ -42,7 +42,6 @@ const faqs = [
   }
 ];
 
-// Sort providers by price (parsing monthlyPrice)
 const sortedByPrice = [...providers].sort((a, b) => {
   const priceA = parseInt(a.monthlyPrice.replace(/[^0-9]/g, '')) || 999;
   const priceB = parseInt(b.monthlyPrice.replace(/[^0-9]/g, '')) || 999;
@@ -50,52 +49,295 @@ const sortedByPrice = [...providers].sort((a, b) => {
 });
 ---
 
-<BaseLayout title={title} description={description} publishDate={publishDate}>
-  <article class="max-w-5xl mx-auto px-4 py-12">
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-primary">Cheapest TRT Online (2026)</h1>
-      <p class="text-xl text-gray-600">We tested 9 online testosterone clinics—here's the real cost breakdown with hidden fees revealed</p>
-    </header>
+<BaseLayout title={title} description={description}>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #059669 0%, #047857 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      color: white;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .sec {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    
+    .winner-box {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border: 2px solid #059669;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    
+    .winner-box .badge {
+      display: inline-block;
+      background: #059669;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    
+    .winner-box h2 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+    
+    .winner-box .price {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #059669;
+      margin-bottom: 4px;
+    }
+    
+    .winner-box .subtext {
+      color: var(--text-sec);
+      font-size: 0.9rem;
+      margin-bottom: 20px;
+    }
+    
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+      text-decoration: none;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--rl);
+      overflow: hidden;
+      box-shadow: var(--shl);
+      margin: 32px 0;
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: 0.8fr 2fr 1.5fr 1.5fr 2.5fr;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .table-row:hover {
+      background: var(--bg);
+    }
+    
+    .table-header {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sec);
+    }
+    
+    .table-header:hover {
+      background: #f3f4f6;
+    }
+    
+    .table-cell {
+      padding: 16px 12px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .rank-cell {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    
+    .provider-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .provider-link {
+      color: #1a56a8;
+      text-decoration: none;
+    }
+    
+    .provider-link:hover {
+      text-decoration: underline;
+    }
+    
+    .price {
+      font-weight: 700;
+      color: #059669;
+    }
+    
+    .content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 40px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    
+    .content ul {
+      margin: 16px 0 16px 24px;
+      line-height: 1.8;
+    }
+    
+    .content li {
+      margin-bottom: 8px;
+    }
+    
+    .content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    .content ol {
+      margin: 16px 0 16px 24px;
+      line-height: 1.8;
+    }
+    
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      background: var(--surface);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shl);
+    }
+    
+    .simple-table th,
+    .simple-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .simple-table th {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .simple-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .cta-box {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border: 2px solid #059669;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    
+    .cta-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    
+    .cta-box p {
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .cta-box .small {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-top: 12px;
+    }
+    
+    @media (max-width: 768px) {
+      .table-row {
+        grid-template-columns: 0.6fr 1.5fr 1fr 1fr;
+        font-size: 0.85rem;
+      }
+      
+      .table-cell:nth-child(5) {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 
-    <!-- Winner Box -->
-    <div class="bg-gradient-to-r from-green-50 to-green-100 border-2 border-green-300 rounded-xl p-6 mb-8">
-      <div class="text-center">
-        <div class="text-sm font-semibold text-green-800 mb-2">🏆 CHEAPEST TRT 2026</div>
-        <div class="text-3xl font-bold text-gray-900 mb-2">Titan: $159/Month All-In</div>
-        <div class="text-sm text-gray-700 mb-4">Includes medication + labs + doctor visits + shipping</div>
-        <a href="/reviews/titan/" class="btn-primary">View Titan Review →</a>
-      </div>
+  <div class="hero">
+    <h1>Cheapest TRT Online (2026)</h1>
+    <p>We tested 9 online testosterone clinics—here's the real cost breakdown with hidden fees revealed</p>
+  </div>
+
+  <div class="sec">
+    <div class="winner-box">
+      <div class="badge">🏆 CHEAPEST TRT 2026</div>
+      <h2>Titan: $159/Month All-In</h2>
+      <div class="price">$159/month</div>
+      <div class="subtext">Includes medication + labs + doctor visits + shipping</div>
+      <a href="/reviews/titan/" class="btn-primary">View Titan Review →</a>
     </div>
 
-    <div class="prose prose-lg max-w-none">
+    <div class="content">
       <h2>TRT Price Comparison (Cheapest to Most Expensive)</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Rank</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Provider</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Monthly Cost</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Annual Cost</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">What's Included</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sortedByPrice.map((provider, index) => (
-              <tr class={index === 0 ? 'bg-green-50 font-bold' : 'border-b'}>
-                <td class="border border-gray-300 px-4 py-2">{index === 0 ? '🏆 #1' : `#${index + 1}`}</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline">{provider.name}</a>
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-right">{provider.monthlyPrice}</td>
-                <td class="border border-gray-300 px-4 py-2 text-right">
-                  ${(parseInt(provider.monthlyPrice.replace(/[^0-9]/g, '')) * 12).toLocaleString()}
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-sm">{provider.bestFor}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <div class="comparison-table">
+        <div class="table-row table-header">
+          <div class="table-cell">Rank</div>
+          <div class="table-cell">Provider</div>
+          <div class="table-cell">Monthly Cost</div>
+          <div class="table-cell">Annual Cost</div>
+          <div class="table-cell">What's Included</div>
+        </div>
+        
+        {sortedByPrice.map((provider, index) => (
+          <div class="table-row" style={index === 0 ? 'background: #d1fae5; font-weight: 600;' : ''}>
+            <div class="table-cell rank-cell">{index === 0 ? '🏆 #1' : `#${index + 1}`}</div>
+            <div class="table-cell">
+              <a href={`/reviews/${provider.slug}/`} class="provider-link">{provider.name}</a>
+            </div>
+            <div class="table-cell price">{provider.monthlyPrice}</div>
+            <div class="table-cell">
+              ${(parseInt(provider.monthlyPrice.replace(/[^0-9]/g, '')) * 12).toLocaleString()}
+            </div>
+            <div class="table-cell" style="font-size: 0.85rem;">{provider.bestFor}</div>
+          </div>
+        ))}
       </div>
 
       <h2>Why Titan Is the Cheapest TRT Option</h2>
@@ -139,71 +381,54 @@ const sortedByPrice = [...providers].sort((a, b) => {
       <p><strong>Real monthly cost:</strong> $199 + $99 = <strong>$298/month</strong> ($3,576/year)</p>
 
       <h2>How Cheap TRT Compares to In-Person Clinics</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Cost Factor</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Online TRT (Titan)</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">In-Person Clinic</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Savings</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Monthly medication</td>
-              <td class="border border-gray-300 px-4 py-2 text-right text-green-600 font-bold">$159</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$300-$500</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$141-$341/mo</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Quarterly labs</td>
-              <td class="border border-gray-300 px-4 py-2 text-right text-green-600 font-bold">Included</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$200-$300/test</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$800-$1,200/yr</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2">Doctor visits</td>
-              <td class="border border-gray-300 px-4 py-2 text-right text-green-600 font-bold">Included</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$100-$200/visit</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$400-$800/yr</td>
-            </tr>
-            <tr class="font-bold bg-green-50">
-              <td class="border border-gray-300 px-4 py-2">Annual Total</td>
-              <td class="border border-gray-300 px-4 py-2 text-right text-green-600">$1,908</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$5,000-$9,000</td>
-              <td class="border border-gray-300 px-4 py-2 text-right">$3,092-$7,092/yr</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="simple-table">
+        <thead>
+          <tr>
+            <th>Cost Factor</th>
+            <th>Online TRT (Titan)</th>
+            <th>In-Person Clinic</th>
+            <th>Savings</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monthly medication</strong></td>
+            <td style="color: #059669; font-weight: 700;">$159</td>
+            <td>$300-$500</td>
+            <td>$141-$341/mo</td>
+          </tr>
+          <tr>
+            <td><strong>Quarterly labs</strong></td>
+            <td style="color: #059669; font-weight: 700;">Included</td>
+            <td>$200-$300/test</td>
+            <td>$800-$1,200/yr</td>
+          </tr>
+          <tr>
+            <td><strong>Doctor visits</strong></td>
+            <td style="color: #059669; font-weight: 700;">Included</td>
+            <td>$100-$200/visit</td>
+            <td>$400-$800/yr</td>
+          </tr>
+          <tr style="background: #d1fae5; font-weight: 700;">
+            <td><strong>Annual Total</strong></td>
+            <td style="color: #059669;">$1,908</td>
+            <td>$5,000-$9,000</td>
+            <td>$3,092-$7,092/yr</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h2>Is Cheap TRT Lower Quality?</h2>
       <p><strong>No.</strong> Here's why:</p>
 
       <h3>Same FDA-Approved Medication</h3>
-      <p>Both Titan ($159/mo) and expensive local clinics use:</p>
-      <ul>
-        <li><strong>Testosterone cypionate</strong> (200mg/mL concentration)</li>
-        <li><strong>Testosterone enanthate</strong> (same potency)</li>
-        <li>Sourced from FDA-approved U.S. pharmacies (not overseas)</li>
-      </ul>
+      <p>Both Titan ($159/mo) and expensive local clinics use testosterone cypionate (200mg/mL concentration) or testosterone enanthate (same potency), sourced from FDA-approved U.S. pharmacies (not overseas).</p>
 
       <h3>Licensed Doctors</h3>
-      <p>All online TRT providers employ:</p>
-      <ul>
-        <li>State-licensed physicians</li>
-        <li>Board-certified endocrinologists or men's health specialists</li>
-        <li>DEA-registered to prescribe Schedule III substances</li>
-      </ul>
+      <p>All online TRT providers employ state-licensed physicians, board-certified endocrinologists or men's health specialists, and DEA-registered prescribers for Schedule III substances.</p>
 
       <h3>What You're Saving On</h3>
-      <p>Lower prices come from eliminating:</p>
-      <ul>
-        <li>Office rent and overhead</li>
-        <li>In-person staff (receptionists, nurses)</li>
-        <li>Weekly injection appointments (you self-inject at home)</li>
-      </ul>
+      <p>Lower prices come from eliminating office rent and overhead, in-person staff (receptionists, nurses), and weekly injection appointments (you self-inject at home).</p>
 
       <h2>How to Get TRT for $159/Month (Step-by-Step)</h2>
       <ol>
@@ -226,7 +451,7 @@ const sortedByPrice = [...providers].sort((a, b) => {
         <li><strong>High customer ratings:</strong> 4.5/5 on Trustpilot (12,000 reviews)</li>
         <li><strong>Why it's more expensive:</strong> $40/mo more than Titan for same service</li>
       </ul>
-      <p><a href="/reviews/henry-meds/" class="text-blue-600 underline">Read Henry Meds review →</a></p>
+      <p><a href="/reviews/henry-meds/">Read Henry Meds review →</a></p>
 
       <h3>#3 Cheapest: Fridays ($220/month)</h3>
       <ul>
@@ -234,63 +459,20 @@ const sortedByPrice = [...providers].sort((a, b) => {
         <li><strong>Fast onboarding:</strong> Start within 3-5 days</li>
         <li><strong>Why it's more expensive:</strong> $61/mo more than Titan</li>
       </ul>
-      <p><a href="/reviews/fridays/" class="text-blue-600 underline">Read Fridays review →</a></p>
-
-      <h2>Can You Get Free TRT?</h2>
-      <p><strong>No, legitimate TRT cannot be free.</strong> Testosterone is a Schedule III controlled substance requiring:</p>
-      <ul>
-        <li>Licensed physician prescription</li>
-        <li>Regular blood work monitoring</li>
-        <li>Ongoing medical oversight</li>
-      </ul>
-      <p>Anyone offering "free TRT" is either:</p>
-      <ul>
-        <li>Selling research chemicals (not real testosterone)</li>
-        <li>Operating illegally</li>
-        <li>Using bait-and-switch tactics</li>
-      </ul>
+      <p><a href="/reviews/fridays/">Read Fridays review →</a></p>
 
       <h2>Bottom Line: Is Cheap TRT Worth It?</h2>
-      <p><strong>Yes, if you choose a reputable provider.</strong> Titan at $159/month offers:</p>
-      <ul>
-        <li>✅ Same FDA-approved testosterone as $500/month clinics</li>
-        <li>✅ Licensed doctors with TRT specialization</li>
-        <li>✅ Comprehensive blood work and monitoring</li>
-        <li>✅ 50-70% lower cost than in-person options</li>
-      </ul>
+      <p><strong>Yes, if you choose a reputable provider.</strong> Titan at $159/month offers the same FDA-approved testosterone as $500/month clinics, licensed doctors with TRT specialization, comprehensive blood work and monitoring, and 50-70% lower cost than in-person options.</p>
       <p>The only tradeoff: you self-inject at home instead of weekly clinic visits. For most men, this is a benefit (convenience) rather than a drawback.</p>
     </div>
 
     <FAQSchema faqs={faqs} />
 
-    <!-- Bottom CTA -->
-    <div class="mt-12 text-center bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-8">
-      <h3 class="text-2xl font-bold mb-4">Ready to Start Cheap TRT?</h3>
-      <p class="text-lg text-gray-700 mb-6">Get Titan's all-inclusive TRT for $159/month (50-70% cheaper than local clinics).</p>
-      <a href="/reviews/titan/" class="btn-primary inline-block">View Titan Pricing →</a>
-      <p class="text-sm text-gray-500 mt-4">$1,908/year | Includes medication + labs + doctor visits</p>
+    <div class="cta-box">
+      <h3>Ready to Start Cheap TRT?</h3>
+      <p>Get Titan's all-inclusive TRT for $159/month (50-70% cheaper than local clinics).</p>
+      <a href="/reviews/titan/" class="btn-primary">View Titan Pricing →</a>
+      <p class="small">$1,908/year | Includes medication + labs + doctor visits</p>
     </div>
-  </article>
+  </div>
 </BaseLayout>
-
-<style>
-  .btn-primary {
-    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
-  }
-
-  .prose table {
-    font-size: 0.9rem;
-  }
-</style>

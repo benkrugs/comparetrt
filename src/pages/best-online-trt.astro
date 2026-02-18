@@ -42,58 +42,269 @@ const faqs = [
   }
 ];
 
-// Top 6 providers for comparison
-const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus', 'henry-meds', 'hims'].includes(p.slug));
+const topProviders = providers.sort((a, b) => b.totalScore - a.totalScore);
 ---
 
-<BaseLayout title={title} description={description} publishDate={publishDate}>
-  <article class="max-w-5xl mx-auto px-4 py-12">
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-primary">Best Online TRT Clinics 2026</h1>
-      <p class="text-xl text-gray-600">9 telemedicine testosterone clinics ranked by price, doctor quality, and patient results</p>
-    </header>
+<BaseLayout title={title} description={description}>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      color: white;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .sec {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    
+    .comparison-table {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--rl);
+      overflow: hidden;
+      box-shadow: var(--shl);
+      margin-bottom: 48px;
+    }
+    
+    .table-row {
+      display: grid;
+      grid-template-columns: 0.8fr 2fr 1.2fr 1fr 2fr 1fr;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .table-row:hover {
+      background: var(--bg);
+    }
+    
+    .table-header {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-sec);
+    }
+    
+    .table-header:hover {
+      background: #f3f4f6;
+    }
+    
+    .table-cell {
+      padding: 16px 12px;
+      display: flex;
+      align-items: center;
+    }
+    
+    .rank-cell {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    
+    .provider-name {
+      font-weight: 600;
+      color: var(--text);
+    }
+    
+    .price {
+      font-weight: 700;
+      color: #059669;
+    }
+    
+    .view-link {
+      color: #1a56a8;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    
+    .view-link:hover {
+      text-decoration: underline;
+    }
+    
+    .winner-badge {
+      background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+      border: 2px solid #f59e0b;
+      border-radius: 12px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+    
+    .winner-badge h3 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+    
+    .winner-badge .price {
+      font-size: 2rem;
+      color: #059669;
+      margin-bottom: 4px;
+    }
+    
+    .winner-badge .subtext {
+      color: var(--text-sec);
+      font-size: 0.9rem;
+      margin-bottom: 16px;
+    }
+    
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+      text-decoration: none;
+    }
+    
+    .content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 40px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    
+    .content ul {
+      margin: 16px 0 16px 24px;
+      line-height: 1.8;
+    }
+    
+    .content li {
+      margin-bottom: 8px;
+    }
+    
+    .content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      background: var(--surface);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shl);
+    }
+    
+    .simple-table th,
+    .simple-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .simple-table th {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .simple-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .cta-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    
+    .cta-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    
+    .cta-box p {
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      .table-row {
+        grid-template-columns: 0.6fr 1.5fr 1fr;
+        font-size: 0.85rem;
+      }
+      
+      .table-cell:nth-child(4),
+      .table-cell:nth-child(5) {
+        display: none;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 
-    <!-- Quick Comparison Table -->
-    <div class="overflow-x-auto mb-12 bg-white rounded-xl shadow-md border border-gray-200">
-      <table class="min-w-full">
-        <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
-          <tr>
-            <th class="px-4 py-3 text-left font-bold">Rank</th>
-            <th class="px-4 py-3 text-left font-bold">Clinic</th>
-            <th class="px-4 py-3 text-right font-bold">Price/Month</th>
-            <th class="px-4 py-3 text-center font-bold">Rating</th>
-            <th class="px-4 py-3 text-left font-bold">Best For</th>
-            <th class="px-4 py-3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="border-b border-gray-200 bg-gradient-to-r from-yellow-50 to-yellow-100">
-            <td class="px-4 py-4 font-bold text-lg">🏆 #1</td>
-            <td class="px-4 py-4 font-bold text-lg">Titan</td>
-            <td class="px-4 py-4 text-right font-bold text-green-600 text-lg">$159</td>
-            <td class="px-4 py-4 text-center">4.4★</td>
-            <td class="px-4 py-4">Best Value + Enclomiphene</td>
-            <td class="px-4 py-4">
-              <a href="/reviews/titan/" class="text-blue-600 hover:underline font-semibold whitespace-nowrap">View →</a>
-            </td>
-          </tr>
-          {topProviders.slice(1).map((provider, index) => (
-            <tr class="border-b border-gray-200 hover:bg-gray-50">
-              <td class="px-4 py-3">#{index + 2}</td>
-              <td class="px-4 py-3 font-semibold">{provider.name}</td>
-              <td class="px-4 py-3 text-right font-semibold">{provider.monthlyPrice}</td>
-              <td class="px-4 py-3 text-center">{provider.totalScore ? `${(provider.totalScore / 20).toFixed(1)}★` : 'N/A'}</td>
-              <td class="px-4 py-3 text-sm">{provider.bestFor}</td>
-              <td class="px-4 py-3">
-                <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline whitespace-nowrap">View →</a>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <div class="hero">
+    <h1>Best Online TRT Clinics 2026</h1>
+    <p>9 telemedicine testosterone clinics ranked by price, doctor quality, and patient results</p>
+  </div>
+
+  <div class="sec">
+    <div class="comparison-table">
+      <div class="table-row table-header">
+        <div class="table-cell">Rank</div>
+        <div class="table-cell">Clinic</div>
+        <div class="table-cell">Price/Month</div>
+        <div class="table-cell">Rating</div>
+        <div class="table-cell">Best For</div>
+        <div class="table-cell"></div>
+      </div>
+      
+      {topProviders.map((provider, index) => (
+        <div class="table-row" style={index === 0 ? 'background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);' : ''}>
+          <div class="table-cell rank-cell">{index === 0 ? '🏆 #1' : `#${index + 1}`}</div>
+          <div class="table-cell provider-name">{provider.name}</div>
+          <div class="table-cell price">{provider.monthlyPrice}</div>
+          <div class="table-cell">{provider.totalScore ? `${(provider.totalScore / 20).toFixed(1)}★` : 'N/A'}</div>
+          <div class="table-cell" style="font-size: 0.85rem;">{provider.bestFor}</div>
+          <div class="table-cell">
+            <a href={`/reviews/${provider.slug}/`} class="view-link">View →</a>
+          </div>
+        </div>
+      ))}
     </div>
 
-    <div class="prose prose-lg max-w-none">
+    <div class="content">
       <h2>How We Ranked the Best Online TRT Clinics</h2>
       <p>We evaluated 9 online testosterone replacement therapy providers based on:</p>
       <ul>
@@ -106,15 +317,11 @@ const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus
       </ul>
 
       <h2>🏆 #1 Best Online TRT: Titan</h2>
-      <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 border-2 border-yellow-300 rounded-xl p-6 my-6">
-        <div class="flex items-center justify-between flex-wrap gap-4">
-          <div>
-            <div class="text-2xl font-bold text-gray-900 mb-2">Titan TRT</div>
-            <div class="text-3xl font-bold text-green-600 mb-2">$159/month</div>
-            <div class="text-sm text-gray-700">All-inclusive: medication + labs + doctor visits</div>
-          </div>
-          <a href="/reviews/titan/" class="btn-primary">View Full Review →</a>
-        </div>
+      <div class="winner-badge">
+        <h3>Titan TRT</h3>
+        <div class="price">$159/month</div>
+        <div class="subtext">All-inclusive: medication + labs + doctor visits</div>
+        <a href="/reviews/titan/" class="btn-primary">View Full Review →</a>
       </div>
 
       <h3>Why Titan Won #1</h3>
@@ -146,7 +353,7 @@ const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus
         <li>More expensive than Titan ($199 medication + $149 membership)</li>
         <li>Membership fee required for ongoing care</li>
       </ul>
-      <p><a href="/reviews/petermd/" class="text-blue-600 underline">Read full PeterMD review →</a></p>
+      <p><a href="/reviews/petermd/">Read full PeterMD review →</a></p>
 
       <h2>#3 Best for Hormone Optimization: Hone Health</h2>
       <p><strong>Price:</strong> $149 medication + $149 membership | <strong>Rating:</strong> 4.8/5 (10,280 reviews)</p>
@@ -162,114 +369,59 @@ const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus
         <li>Requires $149/month membership on top of medication cost</li>
         <li>More complex if you ONLY want TRT (vs full hormone optimization)</li>
       </ul>
-      <p><a href="/reviews/hone/" class="text-blue-600 underline">Read full Hone Health review →</a></p>
-
-      <h2>Complete TRT Provider Rankings</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Rank</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Provider</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Monthly Cost</th>
-              <th class="border border-gray-300 px-4 py-2 text-center">Rating</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Key Advantage</th>
-            </tr>
-          </thead>
-          <tbody>
-            {providers.sort((a, b) => b.totalScore - a.totalScore).map((provider, index) => (
-              <tr class="border-b">
-                <td class="border border-gray-300 px-4 py-2 font-bold">{index === 0 ? '🏆 #1' : `#${index + 1}`}</td>
-                <td class="border border-gray-300 px-4 py-2">
-                  <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline font-semibold">{provider.name}</a>
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-right font-semibold">{provider.monthlyPrice}</td>
-                <td class="border border-gray-300 px-4 py-2 text-center">{(provider.totalScore / 20).toFixed(1)}/5</td>
-                <td class="border border-gray-300 px-4 py-2 text-sm">{provider.bestFor}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <p><a href="/reviews/hone/">Read full Hone Health review →</a></p>
 
       <h2>How to Choose the Best Online TRT Clinic</h2>
       <h3>1. Prioritize Price Transparency</h3>
-      <p>Many clinics advertise "$149/month" but hide membership fees. Always calculate <strong>total monthly cost</strong> including:</p>
-      <ul>
-        <li>Medication cost</li>
-        <li>Membership/platform fees</li>
-        <li>Lab testing (quarterly or annual)</li>
-        <li>Initial consultation fees</li>
-      </ul>
+      <p>Many clinics advertise "$149/month" but hide membership fees. Always calculate <strong>total monthly cost</strong> including medication, membership/platform fees, lab testing, and initial consultation fees.</p>
       <p><strong>Example:</strong> Hone advertises $149/mo but requires $149/mo membership = $298/mo total.</p>
 
       <h3>2. Check Doctor Credentials</h3>
-      <p>All providers use licensed physicians, but quality varies:</p>
-      <ul>
-        <li><strong>Board-certified endocrinologists:</strong> Best for complex cases (Hone, PeterMD)</li>
-        <li><strong>Men's health specialists:</strong> Best for TRT-focused care (Titan, Maximus)</li>
-        <li><strong>General practitioners:</strong> Fine for straightforward TRT (Henry Meds, Hims)</li>
-      </ul>
+      <p>All providers use licensed physicians, but quality varies. Board-certified endocrinologists are best for complex cases, men's health specialists for TRT-focused care, and general practitioners for straightforward TRT.</p>
 
       <h3>3. Consider Fertility Preservation</h3>
-      <p>Traditional testosterone <strong>shuts down natural production</strong>, reducing sperm count. If you want kids in the future:</p>
-      <ul>
-        <li><strong>Enclomiphene:</strong> Oral testosterone booster that preserves fertility (Titan, Maximus)</li>
-        <li><strong>HCG + Testosterone:</strong> Combination therapy that maintains testicular function (PeterMD, Hone)</li>
-      </ul>
+      <p>Traditional testosterone <strong>shuts down natural production</strong>, reducing sperm count. If you want kids in the future, consider enclomiphene (preserves fertility) or HCG + testosterone combinations.</p>
 
       <h3>4. Read Real Customer Reviews</h3>
-      <p>Trustpilot ratings reveal customer service quality:</p>
-      <ul>
-        <li><strong>4.5+ stars:</strong> Excellent (PeterMD 4.8, Hone 4.8, Henry Meds 4.5)</li>
-        <li><strong>4.0-4.4 stars:</strong> Good (Titan 4.4, Maximus 4.2)</li>
-        <li><strong>Below 4.0:</strong> Red flag (Hims 3.0 due to billing complaints)</li>
-      </ul>
+      <p>Trustpilot ratings reveal customer service quality. 4.5+ stars is excellent, 4.0-4.4 is good, and below 4.0 is a red flag.</p>
 
       <h2>Online TRT vs In-Person Clinics</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Factor</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">Online TRT</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">In-Person Clinic</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Monthly Cost</td>
-              <td class="border border-gray-300 px-4 py-2 text-green-600">$159-$360</td>
-              <td class="border border-gray-300 px-4 py-2">$300-$800</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Doctor Visits</td>
-              <td class="border border-gray-300 px-4 py-2 text-green-600">Video/messaging</td>
-              <td class="border border-gray-300 px-4 py-2">In-person required</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Medication Quality</td>
-              <td class="border border-gray-300 px-4 py-2">FDA-approved (same)</td>
-              <td class="border border-gray-300 px-4 py-2">FDA-approved (same)</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Lab Testing</td>
-              <td class="border border-gray-300 px-4 py-2">At-home or local Quest</td>
-              <td class="border border-gray-300 px-4 py-2 text-green-600">In-clinic phlebotomy</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Injection Training</td>
-              <td class="border border-gray-300 px-4 py-2">Video tutorials</td>
-              <td class="border border-gray-300 px-4 py-2 text-green-600">Nurse administers</td>
-            </tr>
-            <tr>
-              <td class="border border-gray-300 px-4 py-2 font-bold">Best For</td>
-              <td class="border border-gray-300 px-4 py-2 text-green-600">Budget, convenience</td>
-              <td class="border border-gray-300 px-4 py-2">Hands-on monitoring</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <table class="simple-table">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Online TRT</th>
+            <th>In-Person Clinic</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monthly Cost</strong></td>
+            <td style="color: #059669;">$159-$360</td>
+            <td>$300-$800</td>
+          </tr>
+          <tr>
+            <td><strong>Doctor Visits</strong></td>
+            <td style="color: #059669;">Video/messaging</td>
+            <td>In-person required</td>
+          </tr>
+          <tr>
+            <td><strong>Medication Quality</strong></td>
+            <td>FDA-approved (same)</td>
+            <td>FDA-approved (same)</td>
+          </tr>
+          <tr>
+            <td><strong>Lab Testing</strong></td>
+            <td>At-home or local Quest</td>
+            <td style="color: #059669;">In-clinic phlebotomy</td>
+          </tr>
+          <tr>
+            <td><strong>Best For</strong></td>
+            <td style="color: #059669;">Budget, convenience</td>
+            <td>Hands-on monitoring</td>
+          </tr>
+        </tbody>
+      </table>
 
       <h2>Bottom Line: Which Online TRT Clinic Should You Choose?</h2>
       <ul>
@@ -283,33 +435,10 @@ const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus
 
     <FAQSchema faqs={faqs} />
 
-    <!-- Bottom CTA -->
-    <div class="mt-12 text-center bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-8">
-      <h3 class="text-2xl font-bold mb-4">Ready to Start Online TRT?</h3>
-      <p class="text-lg text-gray-700 mb-6">Compare all 9 providers side-by-side and find your best match.</p>
-      <a href="/" class="btn-primary inline-block">Compare All TRT Clinics →</a>
+    <div class="cta-box">
+      <h3>Ready to Start Online TRT?</h3>
+      <p>Compare all 9 providers side-by-side and find your best match.</p>
+      <a href="/" class="btn-primary">Compare All TRT Clinics →</a>
     </div>
-  </article>
+  </div>
 </BaseLayout>
-
-<style>
-  .btn-primary {
-    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
-  }
-
-  .prose table {
-    font-size: 0.9rem;
-  }
-</style>

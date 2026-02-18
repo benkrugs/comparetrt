@@ -50,131 +50,306 @@ const faqs = [
   }
 ];
 
-// Get top rated providers
 const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slice(0, 6);
 ---
 
-<BaseLayout title={title} description={description} publishDate={publishDate}>
-  <article class="max-w-5xl mx-auto px-4 py-12">
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-primary">Online TRT: Complete 2026 Guide</h1>
-      <p class="text-xl text-gray-600">How testosterone replacement therapy works via telemedicine—costs, process, and 9 clinics tested</p>
-    </header>
+<BaseLayout title={title} description={description}>
+  <style>
+    .hero {
+      background: linear-gradient(135deg, #1a56a8 0%, #0d3b7a 100%);
+      color: white;
+      text-align: center;
+      padding: 60px 24px 40px;
+    }
+    
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.2;
+      color: white;
+    }
+    
+    .hero p {
+      font-size: 1.1rem;
+      opacity: 0.95;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .sec {
+      max-width: var(--mw);
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    
+    .stat-card {
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+    }
+    
+    .stat-card.blue {
+      background: #eff6ff;
+      border: 2px solid #3b82f6;
+    }
+    
+    .stat-card.green {
+      background: #d1fae5;
+      border: 2px solid #059669;
+    }
+    
+    .stat-card.purple {
+      background: #f3e8ff;
+      border: 2px solid #a855f7;
+    }
+    
+    .stat-card.orange {
+      background: #ffedd5;
+      border: 2px solid #f97316;
+    }
+    
+    .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .stat-card.blue .stat-value { color: #3b82f6; }
+    .stat-card.green .stat-value { color: #059669; }
+    .stat-card.purple .stat-value { color: #a855f7; }
+    .stat-card.orange .stat-value { color: #f97316; }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-sec);
+    }
+    
+    .content h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 40px 0 16px;
+    }
+    
+    .content h3 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 32px 0 12px;
+    }
+    
+    .content p {
+      margin-bottom: 16px;
+      line-height: 1.7;
+    }
+    
+    .content ul {
+      margin: 16px 0 16px 24px;
+      line-height: 1.8;
+    }
+    
+    .content li {
+      margin-bottom: 8px;
+    }
+    
+    .content ol {
+      margin: 16px 0 16px 24px;
+      line-height: 1.8;
+    }
+    
+    .content strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+    
+    .simple-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 24px 0;
+      background: var(--surface);
+      border-radius: var(--r);
+      overflow: hidden;
+      box-shadow: var(--shl);
+    }
+    
+    .simple-table th,
+    .simple-table td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+    
+    .simple-table th {
+      background: #f3f4f6;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    
+    .simple-table tr:last-child td {
+      border-bottom: none;
+    }
+    
+    .simple-table tr:first-of-type {
+      background: #d1fae5;
+      font-weight: 600;
+    }
+    
+    .provider-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin: 24px 0;
+      box-shadow: var(--shl);
+    }
+    
+    .provider-card h3 {
+      margin-top: 0;
+      margin-bottom: 12px;
+    }
+    
+    .provider-card .meta {
+      color: var(--text-sec);
+      margin-bottom: 12px;
+    }
+    
+    .provider-card a {
+      color: #1a56a8;
+      font-weight: 600;
+    }
+    
+    .cta-box {
+      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+      border: 2px solid #3b82f6;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      margin: 48px 0;
+    }
+    
+    .cta-box h3 {
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+    }
+    
+    .cta-box p {
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+    
+    .cta-box .small {
+      font-size: 0.9rem;
+      color: var(--text-sec);
+      margin-top: 12px;
+    }
+    
+    .btn-primary {
+      display: inline-block;
+      background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+    }
+  </style>
 
-    <!-- Quick Stats Box -->
-    <div class="grid md:grid-cols-4 gap-4 mb-12">
-      <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 text-center">
-        <div class="text-3xl font-bold text-blue-600">$159-$548</div>
-        <div class="text-sm text-gray-600 mt-2">Monthly Cost Range</div>
+  <div class="hero">
+    <h1>Online TRT: Complete 2026 Guide</h1>
+    <p>How testosterone replacement therapy works via telemedicine—costs, process, and 9 clinics tested</p>
+  </div>
+
+  <div class="sec">
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-value">$159-$548</div>
+        <div class="stat-label">Monthly Cost Range</div>
       </div>
-      <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center">
-        <div class="text-3xl font-bold text-green-600">5-7 Days</div>
-        <div class="text-sm text-gray-600 mt-2">Time to Start</div>
+      <div class="stat-card green">
+        <div class="stat-value">5-7 Days</div>
+        <div class="stat-label">Time to Start</div>
       </div>
-      <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-6 text-center">
-        <div class="text-3xl font-bold text-purple-600">100% Legal</div>
-        <div class="text-sm text-gray-600 mt-2">FDA-Regulated</div>
+      <div class="stat-card purple">
+        <div class="stat-value">100% Legal</div>
+        <div class="stat-label">FDA-Regulated</div>
       </div>
-      <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-6 text-center">
-        <div class="text-3xl font-bold text-orange-600">50-70%</div>
-        <div class="text-sm text-gray-600 mt-2">Cheaper vs Clinics</div>
+      <div class="stat-card orange">
+        <div class="stat-value">50-70%</div>
+        <div class="stat-label">Cheaper vs Clinics</div>
       </div>
     </div>
 
-    <div class="prose prose-lg max-w-none">
+    <div class="content">
       <h2>What Is Online TRT?</h2>
-      <p><strong>Online TRT (testosterone replacement therapy)</strong> is a telehealth service that allows men with low testosterone to:</p>
-      <ul>
-        <li>Consult with licensed doctors via video or messaging</li>
-        <li>Get prescribed FDA-approved testosterone cypionate or enanthate</li>
-        <li>Receive medication delivered to their door</li>
-        <li>Self-administer weekly injections at home</li>
-        <li>Monitor progress through quarterly blood work</li>
-      </ul>
+      <p><strong>Online TRT (testosterone replacement therapy)</strong> is a telehealth service that allows men with low testosterone to consult with licensed doctors via video or messaging, get prescribed FDA-approved testosterone cypionate or enanthate, receive medication delivered to their door, self-administer weekly injections at home, and monitor progress through quarterly blood work.</p>
       <p>It's the <strong>same medical treatment as in-person clinics</strong>, just delivered via telemedicine. The testosterone is identical, the doctors are equally qualified, and the results are clinically equivalent.</p>
 
       <h2>How Online TRT Works (Step-by-Step)</h2>
       <h3>Step 1: Sign Up & Questionnaire (5-10 minutes)</h3>
-      <p>You create an account and answer questions about:</p>
-      <ul>
-        <li>Age, weight, height, medical history</li>
-        <li>Symptoms (fatigue, low libido, muscle loss, brain fog)</li>
-        <li>Current medications and health conditions</li>
-        <li>Previous testosterone therapy (if any)</li>
-      </ul>
+      <p>You create an account and answer questions about age, weight, height, medical history, symptoms (fatigue, low libido, muscle loss, brain fog), current medications and health conditions, and previous testosterone therapy (if any).</p>
 
       <h3>Step 2: Doctor Consultation (20-30 minutes)</h3>
-      <p>A licensed physician reviews your questionnaire and conducts a:</p>
-      <ul>
-        <li><strong>Video call:</strong> Some providers (PeterMD, Hone) offer face-to-face consultations</li>
-        <li><strong>Asynchronous messaging:</strong> Others (Titan, Henry Meds) use secure chat</li>
-      </ul>
-      <p>The doctor explains TRT, discusses risks/benefits, and orders blood work.</p>
+      <p>A licensed physician reviews your questionnaire and conducts a video call (some providers like PeterMD and Hone offer face-to-face consultations) or asynchronous messaging (others like Titan and Henry Meds use secure chat). The doctor explains TRT, discusses risks/benefits, and orders blood work.</p>
 
       <h3>Step 3: Blood Work (3-5 days)</h3>
-      <p>Two options for testing:</p>
-      <ul>
-        <li><strong>At-home kit:</strong> Finger prick test shipped to you (mail back to lab)</li>
-        <li><strong>Local lab:</strong> Visit Quest Diagnostics or LabCorp near you</li>
-      </ul>
-      <p>Tests measure: Total testosterone, free testosterone, estradiol, LH, FSH, PSA, CBC, CMP</p>
+      <p>Two options for testing: at-home kit (finger prick test shipped to you, mail back to lab) or local lab (visit Quest Diagnostics or LabCorp near you). Tests measure total testosterone, free testosterone, estradiol, LH, FSH, PSA, CBC, and CMP.</p>
 
       <h3>Step 4: Prescription Approval (1-2 days)</h3>
       <p>If your testosterone is below threshold (usually 350-400 ng/dL) AND you have symptoms, the doctor writes a prescription.</p>
 
       <h3>Step 5: Medication Delivery (2-3 days)</h3>
-      <p>Your package includes:</p>
-      <ul>
-        <li>Testosterone cypionate vial (10mL, 200mg/mL)</li>
-        <li>Syringes and needles (1mL syringes, 25-27 gauge needles)</li>
-        <li>Alcohol wipes and bandages</li>
-        <li>Injection instructions (video tutorial)</li>
-        <li>Sharps disposal container</li>
-      </ul>
+      <p>Your package includes testosterone cypionate vial (10mL, 200mg/mL), syringes and needles (1mL syringes, 25-27 gauge needles), alcohol wipes and bandages, injection instructions (video tutorial), and sharps disposal container.</p>
 
       <h3>Step 6: Weekly Injections (At Home)</h3>
-      <p>You self-inject into your thigh or glute muscle once per week:</p>
-      <ul>
-        <li><strong>Typical dose:</strong> 100-200mg per week</li>
-        <li><strong>Injection time:</strong> 30 seconds (after prep)</li>
-        <li><strong>Pain level:</strong> Minimal (similar to flu shot)</li>
-      </ul>
+      <p>You self-inject into your thigh or glute muscle once per week. Typical dose is 100-200mg per week, injection time is 30 seconds (after prep), and pain level is minimal (similar to flu shot).</p>
 
       <h3>Step 7: Quarterly Monitoring</h3>
-      <p>Every 3 months, you repeat blood work to ensure:</p>
-      <ul>
-        <li>Testosterone levels are optimized (700-1,000 ng/dL target)</li>
-        <li>Estrogen is controlled (aromatase inhibitor if needed)</li>
-        <li>No negative health impacts (red blood cell count, PSA)</li>
-      </ul>
+      <p>Every 3 months, you repeat blood work to ensure testosterone levels are optimized (700-1,000 ng/dL target), estrogen is controlled (aromatase inhibitor if needed), and there are no negative health impacts (red blood cell count, PSA).</p>
 
       <h2>Online TRT Cost Comparison</h2>
-      <div class="overflow-x-auto">
-        <table class="min-w-full border-collapse border border-gray-300">
-          <thead>
-            <tr class="bg-gray-100">
-              <th class="border border-gray-300 px-4 py-2 text-left">Provider</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Monthly Cost</th>
-              <th class="border border-gray-300 px-4 py-2 text-right">Annual Cost</th>
-              <th class="border border-gray-300 px-4 py-2 text-left">What's Included</th>
+      <table class="simple-table">
+        <thead>
+          <tr>
+            <th>Provider</th>
+            <th>Monthly Cost</th>
+            <th>Annual Cost</th>
+            <th>What's Included</th>
+          </tr>
+        </thead>
+        <tbody>
+          {topRated.map((provider, index) => (
+            <tr style={index === 0 ? 'background: #d1fae5; font-weight: 600;' : ''}>
+              <td><a href={`/reviews/${provider.slug}/`} style="color: #1a56a8; text-decoration: none;">{provider.name}</a></td>
+              <td style={index === 0 ? 'color: #059669; font-weight: 700;' : ''}>{provider.monthlyPrice}</td>
+              <td>${(parseInt(provider.monthlyPrice.replace(/[^0-9]/g, '')) * 12).toLocaleString()}</td>
+              <td style="font-size: 0.85rem;">{provider.consultationFee}</td>
             </tr>
-          </thead>
-          <tbody>
-            {topRated.map((provider, index) => (
-              <tr class={index === 0 ? 'bg-green-50 font-bold' : 'border-b'}>
-                <td class="border border-gray-300 px-4 py-2">
-                  <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline">{provider.name}</a>
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-right">{provider.monthlyPrice}</td>
-                <td class="border border-gray-300 px-4 py-2 text-right">
-                  ${(parseInt(provider.monthlyPrice.replace(/[^0-9]/g, '')) * 12).toLocaleString()}
-                </td>
-                <td class="border border-gray-300 px-4 py-2 text-sm">{provider.consultationFee}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+          ))}
+        </tbody>
+      </table>
 
       <h2>Benefits of Online TRT vs In-Person Clinics</h2>
       <h3>1. Cost Savings (50-70% Cheaper)</h3>
@@ -185,46 +360,26 @@ const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slic
       </ul>
 
       <h3>2. Convenience (No Office Visits)</h3>
-      <ul>
-        <li>No weekly trips to clinic for injections</li>
-        <li>No waiting rooms or scheduling hassles</li>
-        <li>Self-inject at home on your schedule</li>
-      </ul>
+      <p>No weekly trips to clinic for injections, no waiting rooms or scheduling hassles, and you self-inject at home on your schedule.</p>
 
       <h3>3. Privacy (Discreet Delivery)</h3>
-      <ul>
-        <li>Medication ships in unmarked packaging</li>
-        <li>Video consultations from home</li>
-        <li>No public clinic visits</li>
-      </ul>
+      <p>Medication ships in unmarked packaging, video consultations from home, and no public clinic visits.</p>
 
       <h3>4. Speed (Start in 5-7 Days)</h3>
-      <ul>
-        <li>Online TRT: 5-7 days from signup to first injection</li>
-        <li>In-person clinics: 2-4 weeks (appointment backlog)</li>
-      </ul>
+      <p>Online TRT takes 5-7 days from signup to first injection, while in-person clinics take 2-4 weeks (appointment backlog).</p>
 
       <h2>Drawbacks of Online TRT</h2>
       <h3>1. Self-Injection Required</h3>
-      <p>You must inject yourself weekly (or biweekly). In-person clinics have nurses do this for you.</p>
-      <p><strong>Mitigation:</strong> Video tutorials make it easy. Most patients adjust within 2-3 injections.</p>
+      <p>You must inject yourself weekly (or biweekly). In-person clinics have nurses do this for you. <strong>Mitigation:</strong> Video tutorials make it easy. Most patients adjust within 2-3 injections.</p>
 
       <h3>2. No In-Person Monitoring</h3>
-      <p>All doctor consultations are remote. If you prefer face-to-face interactions, online TRT may feel impersonal.</p>
-      <p><strong>Mitigation:</strong> Some providers (PeterMD, Hone) offer video calls—not just messaging.</p>
+      <p>All doctor consultations are remote. If you prefer face-to-face interactions, online TRT may feel impersonal. <strong>Mitigation:</strong> Some providers (PeterMD, Hone) offer video calls—not just messaging.</p>
 
       <h3>3. Insurance Usually Not Accepted</h3>
-      <p>Most online TRT is cash-pay (no insurance).</p>
-      <p><strong>Mitigation:</strong> Use HSA/FSA accounts. Some providers offer reimbursement documentation.</p>
+      <p>Most online TRT is cash-pay (no insurance). <strong>Mitigation:</strong> Use HSA/FSA accounts. Some providers offer reimbursement documentation.</p>
 
       <h2>Is Online TRT Safe?</h2>
-      <p><strong>Yes, when done through legitimate providers.</strong> Safety protocols include:</p>
-      <ul>
-        <li><strong>Licensed physicians:</strong> All prescribing doctors are state-licensed and DEA-registered</li>
-        <li><strong>Blood work monitoring:</strong> Quarterly tests catch issues early (elevated hematocrit, estrogen spikes)</li>
-        <li><strong>FDA-approved medication:</strong> Same testosterone used by Mayo Clinic and Johns Hopkins</li>
-        <li><strong>Medical oversight:</strong> Doctors adjust dosing based on lab results and symptoms</li>
-      </ul>
+      <p><strong>Yes, when done through legitimate providers.</strong> Safety protocols include licensed physicians (all prescribing doctors are state-licensed and DEA-registered), blood work monitoring (quarterly tests catch issues early like elevated hematocrit or estrogen spikes), FDA-approved medication (same testosterone used by Mayo Clinic and Johns Hopkins), and medical oversight (doctors adjust dosing based on lab results and symptoms).</p>
 
       <h3>Red Flags (Avoid These Providers)</h3>
       <ul>
@@ -256,29 +411,26 @@ const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slic
 
       <h2>Best Online TRT Providers (Our Top 3)</h2>
 
-      <h3>🏆 #1: Titan ($159/month)</h3>
-      <ul>
-        <li><strong>Best for:</strong> Budget + fertility preservation</li>
-        <li><strong>Why we ranked it #1:</strong> Lowest all-inclusive price, enclomiphene option, no hidden fees</li>
-        <li><strong>Rating:</strong> 4.4/5</li>
-      </ul>
-      <p><a href="/reviews/titan/" class="text-blue-600 underline">Read full Titan review →</a></p>
+      <div class="provider-card">
+        <h3>🏆 #1: Titan ($159/month)</h3>
+        <div class="meta"><strong>Best for:</strong> Budget + fertility preservation | <strong>Rating:</strong> 4.4/5</div>
+        <p><strong>Why we ranked it #1:</strong> Lowest all-inclusive price, enclomiphene option, no hidden fees.</p>
+        <p><a href="/reviews/titan/">Read full Titan review →</a></p>
+      </div>
 
-      <h3>#2: PeterMD ($348/month)</h3>
-      <ul>
-        <li><strong>Best for:</strong> Customer service + peptides</li>
-        <li><strong>Why we ranked it #2:</strong> 4.8/5 Trustpilot rating (highest), same-day doctor replies</li>
-        <li><strong>Rating:</strong> 4.8/5 (1,280 reviews)</li>
-      </ul>
-      <p><a href="/reviews/petermd/" class="text-blue-600 underline">Read full PeterMD review →</a></p>
+      <div class="provider-card">
+        <h3>#2: PeterMD ($348/month)</h3>
+        <div class="meta"><strong>Best for:</strong> Customer service + peptides | <strong>Rating:</strong> 4.8/5 (1,280 reviews)</div>
+        <p><strong>Why we ranked it #2:</strong> 4.8/5 Trustpilot rating (highest), same-day doctor replies.</p>
+        <p><a href="/reviews/petermd/">Read full PeterMD review →</a></p>
+      </div>
 
-      <h3>#3: Hone Health ($298/month)</h3>
-      <ul>
-        <li><strong>Best for:</strong> Comprehensive hormone optimization</li>
-        <li><strong>Why we ranked it #3:</strong> Testosterone + thyroid + cortisol included, 10k+ reviews</li>
-        <li><strong>Rating:</strong> 4.8/5 (10,280 reviews)</li>
-      </ul>
-      <p><a href="/reviews/hone/" class="text-blue-600 underline">Read full Hone Health review →</a></p>
+      <div class="provider-card">
+        <h3>#3: Hone Health ($298/month)</h3>
+        <div class="meta"><strong>Best for:</strong> Comprehensive hormone optimization | <strong>Rating:</strong> 4.8/5 (10,280 reviews)</div>
+        <p><strong>Why we ranked it #3:</strong> Testosterone + thyroid + cortisol included, 10k+ reviews.</p>
+        <p><a href="/reviews/hone/">Read full Hone Health review →</a></p>
+      </div>
 
       <h2>Bottom Line: Should You Try Online TRT?</h2>
       <p><strong>Yes, if you:</strong></p>
@@ -301,34 +453,11 @@ const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slic
 
     <FAQSchema faqs={faqs} />
 
-    <!-- Bottom CTA -->
-    <div class="mt-12 text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
-      <h3 class="text-2xl font-bold mb-4">Ready to Start Online TRT?</h3>
-      <p class="text-lg text-gray-700 mb-6">Compare all 9 providers and find the best match for your needs.</p>
-      <a href="/" class="btn-primary inline-block">Compare All TRT Clinics →</a>
-      <p class="text-sm text-gray-500 mt-4">Starting at $159/month | 5-7 day onboarding | 100% legal</p>
+    <div class="cta-box">
+      <h3>Ready to Start Online TRT?</h3>
+      <p>Compare all 9 providers and find the best match for your needs.</p>
+      <a href="/" class="btn-primary">Compare All TRT Clinics →</a>
+      <p class="small">Starting at $159/month | 5-7 day onboarding | 100% legal</p>
     </div>
-  </article>
+  </div>
 </BaseLayout>
-
-<style>
-  .btn-primary {
-    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
-    color: white;
-    padding: 14px 28px;
-    border-radius: 8px;
-    font-weight: 600;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.2s;
-  }
-
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
-  }
-
-  .prose table {
-    font-size: 0.9rem;
-  }
-</style>
