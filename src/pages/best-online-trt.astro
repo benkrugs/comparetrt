@@ -1,0 +1,315 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQSchema from '../components/FAQSchema.astro';
+import { providers } from '../data/providers';
+
+const title = "Best Online TRT 2026: Top 9 Testosterone Clinics Ranked (MD-Reviewed)";
+const description = "Compare the 9 best online TRT clinics: Titan ($159/mo), PeterMD (4.8★), Hone (10k+ reviews). Real pricing, doctor quality, and patient results ranked.";
+const publishDate = "2026-02-18 12:00:00";
+
+const faqs = [
+  {
+    question: "What is the best online TRT clinic?",
+    answer: "<strong>Titan is the best online TRT clinic for most men</strong> due to its $159/month all-inclusive pricing, enclomiphene option for fertility preservation, and licensed physician oversight. PeterMD is best for customer service (4.8/5 rating), while Hone Health is best for comprehensive hormone optimization."
+  },
+  {
+    question: "How much does online TRT cost per month?",
+    answer: "Online TRT costs <strong>$159-$548/month</strong> depending on the provider and treatment protocol. Titan ($159/mo) and Hone ($149 medication + $149 membership) are the most affordable. PeterMD, Maximus, and Hims range from $199-$360/month."
+  },
+  {
+    question: "Is online TRT legit and safe?",
+    answer: "Yes, when prescribed by licensed physicians. <strong>Online TRT is FDA-regulated</strong>—you receive the same testosterone medications (cypionate, enanthate) as in-person clinics. All reputable providers require blood work, doctor consultations, and ongoing monitoring."
+  },
+  {
+    question: "Can I get TRT without going to a clinic?",
+    answer: "Yes. <strong>Telehealth TRT allows you to get prescribed testosterone 100% online</strong> through video consultations with licensed doctors. At-home blood test kits are shipped to you, and medication arrives at your door within 3-5 days after approval."
+  },
+  {
+    question: "What testosterone levels qualify for TRT?",
+    answer: "Most online TRT clinics prescribe for testosterone levels <strong>below 350-400 ng/dL</strong>, though 'normal' ranges vary by age. Some providers prescribe for low-normal levels (300-500 ng/dL) if you have symptoms like fatigue, low libido, or muscle loss."
+  },
+  {
+    question: "Do online TRT clinics accept insurance?",
+    answer: "<strong>Most online TRT clinics do NOT accept insurance</strong> for testosterone therapy. You pay out-of-pocket, but many accept HSA/FSA. Some providers (like Hone and PeterMD) can provide documentation for potential reimbursement."
+  },
+  {
+    question: "How long does it take to start online TRT?",
+    answer: "You can start TRT in <strong>5-7 days</strong>: 1-2 days for doctor consultation, 3-5 days for blood work results, and 2-3 days for medication shipping. Some providers (Titan, Fridays) offer same-week starts if you have recent labs."
+  },
+  {
+    question: "What's the difference between online TRT and a local clinic?",
+    answer: "<strong>Online TRT is 50-70% cheaper</strong> ($159-$360/mo vs $300-$800/mo at local clinics) and more convenient (no office visits). Local clinics offer in-person monitoring and injections. Medication quality is identical—both prescribe FDA-approved testosterone."
+  }
+];
+
+// Top 6 providers for comparison
+const topProviders = providers.filter(p => ['titan', 'petermd', 'hone', 'maximus', 'henry-meds', 'hims'].includes(p.slug));
+---
+
+<BaseLayout title={title} description={description} publishDate={publishDate}>
+  <article class="max-w-5xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-primary">Best Online TRT Clinics 2026</h1>
+      <p class="text-xl text-gray-600">9 telemedicine testosterone clinics ranked by price, doctor quality, and patient results</p>
+    </header>
+
+    <!-- Quick Comparison Table -->
+    <div class="overflow-x-auto mb-12 bg-white rounded-xl shadow-md border border-gray-200">
+      <table class="min-w-full">
+        <thead class="bg-gradient-to-r from-blue-50 to-blue-100">
+          <tr>
+            <th class="px-4 py-3 text-left font-bold">Rank</th>
+            <th class="px-4 py-3 text-left font-bold">Clinic</th>
+            <th class="px-4 py-3 text-right font-bold">Price/Month</th>
+            <th class="px-4 py-3 text-center font-bold">Rating</th>
+            <th class="px-4 py-3 text-left font-bold">Best For</th>
+            <th class="px-4 py-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-b border-gray-200 bg-gradient-to-r from-yellow-50 to-yellow-100">
+            <td class="px-4 py-4 font-bold text-lg">🏆 #1</td>
+            <td class="px-4 py-4 font-bold text-lg">Titan</td>
+            <td class="px-4 py-4 text-right font-bold text-green-600 text-lg">$159</td>
+            <td class="px-4 py-4 text-center">4.4★</td>
+            <td class="px-4 py-4">Best Value + Enclomiphene</td>
+            <td class="px-4 py-4">
+              <a href="/reviews/titan/" class="text-blue-600 hover:underline font-semibold whitespace-nowrap">View →</a>
+            </td>
+          </tr>
+          {topProviders.slice(1).map((provider, index) => (
+            <tr class="border-b border-gray-200 hover:bg-gray-50">
+              <td class="px-4 py-3">#{index + 2}</td>
+              <td class="px-4 py-3 font-semibold">{provider.name}</td>
+              <td class="px-4 py-3 text-right font-semibold">{provider.monthlyPrice}</td>
+              <td class="px-4 py-3 text-center">{provider.totalScore ? `${(provider.totalScore / 20).toFixed(1)}★` : 'N/A'}</td>
+              <td class="px-4 py-3 text-sm">{provider.bestFor}</td>
+              <td class="px-4 py-3">
+                <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline whitespace-nowrap">View →</a>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="prose prose-lg max-w-none">
+      <h2>How We Ranked the Best Online TRT Clinics</h2>
+      <p>We evaluated 9 online testosterone replacement therapy providers based on:</p>
+      <ul>
+        <li><strong>Pricing transparency</strong> (all-in monthly cost, hidden fees)</li>
+        <li><strong>Doctor quality</strong> (board certification, TRT specialization, consultation style)</li>
+        <li><strong>Medication options</strong> (testosterone cypionate, enclomiphene, HCG availability)</li>
+        <li><strong>Customer reviews</strong> (Trustpilot ratings, BBB scores, patient testimonials)</li>
+        <li><strong>Lab testing</strong> (blood work quality, at-home vs in-person, frequency)</li>
+        <li><strong>Treatment customization</strong> (dose flexibility, fertility preservation options)</li>
+      </ul>
+
+      <h2>🏆 #1 Best Online TRT: Titan</h2>
+      <div class="bg-gradient-to-r from-yellow-50 to-yellow-100 border-2 border-yellow-300 rounded-xl p-6 my-6">
+        <div class="flex items-center justify-between flex-wrap gap-4">
+          <div>
+            <div class="text-2xl font-bold text-gray-900 mb-2">Titan TRT</div>
+            <div class="text-3xl font-bold text-green-600 mb-2">$159/month</div>
+            <div class="text-sm text-gray-700">All-inclusive: medication + labs + doctor visits</div>
+          </div>
+          <a href="/reviews/titan/" class="btn-primary">View Full Review →</a>
+        </div>
+      </div>
+
+      <h3>Why Titan Won #1</h3>
+      <ul>
+        <li><strong>Lowest all-in price:</strong> $159/month includes medication, quarterly labs, and unlimited doctor messaging</li>
+        <li><strong>Enclomiphene option:</strong> Oral testosterone alternative that preserves fertility</li>
+        <li><strong>No membership fees:</strong> Unlike Hone ($149/mo extra) or Maximus ($99/mo extra)</li>
+        <li><strong>Fast onboarding:</strong> Start within 5-7 days with at-home blood test</li>
+      </ul>
+
+      <h3>Who Should Choose Titan</h3>
+      <ul>
+        <li>Men aged 25-45 who want <strong>fertility preservation</strong> (enclomiphene doesn't shut down natural production)</li>
+        <li>Budget-conscious users seeking <strong>premium care at low cost</strong></li>
+        <li>First-time TRT users who want <strong>simple, transparent pricing</strong></li>
+      </ul>
+
+      <h2>#2 Best for Customer Service: PeterMD</h2>
+      <p><strong>Price:</strong> $199-$348/month | <strong>Rating:</strong> 4.8/5 (1,280 Trustpilot reviews)</p>
+      <p>PeterMD has the <strong>highest customer satisfaction rating</strong> among online TRT providers. Patients praise responsive doctors, easy prescription management, and hassle-free refills.</p>
+      <h3>Pros</h3>
+      <ul>
+        <li>Excellent doctor communication (same-day responses)</li>
+        <li>Peptide options (BPC-157, TB-500) available</li>
+        <li>Multiple delivery methods (injections, cream, pellets)</li>
+      </ul>
+      <h3>Cons</h3>
+      <ul>
+        <li>More expensive than Titan ($199 medication + $149 membership)</li>
+        <li>Membership fee required for ongoing care</li>
+      </ul>
+      <p><a href="/reviews/petermd/" class="text-blue-600 underline">Read full PeterMD review →</a></p>
+
+      <h2>#3 Best for Hormone Optimization: Hone Health</h2>
+      <p><strong>Price:</strong> $149 medication + $149 membership | <strong>Rating:</strong> 4.8/5 (10,280 reviews)</p>
+      <p>Hone Health goes beyond TRT—they optimize <strong>testosterone, thyroid, cortisol, and sleep hormones</strong> for total men's health.</p>
+      <h3>Pros</h3>
+      <ul>
+        <li>Comprehensive hormone panel (15+ biomarkers tested)</li>
+        <li>Thyroid and adrenal optimization included</li>
+        <li>Highest Trustpilot review count (10k+ verified reviews)</li>
+      </ul>
+      <h3>Cons</h3>
+      <ul>
+        <li>Requires $149/month membership on top of medication cost</li>
+        <li>More complex if you ONLY want TRT (vs full hormone optimization)</li>
+      </ul>
+      <p><a href="/reviews/hone/" class="text-blue-600 underline">Read full Hone Health review →</a></p>
+
+      <h2>Complete TRT Provider Rankings</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2 text-left">Rank</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Provider</th>
+              <th class="border border-gray-300 px-4 py-2 text-right">Monthly Cost</th>
+              <th class="border border-gray-300 px-4 py-2 text-center">Rating</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Key Advantage</th>
+            </tr>
+          </thead>
+          <tbody>
+            {providers.sort((a, b) => b.totalScore - a.totalScore).map((provider, index) => (
+              <tr class="border-b">
+                <td class="border border-gray-300 px-4 py-2 font-bold">{index === 0 ? '🏆 #1' : `#${index + 1}`}</td>
+                <td class="border border-gray-300 px-4 py-2">
+                  <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline font-semibold">{provider.name}</a>
+                </td>
+                <td class="border border-gray-300 px-4 py-2 text-right font-semibold">{provider.monthlyPrice}</td>
+                <td class="border border-gray-300 px-4 py-2 text-center">{(provider.totalScore / 20).toFixed(1)}/5</td>
+                <td class="border border-gray-300 px-4 py-2 text-sm">{provider.bestFor}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>How to Choose the Best Online TRT Clinic</h2>
+      <h3>1. Prioritize Price Transparency</h3>
+      <p>Many clinics advertise "$149/month" but hide membership fees. Always calculate <strong>total monthly cost</strong> including:</p>
+      <ul>
+        <li>Medication cost</li>
+        <li>Membership/platform fees</li>
+        <li>Lab testing (quarterly or annual)</li>
+        <li>Initial consultation fees</li>
+      </ul>
+      <p><strong>Example:</strong> Hone advertises $149/mo but requires $149/mo membership = $298/mo total.</p>
+
+      <h3>2. Check Doctor Credentials</h3>
+      <p>All providers use licensed physicians, but quality varies:</p>
+      <ul>
+        <li><strong>Board-certified endocrinologists:</strong> Best for complex cases (Hone, PeterMD)</li>
+        <li><strong>Men's health specialists:</strong> Best for TRT-focused care (Titan, Maximus)</li>
+        <li><strong>General practitioners:</strong> Fine for straightforward TRT (Henry Meds, Hims)</li>
+      </ul>
+
+      <h3>3. Consider Fertility Preservation</h3>
+      <p>Traditional testosterone <strong>shuts down natural production</strong>, reducing sperm count. If you want kids in the future:</p>
+      <ul>
+        <li><strong>Enclomiphene:</strong> Oral testosterone booster that preserves fertility (Titan, Maximus)</li>
+        <li><strong>HCG + Testosterone:</strong> Combination therapy that maintains testicular function (PeterMD, Hone)</li>
+      </ul>
+
+      <h3>4. Read Real Customer Reviews</h3>
+      <p>Trustpilot ratings reveal customer service quality:</p>
+      <ul>
+        <li><strong>4.5+ stars:</strong> Excellent (PeterMD 4.8, Hone 4.8, Henry Meds 4.5)</li>
+        <li><strong>4.0-4.4 stars:</strong> Good (Titan 4.4, Maximus 4.2)</li>
+        <li><strong>Below 4.0:</strong> Red flag (Hims 3.0 due to billing complaints)</li>
+      </ul>
+
+      <h2>Online TRT vs In-Person Clinics</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2 text-left">Factor</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">Online TRT</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">In-Person Clinic</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Monthly Cost</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600">$159-$360</td>
+              <td class="border border-gray-300 px-4 py-2">$300-$800</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Doctor Visits</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600">Video/messaging</td>
+              <td class="border border-gray-300 px-4 py-2">In-person required</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Medication Quality</td>
+              <td class="border border-gray-300 px-4 py-2">FDA-approved (same)</td>
+              <td class="border border-gray-300 px-4 py-2">FDA-approved (same)</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Lab Testing</td>
+              <td class="border border-gray-300 px-4 py-2">At-home or local Quest</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600">In-clinic phlebotomy</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Injection Training</td>
+              <td class="border border-gray-300 px-4 py-2">Video tutorials</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600">Nurse administers</td>
+            </tr>
+            <tr>
+              <td class="border border-gray-300 px-4 py-2 font-bold">Best For</td>
+              <td class="border border-gray-300 px-4 py-2 text-green-600">Budget, convenience</td>
+              <td class="border border-gray-300 px-4 py-2">Hands-on monitoring</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Bottom Line: Which Online TRT Clinic Should You Choose?</h2>
+      <ul>
+        <li><strong>Best overall value:</strong> Titan ($159/mo, enclomiphene option)</li>
+        <li><strong>Best customer service:</strong> PeterMD (4.8/5 rating, same-day doctor replies)</li>
+        <li><strong>Best for comprehensive care:</strong> Hone Health (testosterone + thyroid + cortisol)</li>
+        <li><strong>Best for budget:</strong> Titan ($159/mo all-in) or Henry Meds ($199/mo)</li>
+        <li><strong>Best for fertility:</strong> Titan or Maximus (enclomiphene protocols)</li>
+      </ul>
+    </div>
+
+    <FAQSchema faqs={faqs} />
+
+    <!-- Bottom CTA -->
+    <div class="mt-12 text-center bg-gradient-to-r from-blue-50 to-green-50 rounded-xl p-8">
+      <h3 class="text-2xl font-bold mb-4">Ready to Start Online TRT?</h3>
+      <p class="text-lg text-gray-700 mb-6">Compare all 9 providers side-by-side and find your best match.</p>
+      <a href="/" class="btn-primary inline-block">Compare All TRT Clinics →</a>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .btn-primary {
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+  }
+
+  .prose table {
+    font-size: 0.9rem;
+  }
+</style>

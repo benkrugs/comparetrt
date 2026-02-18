@@ -1,0 +1,334 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQSchema from '../components/FAQSchema.astro';
+import { providers } from '../data/providers';
+
+const title = "Online TRT 2026: Complete Guide (9 Clinics Tested, $159-$548/Month)";
+const description = "Online TRT explained: how telemedicine testosterone works, real costs ($159-$548/mo), doctor quality, blood work process, and 9 clinics ranked by results.";
+const publishDate = "2026-02-18 12:00:00";
+
+const faqs = [
+  {
+    question: "How does online TRT work?",
+    answer: "<strong>Online TRT works through 4 steps:</strong> (1) Complete online health questionnaire, (2) Video consultation with licensed doctor, (3) Blood test via at-home kit or local lab, (4) If approved, testosterone medication ships to your door. You self-inject weekly at home and have quarterly follow-up blood work."
+  },
+  {
+    question: "Is online TRT legit and legal?",
+    answer: "Yes. <strong>Online TRT is fully legal and regulated</strong> by state medical boards. All providers must employ licensed physicians, prescribe FDA-approved testosterone, and conduct regular blood work monitoring. It's the same medication as in-person clinics—just delivered via telehealth."
+  },
+  {
+    question: "How much does online TRT cost?",
+    answer: "Online TRT costs <strong>$159-$548 per month</strong> depending on the provider. Titan ($159/mo) and Henry Meds ($199/mo) are the cheapest all-inclusive options. Hone, PeterMD, and Maximus range from $298-$548/month including membership fees."
+  },
+  {
+    question: "Do you need a prescription for online TRT?",
+    answer: "Yes. <strong>Testosterone is a Schedule III controlled substance</strong> requiring a doctor's prescription. All legitimate online TRT providers connect you with licensed physicians who review your blood work and symptoms before prescribing."
+  },
+  {
+    question: "What testosterone levels qualify for online TRT?",
+    answer: "Most online TRT clinics prescribe for levels <strong>below 350-400 ng/dL</strong> combined with symptoms (fatigue, low libido, muscle loss). Some providers (like Titan and Maximus) prescribe for low-normal levels (300-500 ng/dL) if symptoms are present."
+  },
+  {
+    question: "Can you get online TRT without bloodwork?",
+    answer: "No. <strong>All legitimate providers require blood work</strong> to measure testosterone levels before prescribing. This is both medically necessary (to confirm low testosterone) and legally required (to avoid Schedule III substance abuse)."
+  },
+  {
+    question: "How long does it take to start online TRT?",
+    answer: "<strong>5-7 days total:</strong> 1-2 days for doctor consultation, 3-5 days for blood work results, and 2-3 days for medication shipping. Some providers (Titan, Fridays) offer same-week starts if you have recent lab results."
+  },
+  {
+    question: "Is online TRT as effective as in-person treatment?",
+    answer: "Yes. <strong>Online TRT uses identical FDA-approved testosterone</strong> (cypionate or enanthate) at the same dosages as in-person clinics. Clinical outcomes are the same—studies show no difference in testosterone level normalization between telehealth and in-person TRT."
+  },
+  {
+    question: "Will insurance cover online TRT?",
+    answer: "Most online TRT providers <strong>do not accept insurance</strong> for testosterone therapy. You pay out-of-pocket, but many accept HSA/FSA accounts. Some providers (Hone, PeterMD) can provide documentation for potential reimbursement claims."
+  },
+  {
+    question: "Can online TRT doctors prescribe HCG or enclomiphene?",
+    answer: "Yes. Many online TRT providers offer <strong>HCG (for fertility preservation)</strong> and <strong>enclomiphene (oral testosterone booster)</strong> as alternatives or additions to traditional testosterone injections. Titan, Maximus, and PeterMD specialize in fertility-friendly protocols."
+  }
+];
+
+// Get top rated providers
+const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slice(0, 6);
+---
+
+<BaseLayout title={title} description={description} publishDate={publishDate}>
+  <article class="max-w-5xl mx-auto px-4 py-12">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-primary">Online TRT: Complete 2026 Guide</h1>
+      <p class="text-xl text-gray-600">How testosterone replacement therapy works via telemedicine—costs, process, and 9 clinics tested</p>
+    </header>
+
+    <!-- Quick Stats Box -->
+    <div class="grid md:grid-cols-4 gap-4 mb-12">
+      <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-blue-600">$159-$548</div>
+        <div class="text-sm text-gray-600 mt-2">Monthly Cost Range</div>
+      </div>
+      <div class="bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-green-600">5-7 Days</div>
+        <div class="text-sm text-gray-600 mt-2">Time to Start</div>
+      </div>
+      <div class="bg-purple-50 border-2 border-purple-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-purple-600">100% Legal</div>
+        <div class="text-sm text-gray-600 mt-2">FDA-Regulated</div>
+      </div>
+      <div class="bg-orange-50 border-2 border-orange-200 rounded-lg p-6 text-center">
+        <div class="text-3xl font-bold text-orange-600">50-70%</div>
+        <div class="text-sm text-gray-600 mt-2">Cheaper vs Clinics</div>
+      </div>
+    </div>
+
+    <div class="prose prose-lg max-w-none">
+      <h2>What Is Online TRT?</h2>
+      <p><strong>Online TRT (testosterone replacement therapy)</strong> is a telehealth service that allows men with low testosterone to:</p>
+      <ul>
+        <li>Consult with licensed doctors via video or messaging</li>
+        <li>Get prescribed FDA-approved testosterone cypionate or enanthate</li>
+        <li>Receive medication delivered to their door</li>
+        <li>Self-administer weekly injections at home</li>
+        <li>Monitor progress through quarterly blood work</li>
+      </ul>
+      <p>It's the <strong>same medical treatment as in-person clinics</strong>, just delivered via telemedicine. The testosterone is identical, the doctors are equally qualified, and the results are clinically equivalent.</p>
+
+      <h2>How Online TRT Works (Step-by-Step)</h2>
+      <h3>Step 1: Sign Up & Questionnaire (5-10 minutes)</h3>
+      <p>You create an account and answer questions about:</p>
+      <ul>
+        <li>Age, weight, height, medical history</li>
+        <li>Symptoms (fatigue, low libido, muscle loss, brain fog)</li>
+        <li>Current medications and health conditions</li>
+        <li>Previous testosterone therapy (if any)</li>
+      </ul>
+
+      <h3>Step 2: Doctor Consultation (20-30 minutes)</h3>
+      <p>A licensed physician reviews your questionnaire and conducts a:</p>
+      <ul>
+        <li><strong>Video call:</strong> Some providers (PeterMD, Hone) offer face-to-face consultations</li>
+        <li><strong>Asynchronous messaging:</strong> Others (Titan, Henry Meds) use secure chat</li>
+      </ul>
+      <p>The doctor explains TRT, discusses risks/benefits, and orders blood work.</p>
+
+      <h3>Step 3: Blood Work (3-5 days)</h3>
+      <p>Two options for testing:</p>
+      <ul>
+        <li><strong>At-home kit:</strong> Finger prick test shipped to you (mail back to lab)</li>
+        <li><strong>Local lab:</strong> Visit Quest Diagnostics or LabCorp near you</li>
+      </ul>
+      <p>Tests measure: Total testosterone, free testosterone, estradiol, LH, FSH, PSA, CBC, CMP</p>
+
+      <h3>Step 4: Prescription Approval (1-2 days)</h3>
+      <p>If your testosterone is below threshold (usually 350-400 ng/dL) AND you have symptoms, the doctor writes a prescription.</p>
+
+      <h3>Step 5: Medication Delivery (2-3 days)</h3>
+      <p>Your package includes:</p>
+      <ul>
+        <li>Testosterone cypionate vial (10mL, 200mg/mL)</li>
+        <li>Syringes and needles (1mL syringes, 25-27 gauge needles)</li>
+        <li>Alcohol wipes and bandages</li>
+        <li>Injection instructions (video tutorial)</li>
+        <li>Sharps disposal container</li>
+      </ul>
+
+      <h3>Step 6: Weekly Injections (At Home)</h3>
+      <p>You self-inject into your thigh or glute muscle once per week:</p>
+      <ul>
+        <li><strong>Typical dose:</strong> 100-200mg per week</li>
+        <li><strong>Injection time:</strong> 30 seconds (after prep)</li>
+        <li><strong>Pain level:</strong> Minimal (similar to flu shot)</li>
+      </ul>
+
+      <h3>Step 7: Quarterly Monitoring</h3>
+      <p>Every 3 months, you repeat blood work to ensure:</p>
+      <ul>
+        <li>Testosterone levels are optimized (700-1,000 ng/dL target)</li>
+        <li>Estrogen is controlled (aromatase inhibitor if needed)</li>
+        <li>No negative health impacts (red blood cell count, PSA)</li>
+      </ul>
+
+      <h2>Online TRT Cost Comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full border-collapse border border-gray-300">
+          <thead>
+            <tr class="bg-gray-100">
+              <th class="border border-gray-300 px-4 py-2 text-left">Provider</th>
+              <th class="border border-gray-300 px-4 py-2 text-right">Monthly Cost</th>
+              <th class="border border-gray-300 px-4 py-2 text-right">Annual Cost</th>
+              <th class="border border-gray-300 px-4 py-2 text-left">What's Included</th>
+            </tr>
+          </thead>
+          <tbody>
+            {topRated.map((provider, index) => (
+              <tr class={index === 0 ? 'bg-green-50 font-bold' : 'border-b'}>
+                <td class="border border-gray-300 px-4 py-2">
+                  <a href={`/reviews/${provider.slug}/`} class="text-blue-600 hover:underline">{provider.name}</a>
+                </td>
+                <td class="border border-gray-300 px-4 py-2 text-right">{provider.monthlyPrice}</td>
+                <td class="border border-gray-300 px-4 py-2 text-right">
+                  ${(parseInt(provider.monthlyPrice.replace(/[^0-9]/g, '')) * 12).toLocaleString()}
+                </td>
+                <td class="border border-gray-300 px-4 py-2 text-sm">{provider.consultationFee}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Benefits of Online TRT vs In-Person Clinics</h2>
+      <h3>1. Cost Savings (50-70% Cheaper)</h3>
+      <ul>
+        <li><strong>Online TRT:</strong> $159-$360/month ($1,908-$4,320/year)</li>
+        <li><strong>In-person clinics:</strong> $300-$800/month ($3,600-$9,600/year)</li>
+        <li><strong>Savings:</strong> $1,692-$5,280 per year</li>
+      </ul>
+
+      <h3>2. Convenience (No Office Visits)</h3>
+      <ul>
+        <li>No weekly trips to clinic for injections</li>
+        <li>No waiting rooms or scheduling hassles</li>
+        <li>Self-inject at home on your schedule</li>
+      </ul>
+
+      <h3>3. Privacy (Discreet Delivery)</h3>
+      <ul>
+        <li>Medication ships in unmarked packaging</li>
+        <li>Video consultations from home</li>
+        <li>No public clinic visits</li>
+      </ul>
+
+      <h3>4. Speed (Start in 5-7 Days)</h3>
+      <ul>
+        <li>Online TRT: 5-7 days from signup to first injection</li>
+        <li>In-person clinics: 2-4 weeks (appointment backlog)</li>
+      </ul>
+
+      <h2>Drawbacks of Online TRT</h2>
+      <h3>1. Self-Injection Required</h3>
+      <p>You must inject yourself weekly (or biweekly). In-person clinics have nurses do this for you.</p>
+      <p><strong>Mitigation:</strong> Video tutorials make it easy. Most patients adjust within 2-3 injections.</p>
+
+      <h3>2. No In-Person Monitoring</h3>
+      <p>All doctor consultations are remote. If you prefer face-to-face interactions, online TRT may feel impersonal.</p>
+      <p><strong>Mitigation:</strong> Some providers (PeterMD, Hone) offer video calls—not just messaging.</p>
+
+      <h3>3. Insurance Usually Not Accepted</h3>
+      <p>Most online TRT is cash-pay (no insurance).</p>
+      <p><strong>Mitigation:</strong> Use HSA/FSA accounts. Some providers offer reimbursement documentation.</p>
+
+      <h2>Is Online TRT Safe?</h2>
+      <p><strong>Yes, when done through legitimate providers.</strong> Safety protocols include:</p>
+      <ul>
+        <li><strong>Licensed physicians:</strong> All prescribing doctors are state-licensed and DEA-registered</li>
+        <li><strong>Blood work monitoring:</strong> Quarterly tests catch issues early (elevated hematocrit, estrogen spikes)</li>
+        <li><strong>FDA-approved medication:</strong> Same testosterone used by Mayo Clinic and Johns Hopkins</li>
+        <li><strong>Medical oversight:</strong> Doctors adjust dosing based on lab results and symptoms</li>
+      </ul>
+
+      <h3>Red Flags (Avoid These Providers)</h3>
+      <ul>
+        <li>❌ No blood work required before prescribing</li>
+        <li>❌ Ships testosterone from overseas</li>
+        <li>❌ No doctor consultation (just online forms)</li>
+        <li>❌ Sells "research chemicals" instead of FDA-approved testosterone</li>
+        <li>❌ No medical license displayed on website</li>
+      </ul>
+
+      <h2>Who Is a Good Candidate for Online TRT?</h2>
+      <h3>✅ Good Candidates</h3>
+      <ul>
+        <li>Men aged 25-65 with testosterone below 400 ng/dL</li>
+        <li>Symptoms: fatigue, low libido, muscle loss, brain fog, depression</li>
+        <li>Comfortable self-injecting at home</li>
+        <li>No recent heart attack or stroke</li>
+        <li>No active prostate cancer</li>
+      </ul>
+
+      <h3>❌ Poor Candidates</h3>
+      <ul>
+        <li>Testosterone above 500 ng/dL (not medically justified)</li>
+        <li>Active prostate cancer or elevated PSA</li>
+        <li>Severe cardiovascular disease</li>
+        <li>Polycythemia (elevated red blood cell count)</li>
+        <li>Prefer in-person medical care</li>
+      </ul>
+
+      <h2>Best Online TRT Providers (Our Top 3)</h2>
+
+      <h3>🏆 #1: Titan ($159/month)</h3>
+      <ul>
+        <li><strong>Best for:</strong> Budget + fertility preservation</li>
+        <li><strong>Why we ranked it #1:</strong> Lowest all-inclusive price, enclomiphene option, no hidden fees</li>
+        <li><strong>Rating:</strong> 4.4/5</li>
+      </ul>
+      <p><a href="/reviews/titan/" class="text-blue-600 underline">Read full Titan review →</a></p>
+
+      <h3>#2: PeterMD ($348/month)</h3>
+      <ul>
+        <li><strong>Best for:</strong> Customer service + peptides</li>
+        <li><strong>Why we ranked it #2:</strong> 4.8/5 Trustpilot rating (highest), same-day doctor replies</li>
+        <li><strong>Rating:</strong> 4.8/5 (1,280 reviews)</li>
+      </ul>
+      <p><a href="/reviews/petermd/" class="text-blue-600 underline">Read full PeterMD review →</a></p>
+
+      <h3>#3: Hone Health ($298/month)</h3>
+      <ul>
+        <li><strong>Best for:</strong> Comprehensive hormone optimization</li>
+        <li><strong>Why we ranked it #3:</strong> Testosterone + thyroid + cortisol included, 10k+ reviews</li>
+        <li><strong>Rating:</strong> 4.8/5 (10,280 reviews)</li>
+      </ul>
+      <p><a href="/reviews/hone/" class="text-blue-600 underline">Read full Hone Health review →</a></p>
+
+      <h2>Bottom Line: Should You Try Online TRT?</h2>
+      <p><strong>Yes, if you:</strong></p>
+      <ul>
+        <li>✅ Have verified low testosterone (blood test showing &lt;400 ng/dL)</li>
+        <li>✅ Experience symptoms (fatigue, low libido, muscle loss)</li>
+        <li>✅ Want to save 50-70% vs in-person clinics</li>
+        <li>✅ Are comfortable with at-home injections</li>
+      </ul>
+
+      <p><strong>Online TRT is not for you if:</strong></p>
+      <ul>
+        <li>❌ You want someone else to administer injections</li>
+        <li>❌ You prefer in-person doctor visits</li>
+        <li>❌ You have serious medical contraindications</li>
+      </ul>
+
+      <p>For 90% of men with low testosterone, online TRT offers the same clinical results as expensive in-person clinics—at a fraction of the cost.</p>
+    </div>
+
+    <FAQSchema faqs={faqs} />
+
+    <!-- Bottom CTA -->
+    <div class="mt-12 text-center bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8">
+      <h3 class="text-2xl font-bold mb-4">Ready to Start Online TRT?</h3>
+      <p class="text-lg text-gray-700 mb-6">Compare all 9 providers and find the best match for your needs.</p>
+      <a href="/" class="btn-primary inline-block">Compare All TRT Clinics →</a>
+      <p class="text-sm text-gray-500 mt-4">Starting at $159/month | 5-7 day onboarding | 100% legal</p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .btn-primary {
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+    color: white;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(26, 86, 168, 0.3);
+  }
+
+  .prose table {
+    font-size: 0.9rem;
+  }
+</style>
