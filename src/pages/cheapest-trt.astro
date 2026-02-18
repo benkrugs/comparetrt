@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCapturePopup from '../components/EmailCapturePopup.astro';
+import EmailStickyBar from '../components/EmailStickyBar.astro';
 import FAQSchema from '../components/FAQSchema.astro';
 import { providers } from '../data/providers';
 
@@ -475,4 +477,6 @@ const sortedByPrice = [...providers].sort((a, b) => {
       <p class="small">$1,908/year | Includes medication + labs + doctor visits</p>
     </div>
   </div>
+  <EmailCapturePopup formId="9103384" site="trt" product="generic" pageType="price" headline="Save on TRT Treatment" subtext="Get price alerts when TRT clinics drop their prices or offer promotions." ctaText="Get Alerts" />
+  <EmailStickyBar formId="9103384" site="trt" product="generic" pageType="price" text="📬 Get TRT price drop alerts" buttonText="Subscribe" />
 </BaseLayout>

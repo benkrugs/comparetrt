@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCapturePopup from '../components/EmailCapturePopup.astro';
+import EmailStickyBar from '../components/EmailStickyBar.astro';
 import FAQSchema from '../components/FAQSchema.astro';
 import { providers } from '../data/providers';
 
@@ -441,4 +443,6 @@ const topProviders = providers.sort((a, b) => b.totalScore - a.totalScore);
       <a href="/" class="btn-primary">Compare All TRT Clinics →</a>
     </div>
   </div>
+  <EmailCapturePopup formId="9103384" site="trt" product="generic" pageType="comparison" headline="Find the Best TRT Clinic for You" subtext="Join 500+ men getting unbiased TRT clinic reviews and exclusive discounts." ctaText="Get Guide" />
+  <EmailStickyBar formId="9103384" site="trt" product="generic" pageType="comparison" text="📬 Get TRT clinic reviews + discount codes" buttonText="Subscribe" />
 </BaseLayout>

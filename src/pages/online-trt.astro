@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import EmailCapturePopup from '../components/EmailCapturePopup.astro';
+import EmailStickyBar from '../components/EmailStickyBar.astro';
 import FAQSchema from '../components/FAQSchema.astro';
 import { providers } from '../data/providers';
 
@@ -460,4 +462,6 @@ const topRated = [...providers].sort((a, b) => b.totalScore - a.totalScore).slic
       <p class="small">Starting at $159/month | 5-7 day onboarding | 100% legal</p>
     </div>
   </div>
+  <EmailCapturePopup formId="9103384" site="trt" product="generic" pageType="review" headline="Get Your Free TRT Guide" subtext="Unbiased reviews of 10+ online TRT clinics + exclusive discount codes." ctaText="Get Free Guide" />
+  <EmailStickyBar formId="9103384" site="trt" product="generic" pageType="review" text="📬 Free TRT clinic comparison guide" buttonText="Download" />
 </BaseLayout>
