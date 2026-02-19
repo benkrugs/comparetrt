@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import EmailCapturePopup from '../../../components/EmailCapturePopup.astro';
+import EmailStickyBar from '../../../components/EmailStickyBar.astro';
 import { providers } from '../../../data/providers';
 
 export async function getStaticPaths() {
@@ -10,6 +12,9 @@ export async function getStaticPaths() {
 }
 
 const { provider } = Astro.props;
+
+// Check if this is Titan (featured provider)
+const isTitan = provider.slug === 'titan';
 ---
 
 <BaseLayout 
@@ -18,60 +23,316 @@ const { provider } = Astro.props;
 >
 
 <style>
-  .hero { background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%); color: white; padding: 80px 24px 60px; text-align: center; }
-  .hero h1 { color: white; font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
-  .content { max-width: 900px; margin: 0 auto; padding: 60px 24px 120px; }
-  .content h2 { font-size: 2rem; font-weight: 700; margin: 48px 0 16px; }
-  table { width: 100%; border-collapse: collapse; margin: 24px 0; border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; }
-  th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border); }
-  th { background: var(--bg); font-weight: 700; }
-  .price-card { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 2px solid #1a56a8; border-radius: var(--r); padding: 32px; margin: 32px 0; text-align: center; }
-  .price-card .big-price { font-size: 3rem; font-weight: 700; color: #0f3d7a; margin: 16px 0; }
+  .hero { 
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%); 
+    color: white; 
+    padding: 60px 24px 50px; 
+    text-align: center; 
+  }
+  .hero h1 { 
+    color: white; 
+    font-size: clamp(1.8rem, 5vw, 2.8rem); 
+    font-weight: 700; 
+    margin-bottom: 16px; 
+    line-height: 1.2; 
+  }
+  .hero p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 24px;
+  }
+  .hero-cta {
+    display: inline-block;
+    background: #10b981;
+    color: white;
+    padding: 16px 40px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  }
+  .hero-cta:hover {
+    background: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+  }
+  .content { 
+    max-width: 900px; 
+    margin: 0 auto; 
+    padding: 60px 24px 120px; 
+  }
+  .content h2 { 
+    font-size: 2rem; 
+    font-weight: 700; 
+    margin: 48px 0 16px; 
+  }
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+    margin: 24px 0; 
+    border: 1px solid var(--border); 
+    border-radius: 8px; 
+    overflow: hidden; 
+  }
+  th, td { 
+    padding: 12px 16px; 
+    text-align: left; 
+    border-bottom: 1px solid var(--border); 
+  }
+  th { 
+    background: #f9fafb; 
+    font-weight: 700; 
+  }
+  .price-card { 
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); 
+    border: 2px solid #1a56a8; 
+    border-radius: 12px; 
+    padding: 32px; 
+    margin: 32px 0; 
+    text-align: center; 
+  }
+  .price-card.featured {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    border: 3px solid #f59e0b;
+  }
+  .price-card .big-price { 
+    font-size: 3rem; 
+    font-weight: 700; 
+    color: #0f3d7a; 
+    margin: 16px 0; 
+  }
+  .price-card.featured .big-price {
+    color: #92400e;
+  }
+  .quick-cta {
+    background: white;
+    border: 2px solid #1a56a8;
+    border-radius: 12px;
+    padding: 32px;
+    margin: 32px 0;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+  .quick-cta h3 {
+    font-size: 1.5rem;
+    color: #1a56a8;
+    margin-bottom: 16px;
+  }
+  .quick-cta-button {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a56a8 0%, #0f3d7a 100%);
+    color: white;
+    padding: 16px 40px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-top: 16px;
+    transition: all 0.2s;
+  }
+  .quick-cta-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(26, 86, 168, 0.3);
+  }
+  .featured-badge {
+    display: inline-block;
+    background: #f59e0b;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  .bottom-cta {
+    background: var(--surface); 
+    border: 2px solid #10b981; 
+    border-radius: 12px; 
+    padding: 32px; 
+    text-align: center; 
+    margin: 48px 0 32px;
+  }
+  .bottom-cta h3 {
+    margin-top: 0;
+    font-size: 1.8rem;
+    color: #1f2937;
+  }
+  .bottom-cta-button {
+    display: inline-block; 
+    background: #10b981; 
+    color: white; 
+    padding: 16px 40px; 
+    border-radius: 8px; 
+    font-weight: 700; 
+    text-decoration: none; 
+    font-size: 1.1rem; 
+    margin-top: 16px;
+    transition: all 0.2s;
+  }
+  .bottom-cta-button:hover {
+    background: #059669;
+    transform: translateY(-2px);
+  }
 </style>
 
 <div class="hero">
   <h1>{provider.name} Cost: Complete Pricing Breakdown</h1>
   <p>Everything you need to know about {provider.name} pricing, fees, and hidden costs.</p>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" class="hero-cta">
+    Get Started at {provider.monthlyPrice}/month →
+  </a>
 </div>
 
 <div class="content">
 
-<div class="price-card">
-  <h2 style="margin-top: 0; color: #0f3d7a;">Monthly All-In Cost</h2>
-  <div class="big-price">{provider.monthlyPrice}</div>
-  <p style="font-size: 1.1rem; color: var(--text-sec);">Medication + Consultations + Labs</p>
+{isTitan && (
+  <div class="price-card featured">
+    <div class="featured-badge">🏆 BEST VALUE</div>
+    <h2 style="margin-top: 0; color: #92400e;">Titan Monthly Cost</h2>
+    <div class="big-price">{provider.monthlyPrice}</div>
+    <p style="font-size: 1.1rem; color: #78350f; font-weight: 600;">
+      Medication + Consultations + Labs Included
+    </p>
+  </div>
+)}
+
+{!isTitan && (
+  <div class="price-card">
+    <h2 style="margin-top: 0; color: #0f3d7a;">Monthly All-In Cost</h2>
+    <div class="big-price">{provider.monthlyPrice}</div>
+    <p style="font-size: 1.1rem; color: var(--text-sec);">Medication + Consultations + Labs</p>
+  </div>
+)}
+
+<div class="quick-cta">
+  <h3>Ready to Get Started?</h3>
+  <p style="font-size: 1.05rem; color: var(--text-sec); margin-bottom: 8px;">
+    {isTitan 
+      ? "Start at $159/month with Titan's all-inclusive TRT program" 
+      : `Start at ${provider.monthlyPrice}/month with ${provider.name}`}
+  </p>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" class="quick-cta-button">
+    Visit {provider.name} →
+  </a>
 </div>
 
-<h2>Cost Breakdown</h2>
+<h2>Complete Cost Breakdown</h2>
 
 <table>
   <thead>
     <tr><th>Item</th><th>Cost</th><th>Frequency</th></tr>
   </thead>
   <tbody>
-    <tr><td><strong>Medication</strong></td><td>{provider.monthlyPrice}</td><td>Monthly</td></tr>
+    <tr><td><strong>TRT Medication</strong></td><td>{provider.monthlyPrice}</td><td>Monthly</td></tr>
     <tr><td><strong>Doctor Consultation</strong></td><td>{provider.consultationFee}</td><td>As needed</td></tr>
     <tr><td><strong>Lab Testing</strong></td><td>{provider.labTestingFee}</td><td>Every 3-6 months</td></tr>
   </tbody>
 </table>
 
-<h2>What's Included</h2>
+<p><strong>Total first month:</strong> {provider.monthlyPrice} (medication) + {provider.consultationFee} (consultation) = varies by provider</p>
+<p><strong>Typical monthly cost:</strong> {provider.monthlyPrice} (after initial consultation)</p>
 
-<ul style="margin: 24px 0;">
+<h2>What's Included in {provider.monthlyPrice}/month</h2>
+
+<ul style="margin: 24px 0; line-height: 1.8;">
   {provider.treatmentTypes.map(type => (
-    <li>{type}</li>
+    <li><strong>{type}</strong></li>
   ))}
+  <li>Ongoing doctor support</li>
+  <li>Prescription management</li>
+  <li>Regular monitoring</li>
 </ul>
 
-<h2>Get Started with {provider.name}</h2>
+<h2>Insurance & Payment Options</h2>
 
-<div style="background: var(--surface); border: 2px solid var(--accent); border-radius: var(--r); padding: 24px; text-align: center; margin: 32px 0;">
-  <h3 style="margin-top: 0;">Start at {provider.monthlyPrice}</h3>
-  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" style="display: inline-block; background: var(--accent); color: white; padding: 16px 32px; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 1.1rem; margin-top: 16px;">Get Started →</a>
+<p><strong>Does {provider.name} accept insurance?</strong></p>
+<p>Most online TRT providers don't accept insurance directly, but you may be able to get reimbursed through your insurance or use HSA/FSA funds.</p>
+
+<ul style="margin: 24px 0;">
+  <li><strong>HSA/FSA:</strong> TRT is typically HSA/FSA eligible</li>
+  <li><strong>Reimbursement:</strong> Request a superbill for insurance reimbursement</li>
+  <li><strong>Monthly billing:</strong> Most providers offer monthly subscription billing</li>
+</ul>
+
+<h2>Hidden Fees to Watch For</h2>
+
+<p>Always ask about:</p>
+
+<ul style="margin: 24px 0;">
+  <li><strong>Shipping costs:</strong> Some providers charge separately</li>
+  <li><strong>Lab markups:</strong> Lab testing fees can vary widely</li>
+  <li><strong>Consultation fees:</strong> Initial vs. follow-up consultation costs</li>
+  <li><strong>Cancellation fees:</strong> Check the cancellation policy</li>
+</ul>
+
+<h2>Compared to Traditional TRT Clinics</h2>
+
+<table>
+  <thead>
+    <tr><th>Option</th><th>Monthly Cost</th><th>Convenience</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>{provider.name} (Online)</strong></td>
+      <td>{provider.monthlyPrice}</td>
+      <td>At-home testing, medication shipped</td>
+    </tr>
+    <tr>
+      <td><strong>Traditional Clinic</strong></td>
+      <td>$300-600/month</td>
+      <td>In-person visits required</td>
+    </tr>
+    <tr>
+      <td><strong>Urologist</strong></td>
+      <td>$200-400/month + copays</td>
+      <td>Insurance may cover, long wait times</td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="margin-top: 24px;">
+  {isTitan 
+    ? "Titan offers the best value for online TRT at $159/month with all-inclusive pricing."
+    : `${provider.name} provides competitive pricing for online TRT with convenient at-home service.`}
+</p>
+
+<div class="bottom-cta">
+  <h3>Get Started with {provider.name}</h3>
+  <p style="font-size: 1.1rem; color: var(--text-sec); margin-bottom: 8px;">
+    Start at {provider.monthlyPrice}/month
+  </p>
+  <a href={provider.affiliateLink || provider.website} target="_blank" rel="noopener" class="bottom-cta-button">
+    Visit {provider.name} →
+  </a>
 </div>
 
-<p style="text-align: center; margin-top: 32px;"><a href="/reviews/{provider.slug}/">← Back to {provider.name} Review</a></p>
+<p style="text-align: center; margin-top: 32px;">
+  <a href="/reviews/{provider.slug}/" style="color: var(--primary); font-weight: 600;">
+    ← Back to {provider.name} Review
+  </a>
+</p>
 
 </div>
+
+<EmailCapturePopup 
+  formId="9103384"
+  site="trt"
+  product={provider.slug}
+  pageType="price"
+  headline="Get TRT Discount Codes + Price Comparison 📥"
+  subtext="Compare all TRT provider pricing. Plus exclusive discount codes and hidden fee alerts."
+  ctaText="Send Me Discounts"
+/>
+
+<EmailStickyBar 
+  formId="9103384"
+  site="trt"
+  product={provider.slug}
+  pageType="price"
+  text={`💰 Get ${provider.name} discount codes + full TRT pricing comparison`}
+  buttonText="Get Discounts"
+/>
 
 </BaseLayout>
